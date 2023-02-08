@@ -31,15 +31,36 @@ public class ProductController {
 	 */
 	// http://localhost:8080/product/shopping_list_view
 	@GetMapping("/shopping_list_view")
-	public String shoppingListVeiw(Model model, HttpSession session) {
+	public String shoppingListVeiw(
+			@RequestParam(value="prevId", required = false) Integer prevIdParam,
+			@RequestParam(value="nextId", required = false) Integer nextIdParam,
+			Model model, 
+			HttpSession session) {
 		
 		Integer userId = (Integer) session.getAttribute("userId");
 		if(userId == null) {
 			return "redirect:/user/sign_in_view";
 		}
 		
+		int prevId = 0;
+		int nextId = 0;
+		
 		// select 
-		List<Product> productList = productBO.getProductListByTypeUserId(userId);
+		List<Product> productList = productBO.getProductListByTypeUserId(userId, prevIdParam, nextIdParam);
+		if(productList.isEmpty() == false) {
+			prevId = productList.get(0).getId();
+			nextId = productList.get(productList.size()-1).getId();
+			
+			if(productBO.isPrevLastPage(prevId, userId)) {
+				prevId = 0;
+			}
+			
+			if(productBO.isNextLastPage(nextId, userId)) {
+				nextId = 0;
+			}
+		}
+		model.addAttribute("prevId", prevId);
+		model.addAttribute("nextId", nextId);
 
 		// model 넣기 
 		model.addAttribute("productList", productList);

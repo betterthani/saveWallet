@@ -89,7 +89,19 @@
 			<input type="button" class="btn btn-succeess create-btn mx-2" value="글작성">
 			<input type="button" class="btn btn-secondary delete-btn mx-2" value="삭제">
 		</div>
-	
+		
+		<%-- 페이징 --%>
+		<div class="d-flex justify-content-center">
+
+			<c:if test="${prevId ne 0}">
+				<a href="/post/post_list_view?prevId=${prevId}" class="mr-5">&lt;&lt;이전</a>
+			</c:if>
+
+			<c:if test="${nextId ne 0}">
+				<a href="/post/post_list_view?nextId=${nextId}">다음&gt;&gt;</a>
+			</c:if>
+
+		</div>
 	</div>
 </div>
 </c:if>

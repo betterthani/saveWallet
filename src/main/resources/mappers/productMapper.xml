@@ -3,7 +3,7 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="com.diary.product.dao.ProductDAO">
- 	<select id="selectProductListByTypeUserId" parameterType="int" resultType="com.diary.product.model.Product">
+ 	<select id="selectProductListByTypeUserId" parameterType="map" resultType="com.diary.product.model.Product">
  		SELECT
  			`id`
 			,`userId`
@@ -27,6 +27,38 @@
 		WHERE
 			`type` = "SHOPPING" AND
 			`userId` = #{userId}
+			
+		<if test="direction == null">
+			ORDER BY `id` DESC
+		</if>
+		
+		<if test="direction == 'next'">
+			<![CDATA[
+			AND `id` <  #{standardId}
+			]]>
+		ORDER BY `id` DESC
+ 		</if>
+
+ 		<if test="direction == 'prev'">
+ 			<![CDATA[
+			AND `id` >  #{standardId}
+			]]>
+ 		</if>
+
+ 		LIMIT ${limit}
+ 	</select>
+ 	
+ 	<!-- 페이징 마지막 페이지 여부 -->
+ 	<select id="selectProductIdByUserIdSort" parameterType="map" resultType="int">
+ 		SELECT
+ 			`id`
+ 		FROM
+ 			`product`
+ 		WHERE
+ 			`type` = "SHOPPING" AND
+ 			`userId` = #{userId}
+ 		ORDER BY `id` ${sort}
+ 		LIMIT 1
  	</select>
  
  </mapper>
