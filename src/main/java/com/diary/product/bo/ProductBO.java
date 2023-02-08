@@ -24,22 +24,24 @@ public class ProductBO {
 	private static final int POST_MAX_SIZE = 5;
 
 	// 쇼핑리스트 화면 불러오기
-	public List<Product> getProductListByTypeUserId(int userId, Integer prevId, Integer nextId) {
+	public List<Product> getProductListByUserId(int userId, Integer prevId, Integer nextId, String keyword) {
 		
 		String direction = null;
 		Integer standardId = null;
+		
 		if(prevId != null) {
 			// 이전
 			direction = "prev";
 			standardId = prevId;
-			List<Product> productList = productDAO.selectProductListByTypeUserId(userId, direction, standardId, POST_MAX_SIZE);
+			List<Product> productList = productDAO.selectProductList(userId, direction, standardId, POST_MAX_SIZE, keyword);
 			Collections.reverse(productList);
 			return productList;
+			
 		} else if(nextId != null) {
 			direction = "next";
 			standardId = nextId;
 		}
-		return productDAO.selectProductListByTypeUserId(userId, direction, standardId, POST_MAX_SIZE);
+		return productDAO.selectProductList(userId, direction, standardId, POST_MAX_SIZE, keyword);
 	}
 	
 	// 페이징 이전 마지막 페이지 여부 (내 글의 정렬이기 때문 userId필요)
@@ -50,11 +52,22 @@ public class ProductBO {
 		return maxProductId == prevId ? true : false;
 	}
 
-	// 페이징 다음 마지막 페이지 여부 (내 글의 정렬이기 때문 userId필요)
+	// 페이징 다음 마지막 페이지 여부
 	public boolean isNextLastPage(int nextId, int userId) {
+		
 		int minProductid = productDAO.selectProductIdByUserIdSort(userId, "ASC");
 
 		return minProductid == nextId ? true: false;
 	}
+	
+	// keyword검색시 POST_MAX_SIZE보다 작을 경우
+	public boolean keywordProductCount(int userId, String keyword) {
+		int row = productDAO.keywordProductCount(userId, keyword);
+		if(row < POST_MAX_SIZE) { // 키워드 개수가 포스트 개수보다 적을 경우 true -> prevId, nextId 0으로 만들기 위해
+			return true; 
+		}
+		return false;
+	}
+
 	
 }

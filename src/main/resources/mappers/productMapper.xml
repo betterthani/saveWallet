@@ -3,7 +3,9 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="com.diary.product.dao.ProductDAO">
- 	<select id="selectProductListByTypeUserId" parameterType="map" resultType="com.diary.product.model.Product">
+ 
+ 	<!-- 쇼핑리스트 목록 불러오기 + 페이징 -->
+ 	<select id="selectProductList" parameterType="map" resultType="com.diary.product.model.Product">
  		SELECT
  			`id`
 			,`userId`
@@ -27,6 +29,10 @@
 		WHERE
 			`type` = "SHOPPING" AND
 			`userId` = #{userId}
+			
+		<if test="keyword != null">
+			AND `itemName` LIKE CONCAT('%',#{keyword},'%')
+		</if>
 			
 		<if test="direction == null">
 			ORDER BY `id` DESC
@@ -60,5 +66,19 @@
  		ORDER BY `id` ${sort}
  		LIMIT 1
  	</select>
- 
+ 	
+ 	<!-- keyword검색시 POST_MAX_SIZE보다 작을 경우 -->
+	<select id="keywordProductCount" parameterType="map" resultType="int">
+ 		SELECT
+ 			COUNT(*)
+		FROM
+			`product`
+		WHERE
+			`type` = "SHOPPING" AND
+			`userId` = #{userId}
+			<if test="keyword != null">
+			AND `itemName` LIKE CONCAT('%',#{keyword},'%')
+			</if>
+			
+ 	</select>
  </mapper>

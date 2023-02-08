@@ -12,7 +12,7 @@
 				<span class="input-group-text"><i class="fa fa-search"></i></span>
 			</div>
 			<!-- 검색창 -->
-			<input type="text" class="form-control" id="loginId" name="loginId">
+			<input type="text" class="form-control" id="keyword-search-text" value="${keyword}">
 			<input type="button" class="btn btn-success" id="keyword-search-btn" value="검색">
 		</div>
 		
@@ -61,9 +61,11 @@
 					<td>
 						<fmt:formatDate value="${shoppingProduct.datePurchased}" pattern ="yyyy-MM-dd"/>
 					</td>
+					
 					<td>
 						<fmt:formatDate value="${shoppingProduct.returnableDeadline}" pattern ="yyyy-MM-dd"/>
 					</td>
+					
 					<td>
 						<c:choose>
 							<c:when test="${shoppingProduct.usedHope}">
@@ -74,10 +76,12 @@
 							</c:otherwise>
 						</c:choose>
 					</td>
+					
 					<td>
 						<fmt:formatNumber value="${shoppingProduct.amount}" />
 					
 					</td>
+					
 				</tr>
 			</c:forEach>
 			</tbody>
@@ -94,14 +98,28 @@
 		<div class="d-flex justify-content-center">
 
 			<c:if test="${prevId ne 0}">
-				<a href="/post/post_list_view?prevId=${prevId}" class="mr-5">&lt;&lt;이전</a>
+				<a href="/post/post_list_view?prevId=${prevId}" class="mr-5 text-scuccess">&lt;&lt;이전</a>
 			</c:if>
 
 			<c:if test="${nextId ne 0}">
-				<a href="/post/post_list_view?nextId=${nextId}">다음&gt;&gt;</a>
+				<a href="/post/post_list_view?nextId=${nextId}" class="text-scuccess">다음&gt;&gt;</a>
 			</c:if>
 
 		</div>
 	</div>
 </div>
 </c:if>
+<script>
+$(document).ready(function() {
+	$('#keyword-search-btn').on('click', function() {
+		
+		let keyword = $('#keyword-search-text').val().trim();
+		if (keyword == '') {
+			alert("검색어를 입력해주세요.");
+			return;
+		}
+
+		location.href = "/product/shopping_list_view?keyword=" + keyword;
+	});
+});
+</script>

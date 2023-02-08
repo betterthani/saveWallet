@@ -34,6 +34,7 @@ public class ProductController {
 	public String shoppingListVeiw(
 			@RequestParam(value="prevId", required = false) Integer prevIdParam,
 			@RequestParam(value="nextId", required = false) Integer nextIdParam,
+			@RequestParam(value="keyword", required = false) String keyword,
 			Model model, 
 			HttpSession session) {
 		
@@ -46,24 +47,27 @@ public class ProductController {
 		int nextId = 0;
 		
 		// select 
-		List<Product> productList = productBO.getProductListByTypeUserId(userId, prevIdParam, nextIdParam);
+		List<Product> productList = productBO.getProductListByUserId(userId, prevIdParam, nextIdParam, keyword);
+		
 		if(productList.isEmpty() == false) {
 			prevId = productList.get(0).getId();
 			nextId = productList.get(productList.size()-1).getId();
 			
-			if(productBO.isPrevLastPage(prevId, userId)) {
+			if(productBO.isPrevLastPage(prevId, userId) || productBO.keywordProductCount(userId, keyword) ) {
 				prevId = 0;
 			}
 			
-			if(productBO.isNextLastPage(nextId, userId)) {
+			if(productBO.isNextLastPage(nextId, userId) || productBO.keywordProductCount(userId, keyword) ) {
 				nextId = 0;
 			}
 		}
+		// model 넣기 
 		model.addAttribute("prevId", prevId);
 		model.addAttribute("nextId", nextId);
-
-		// model 넣기 
 		model.addAttribute("productList", productList);
+		
+
+		model.addAttribute("keyword", keyword);
 
 		model.addAttribute("viewName", "product/shoppingList");
 		return "template/layout";

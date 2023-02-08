@@ -197,10 +197,10 @@ $(document).ready(function() {
 
 	//-----------------------------------------------비밀번호 찾기
 	$('.find-password-btn').on('click', function() {
-		
+
 		let loginId = $('#find-password-loginId').val().trim();
 		let email = $('#find-password-email').val().trim();
-		
+
 		if (loginId == '') {
 			alert("아이디를 입력해주세요.");
 			return;
@@ -227,7 +227,7 @@ $(document).ready(function() {
 					$.ajax({
 						type: "POST"
 						, url: "/user/find_password/sendEmail"
-						, data: {"email":email}
+						, data: { "email": email }
 						, success: function(data) {
 							alert("이메일 발송이 완료되었습니다.");
 							window.location = "/user/sign_in_view";
@@ -250,8 +250,21 @@ $(document).ready(function() {
 		}); //-> id, email확인 ajax 끝
 
 	});//->비밀번호 찾기 버튼 끝
-	
-	//-----------------------------------------------
-	
-	
+
+	//----------------------------------------------- 검색기능
+	$('#keyword-search-btn').on('click', function() {
+		alert(111);
+		/*
+		let keyword = $('#keyword-search-text').val().trim();
+		alert(keyword);
+
+		if (keyword == '') {
+			alert("검색어를 입력해주세요.");
+			return;
+		}
+
+		location.href = "/product/shopping_list_view?keyword=" + keyword;*/
+	});
+
+
 });
