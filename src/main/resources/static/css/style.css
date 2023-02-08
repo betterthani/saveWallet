@@ -1,0 +1,22 @@
+@charset "UTF-8";
+a {text-decoration:none;}
+a:hover {text-decoration:none;}
+
+#logo > a{color: #7BA87B;}
+
+header{height: 80px;  border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: black;}
+.contents{min-height: 800px;}
+footer{height: 60px;  border-top-width: 2px; border-top-style: solid; border-top-color: black;}
+.inventory{border-right-width: 2px; border-right-style: solid; border-right-color: black;}
+.nav-link{font-size: large; color: black;}
+
+.rateUp{min-height: 30px;}
+.rateDown{min-height: 50px;}
+
+/* input값 규제 - 숫자만  */
+input:invalid {border: 3px solid red; color:red;}
+.joinBox{width: 420px; min-height:250px;}
+.login-box{width: 300px; min-height:250px;}
+
+.product-list-up{height: 50px;}
+.product-list-down{min-height: 200px}

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.diary.product.dao.ProductDAO">
+ 	<select id="selectProductListByTypeUserId" parameterType="int" resultType="com.diary.product.model.Product">
+ 		SELECT
+ 			`id`
+			,`userId`
+			,`type`
+			,`itemName`
+			,`category`
+			,`amount`
+			,`purchasedCategory`
+			,`purchased`
+			,`map`
+			,`size`
+			,`color`
+			,`datePurchased`
+			,`returnableDeadline`
+			,`usedHope`
+			,`productImgPath`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`product`
+		WHERE
+			`type` = "SHOPPING" AND
+			`userId` = #{userId}
+ 	</select>
+ 
+ </mapper>
