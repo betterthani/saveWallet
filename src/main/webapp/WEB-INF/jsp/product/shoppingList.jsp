@@ -18,10 +18,10 @@
 		
 		<!-- 정렬부분 -->
 		<div class="d-flex">
-			<label>카테고리순<input type="radio" name="sort" value="category-order" class="mx-3"></label>
-			<label>금액순<input type="radio" name="sort" value="amount-order" class="mx-3"></label>
-			<label>반품가능일순<input type="radio" name="sort" value="return-order" class="mx-3"></label>
-			<label>당근 희망여부<input type="radio" name="sort" value="used-order" class="mx-3"></label>
+			<label>카테고리순<input type="radio" name="sort" value="category-order" id="a" class="mx-3"></label>
+			<label>금액순<input type="radio" name="sort" value="amount-order" id="b" class="mx-3"></label>
+			<label>반품가능일순<input type="radio" name="sort" value="return-order" id="c" class="mx-3"></label>
+			<label>당근 희망여부<input type="radio" name="sort" value="used-order" id="d" class="mx-3"></label>
 		</div>
 		
 	</div>
@@ -33,7 +33,7 @@
 				<tr class="text-center">
 					<th>
 						<label>
-							<input type="checkbox" name="select" value="allcheck">
+							<input type="checkbox" name="select" id="allcheck">
 						</label>
 					</th>
 					<th>번호</th>
@@ -50,7 +50,7 @@
 				<tr class="text-center">
 					<td>
 						<label>
-							<input type="checkbox" name="select" value="">
+							<input type="checkbox" name="select" value="${shoppingProduct.id}">
 						</label>
 					</td>
 					
@@ -109,17 +109,3 @@
 	</div>
 </div>
 </c:if>
-<script>
-$(document).ready(function() {
-	$('#keyword-search-btn').on('click', function() {
-		
-		let keyword = $('#keyword-search-text').val().trim();
-		if (keyword == '') {
-			alert("검색어를 입력해주세요.");
-			return;
-		}
-
-		location.href = "/product/shopping_list_view?keyword=" + keyword;
-	});
-});
-</script>

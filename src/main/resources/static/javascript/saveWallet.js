@@ -250,21 +250,149 @@ $(document).ready(function() {
 		}); //-> id, email확인 ajax 끝
 
 	});//->비밀번호 찾기 버튼 끝
+	//----------------------------------------------- 환율조회
+	// 데이트피커 설정
+		$('#datepicker').datepicker({
+			dateFormat:"yy-mm-dd" // 2022-11-08
+			,dayNamesMin: ['일', '월', '화', '수', '목', '금', '토']
+			,showButtonPanel: true // 오늘 버튼 활성화
+			,currentText:"오늘"
+			,maxDate:0 // 오늘 이후 날짜 선택불가
+			, beforeShowDay:function(date){ // 주말 비활성화
+			let day = date.getDay();
+			return [(day!=0 && day != 6)];
+			}
+			, onSelect:function(data){
+				
+				let day = data;
+				let allData = {"searchdate":day};
+				
+				$.ajax({
+					url:"/exchangeRate/paste_view"
+					,data:allData
+					,contentType: "application/json;charset=UTF-8"
+					,success:function(data){
+						location.href = "/exchangeRate/paste_view?searchdate=" + day;
+					}
+					,error:function(jqXHR, textStatus, errorThrown){
+						var errorMsg = jqXHR.responseJSON.status;
+						alert(errorMsg + ":" + textStatus);
+					}
+				});
+				
+			}
+		
+		});//-> datepicker 설정 끝
+		
+		
+		// 총액버튼 누를때
+		$('#amountBtn').on('click',function(){
+	
+			let inputAmount = $('#inputAmount').val().trim(); // 입력된 금액(String)
+			inputAmount = parseFloat(inputAmount).toFixed(); // 소수점 반올림(String)
+			inputAmount = parseFloat(inputAmount); // number형 
+			
+			let dollar = $('#dollar').text().split(" ")[1].replace(/,/g , '');// (Stirng)콤마 삭제
+			dollar = parseFloat(dollar).toFixed(); // 달러 소수점 반올림(String)
+			dollar = parseFloat(dollar); // number형으로 변환
+			//alert("변환" + typeof dollar);
+			
+			let euro = $('#euro').text().split(" ")[1].replace(/,/g , ''); // 유로
+			euro = parseFloat(euro).toFixed();
+			euro = parseFloat(euro);
+			
+			let yen = $('#yen').text().split(" ")[1].replace(/,/g , ''); // 엔화
+			yen = parseFloat(yen).toFixed();
+			yen = parseFloat(yen);
+			
+			let yuan = $('#yuan').text().split(" ")[1].replace(/,/g , ''); // 위안
+			yuan = parseFloat(yuan).toFixed();
+			yuan = parseFloat(yuan);
+			
+			dollarTotal = (inputAmount * dollar).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');// 구한값 세자리수씩 , 붙이기
+			euroTotal = (inputAmount * euro).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');// 구한값 세자리수씩 , 붙이기
+			yenTotal = (inputAmount * yen).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');// 구한값 세자리수씩 , 붙이기
+			yuanTotal = (inputAmount * yuan).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');// 구한값 세자리수씩 , 붙이기
+			
+			$('input[name=dollarTotal]').attr("value",dollarTotal); 
+			$('#euroTotal').attr("value",euroTotal); 
+			$('#yenTotal').attr("value",yenTotal); 
+			$('#yuanTotal').attr("value",yuanTotal);
+
+		});//->총액 버튼 클릭 끝
+		
+		// 달러 복사버튼 누를때
+		$('#dollarCopyBtn').on('click',function(e){
+			e.preventDefault();
+			let copyText = document.getElementById("dollarTotal");
+			copyText.select();
+			document.execCommand("Copy");
+			console.log("dollar copy complete");
+		});//-> 달러 복사버튼 끝
+		
+		// 유로 복사버튼 누를때
+		$('#euroCopyBtn').on('click',function(e){
+			e.preventDefault();
+			let copyText = document.getElementById("euroTotal");
+			copyText.select();
+			document.execCommand("Copy");
+			console.log("euro copy complete");
+		});//-> 유로 복사버튼 끝
+		
+		// 엔화 복사버튼 누를때
+		$('#yenCopyBtn').on('click',function(e){
+			e.preventDefault();
+			let copyText = document.getElementById("yenTotal");
+			copyText.select();
+			document.execCommand("Copy");
+			console.log("yen copy complete");
+		});//-> 유로 복사버튼 끝
+		
+		// 위안 복사버튼 누를때
+		$('#yuanCopyBtn').on('click',function(e){
+			e.preventDefault();
+			let copyText = document.getElementById("yuanTotal");
+			copyText.select();
+			document.execCommand("Copy");
+			console.log("yuan copy complete");
+		});//-> 유로 복사버튼 끝
 
 	//----------------------------------------------- 검색기능
 	$('#keyword-search-btn').on('click', function() {
-		alert(111);
-		/*
+		
 		let keyword = $('#keyword-search-text').val().trim();
-		alert(keyword);
-
 		if (keyword == '') {
 			alert("검색어를 입력해주세요.");
 			return;
 		}
 
-		location.href = "/product/shopping_list_view?keyword=" + keyword;*/
+		location.href = "/product/shopping_list_view?keyword=" + keyword;
 	});
-
+	// 라디오기능 체크
+	$('input[name=sort]').on('click',function(){
+		let checkValue = $('input[name=sort]:checked').val();
+		
+		alert(checkValue+"순으로 보여집니다.");
+		location.href="/product/shopping_list_view?orderCategory="+checkValue;
+	});
+	
+	// 전체체크박스 기능
+	$('#allcheck').on('click',function(){
+		if($('#allcheck').prop("checked")){
+			$('input[name=select]').prop('checked',true);
+		} else {
+			$('input[name=select]').prop('checked',false);
+		}
+	});
+	
+	// 체크됐을때 해당 productid 가져오기 
+	$('input[name=select]').on('click',function(){
+		// 배열로 값 가져오기
+		$('input[name=select]:checked').each(function(){
+			let checkValue = $(this).val();
+			//console.log(checkValue);
+		});//-> 배열 끝
+		
+	});//-> 체크값 가져오기 끝
 
 });

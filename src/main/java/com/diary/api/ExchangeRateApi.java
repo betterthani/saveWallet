@@ -83,7 +83,7 @@ public class ExchangeRateApi {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		model.addAttribute("searchdate",searchdate);
 		model.addAttribute("viewName", "exchangeRate/ratecopy");
 		return "template/layout";
 		

@@ -13,5 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/product")
 public class ProductRestController {
 	
+	//@GetMapping("")
 	
 }

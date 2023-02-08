@@ -17,7 +17,8 @@ public interface ProductDAO {
 			@Param("direction") String direction,
 			@Param("standardId") Integer standardId,
 			@Param("limit") int limit,
-			@Param("keyword") String keyword);
+			@Param("keyword") String keyword,
+			@Param("orderCategory") String orderCategory);
 	
 	// 페이징 이전 마지막 페이지 여부
 	public int selectProductIdByUserIdSort(

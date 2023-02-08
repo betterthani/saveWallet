@@ -33,8 +33,26 @@
 		<if test="keyword != null">
 			AND `itemName` LIKE CONCAT('%',#{keyword},'%')
 		</if>
+		
+		<choose>
+			<when test="orderCategory == 'category-order'">
+				ORDER BY `category` DESC
+			</when>
 			
-		<if test="direction == null">
+			<when test="orderCategory == 'amount-order'">
+				ORDER BY `amount` DESC
+			</when>
+			
+			<when test="orderCategory == 'return-order'">
+				ORDER BY `returnableDeadline` DESC
+			</when>
+			
+			<when test="orderCategory == 'used-order'">
+				ORDER BY `usedHope` DESC
+			</when>
+		</choose>
+			
+		<if test="direction == null and orderCategory == null">
 			ORDER BY `id` DESC
 		</if>
 		
@@ -79,6 +97,6 @@
 			<if test="keyword != null">
 			AND `itemName` LIKE CONCAT('%',#{keyword},'%')
 			</if>
-			
  	</select>
+ 	
  </mapper>

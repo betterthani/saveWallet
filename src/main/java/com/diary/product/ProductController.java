@@ -35,6 +35,7 @@ public class ProductController {
 			@RequestParam(value="prevId", required = false) Integer prevIdParam,
 			@RequestParam(value="nextId", required = false) Integer nextIdParam,
 			@RequestParam(value="keyword", required = false) String keyword,
+			@RequestParam(value="orderCategory", required = false) String orderCategory,
 			Model model, 
 			HttpSession session) {
 		
@@ -47,7 +48,7 @@ public class ProductController {
 		int nextId = 0;
 		
 		// select 
-		List<Product> productList = productBO.getProductListByUserId(userId, prevIdParam, nextIdParam, keyword);
+		List<Product> productList = productBO.getProductListByUserId(userId, prevIdParam, nextIdParam, keyword, orderCategory);
 		
 		if(productList.isEmpty() == false) {
 			prevId = productList.get(0).getId();
@@ -65,9 +66,8 @@ public class ProductController {
 		model.addAttribute("prevId", prevId);
 		model.addAttribute("nextId", nextId);
 		model.addAttribute("productList", productList);
-		
-
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("orderCategory", orderCategory);
 
 		model.addAttribute("viewName", "product/shoppingList");
 		return "template/layout";

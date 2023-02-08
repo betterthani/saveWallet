@@ -24,7 +24,7 @@ public class ProductBO {
 	private static final int POST_MAX_SIZE = 5;
 
 	// 쇼핑리스트 화면 불러오기
-	public List<Product> getProductListByUserId(int userId, Integer prevId, Integer nextId, String keyword) {
+	public List<Product> getProductListByUserId(int userId, Integer prevId, Integer nextId, String keyword, String orderCategory) {
 		
 		String direction = null;
 		Integer standardId = null;
@@ -33,7 +33,7 @@ public class ProductBO {
 			// 이전
 			direction = "prev";
 			standardId = prevId;
-			List<Product> productList = productDAO.selectProductList(userId, direction, standardId, POST_MAX_SIZE, keyword);
+			List<Product> productList = productDAO.selectProductList(userId, direction, standardId, POST_MAX_SIZE, keyword, orderCategory);
 			Collections.reverse(productList);
 			return productList;
 			
@@ -41,7 +41,7 @@ public class ProductBO {
 			direction = "next";
 			standardId = nextId;
 		}
-		return productDAO.selectProductList(userId, direction, standardId, POST_MAX_SIZE, keyword);
+		return productDAO.selectProductList(userId, direction, standardId, POST_MAX_SIZE, keyword, orderCategory);
 	}
 	
 	// 페이징 이전 마지막 페이지 여부 (내 글의 정렬이기 때문 userId필요)
@@ -63,7 +63,7 @@ public class ProductBO {
 	// keyword검색시 POST_MAX_SIZE보다 작을 경우
 	public boolean keywordProductCount(int userId, String keyword) {
 		int row = productDAO.keywordProductCount(userId, keyword);
-		if(row < POST_MAX_SIZE) { // 키워드 개수가 포스트 개수보다 적을 경우 true -> prevId, nextId 0으로 만들기 위해
+		if(row <= POST_MAX_SIZE) { // 키워드 개수가 포스트 개수보다 적을 경우 true -> prevId, nextId 0으로 만들기 위해
 			return true; 
 		}
 		return false;
