@@ -44,15 +44,13 @@ public class ProductBO {
 		return productDAO.selectProductList(userId, direction, standardId, POST_MAX_SIZE, keyword, orderCategory);
 	}
 	
-	// 페이징 이전 마지막 페이지 여부 (내 글의 정렬이기 때문 userId필요)
-	public boolean isPrevLastPage(int prevId, int userId) { // 컨트롤러에 받아온 타입
+	public boolean isPrevLastPage(int prevId, int userId) { 
 
-		int maxProductId = productDAO.selectProductIdByUserIdSort(userId, "DESC"); // 다오 입장 필요한 파라미터 보내기
+		int maxProductId = productDAO.selectProductIdByUserIdSort(userId, "DESC");
 
 		return maxProductId == prevId ? true : false;
 	}
 
-	// 페이징 다음 마지막 페이지 여부
 	public boolean isNextLastPage(int nextId, int userId) {
 		
 		int minProductid = productDAO.selectProductIdByUserIdSort(userId, "ASC");

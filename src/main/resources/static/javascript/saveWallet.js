@@ -391,6 +391,7 @@ $(document).ready(function() {
 		$('input[name=select]:checked').each(function(){
 			let checkValue = $(this).val();
 			//console.log(checkValue);
+			
 		});//-> 배열 끝
 		
 	});//-> 체크값 가져오기 끝

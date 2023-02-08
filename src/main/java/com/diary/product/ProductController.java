@@ -67,9 +67,33 @@ public class ProductController {
 		model.addAttribute("nextId", nextId);
 		model.addAttribute("productList", productList);
 		model.addAttribute("keyword", keyword);
-		model.addAttribute("orderCategory", orderCategory);
 
 		model.addAttribute("viewName", "product/shoppingList");
+		return "template/layout";
+	}
+	
+	/**
+	 * 글 작성화면
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	//localhost:8080/product/shopping_list_write_view
+	@GetMapping("/shopping_list_write_view")
+	public String shoppingListWriteView(Model model, HttpSession session) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		model.addAttribute("viewName", "product/shoppingListWrite");
+		return "template/layout";
+	}
+	
+	// 글 상세, 수정가능 화면
+	@GetMapping("/shopping_list_write/detail_view")
+	public String shoppingDetailView(
+			Model model
+			, HttpSession session) {
+		
+		Integer userId = (Integer) session.getAttribute("userId");
+		model.addAttribute("viewName", "product/shoppingDetail");
 		return "template/layout";
 	}
 }

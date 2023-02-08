@@ -18,10 +18,10 @@
 		
 		<!-- 정렬부분 -->
 		<div class="d-flex">
-			<label>카테고리순<input type="radio" name="sort" value="category-order" id="a" class="mx-3"></label>
-			<label>금액순<input type="radio" name="sort" value="amount-order" id="b" class="mx-3"></label>
-			<label>반품가능일순<input type="radio" name="sort" value="return-order" id="c" class="mx-3"></label>
-			<label>당근 희망여부<input type="radio" name="sort" value="used-order" id="d" class="mx-3"></label>
+			<label>카테고리순<input type="radio" name="sort" value="category-order" class="mx-3"></label>
+			<label>금액순<input type="radio" name="sort" value="amount-order" class="mx-3"></label>
+			<label>반품가능일순<input type="radio" name="sort" value="return-order" class="mx-3"></label>
+			<label>당근 희망여부<input type="radio" name="sort" value="used-order" class="mx-3"></label>
 		</div>
 		
 	</div>
@@ -90,7 +90,7 @@
 		
 		<div class="d-flex align-items-center justify-content-end">
 			
-			<input type="button" class="btn btn-succeess create-btn mx-2" value="글작성">
+			<a href="/product/shopping_list_write_view"><input type="button" class="btn btn-succeess create-btn mx-2" value="글작성"></a>
 			<input type="button" class="btn btn-secondary delete-btn mx-2" value="삭제">
 		</div>
 		

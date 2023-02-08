@@ -4,3 +4,4 @@
 	<i class="fa fa-bookmark"></i>
 	<i class="fa fa-bookmark-o"></i>
 	<i class="fa fa-search"></i>
+	<i class="fa fa-times"></i>
