@@ -103,7 +103,7 @@ public class UserRestController {
 				.email(email)
 				.password(hashedPassword)
 				.gender((gender.equals("female")? Gender.FEMALE : Gender.MALE ))
-				.age((age.equals("teenageMore")?Age.TEENAGEMORE : Age.THIRTYMORE))
+				.age(Age.ofAge(age))
 				.build();
 		
 		// insert

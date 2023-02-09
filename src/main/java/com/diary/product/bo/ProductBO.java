@@ -15,7 +15,6 @@ import com.diary.product.dao.ProductDAO;
 import com.diary.product.model.CategoryEnum;
 import com.diary.product.model.Product;
 import com.diary.product.model.PurchasedCategoryEnum;
-import com.diary.product.model.ShoppingListDTO;
 
 @Service
 public class ProductBO {
@@ -74,7 +73,8 @@ public class ProductBO {
 	}
 	
 	// shoppingList 글 게시
-	public int addShoppingProduct(String itemName,
+	public int addShoppingProduct(
+			String itemName,
 			String category,
 			int amount,
 			String purchasedCategory,
@@ -95,35 +95,12 @@ public class ProductBO {
 			imagePath = fileManagerService.savaFile(userLoginId, file);
 		}
 		
-		// 카테고리
-		CategoryEnum categoryType = null;
-		
-		if(category.equals("appliances")) {
-			categoryType = CategoryEnum.APPLIANCES;
-		} else if(category.equals("clothing")) {
-			categoryType = CategoryEnum.CLOTHING;
-		} else if(category.equals("goods")) {
-			categoryType = CategoryEnum.GOODS;
-		} else if(category.equals("cosmetics")) {
-			categoryType = CategoryEnum.COSMETICS;
-		} else if(category.equals("et")) {
-			categoryType = CategoryEnum.ET;
-		}
-		
-		// 구매카테고리
-		PurchasedCategoryEnum purchasedType = null;
-		if(purchasedCategory.equals("online")) {
-			purchasedType = PurchasedCategoryEnum.ONLINE;
-		} else if(purchasedCategory.equals("offline")) {
-			purchasedType = PurchasedCategoryEnum.OFFLINE;
-		}
-		
 		// dao넣을 파라미터 가공
 		Product userProduct = Product.builder()
 				.itemName(itemName)
-				.category(categoryType)
+				.category(CategoryEnum.ofCategory(category))
 				.amount(amount)
-				.purchasedCategory(purchasedType)
+				.purchasedCategory(PurchasedCategoryEnum.ofPurchasedCategory(purchasedCategory))
 				.purchased(purchased)
 				.map(map)
 				.size(size)

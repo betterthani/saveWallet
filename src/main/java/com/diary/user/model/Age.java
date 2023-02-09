@@ -9,8 +9,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 public enum Age implements CodeEnum{
-	TEENAGEMORE("teenageMore"),
-	THIRTYMORE("thirtyMore");
+	TEENAGE("teenage"),
+	TWENTY("twenty"),
+	THIRTY("thirty"),
+	FORTYMORE("fortyMore");
 	
 	@Getter
 	@Setter
@@ -19,6 +21,20 @@ public enum Age implements CodeEnum{
 	Age(String age) {
 		this.age = age;
 	}
+	
+	public static Age ofAge(String age) {
+		if(age == null) {
+			throw new IllegalArgumentException("age null입니다.");
+		}
+		
+		for(Age ageType : Age.values()) {
+			if(ageType.getAge().equals(age)) {
+				return ageType;
+			}
+		}
+		throw new IllegalArgumentException("타입과 일치하는 것이 존재하지 않습니다.");
+	}
+	
 	
 	@MappedTypes(Age.class)
 	public static class TypeHandler extends CodeEnumTypeHandler<Age>{

@@ -19,6 +19,20 @@ public enum CategoryEnum implements CodeEnum{
 		this.category = category;
 	}
 	
+	public static CategoryEnum ofCategory(String category) {
+		if(category == null) {
+			throw new IllegalArgumentException("category null입니다.");
+		}
+		
+		for(CategoryEnum categoryType : CategoryEnum.values()) {
+			if(categoryType.getCategory().equals(category)) {
+				return categoryType;
+			}
+		}
+		
+		throw new IllegalArgumentException("타입과 일치하는 것이 존재하지 않습니다.");
+	}
+	
 	@Getter
 	@Setter
 	private String category;

@@ -85,16 +85,17 @@ $(document).ready(function() {
 			alert("이메일을 입력해주세요.");
 			return;
 		}
-
-		if (age == undefined) {
+		
+		if (gender == '') {
 			alert("성별을 선택해주세요.");
 			return;
 		}
 
-		if (gender == undefined) {
+		if (age == '') {
 			alert("연령대를 선택해주세요.");
 			return;
 		}
+
 
 
 
@@ -447,6 +448,7 @@ $(document).ready(function() {
 		let purchasedCategory = $('#shopping-purchasedCategory option:selected').val();
 		let purchased = $('#shopping-purchased').val();
 		let size = $('#shopping-size').val().trim();
+		let color = $('#shopping-color').val().trim();
 		let datePurchased = $('#shopping-date-datepicker').val(); //2023-02-01종류string
 		let returnableDeadline = $('#shopping-returnn-datepicker').val(); //2023-02-01종류string
 		let usedHope = $('#shopping-usedHope option:selected').val();
@@ -502,6 +504,7 @@ $(document).ready(function() {
 		formData.append("purchasedCategory", purchasedCategory);
 		formData.append("purchased", purchased);
 		formData.append("size", size);
+		formData.append("color", color);
 		formData.append("datePurchased", datePurchased);
 		formData.append("returnableDeadline", returnableDeadline);
 		formData.append("usedHope", usedHope);

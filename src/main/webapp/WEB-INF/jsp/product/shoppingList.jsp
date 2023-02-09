@@ -13,7 +13,7 @@
 				<span class="input-group-text"><i class="fa fa-search"></i></span>
 			</div>
 			<!-- 검색창 -->
-			<input type="text" class="form-control" id="keyword-search-text" value="${keyword}">
+			<input type="text" class="form-control" id="keyword-search-text" value="${keyword}" placeholder="제품명 검색">
 			<input type="button" class="btn btn-success" id="keyword-search-btn" value="검색">
 		</div>
 		
@@ -42,8 +42,8 @@
 					<th>카테고리</th>
 					<th>구매일</th>
 					<th>반품 가능일</th>
-					<th>당근 희망여부</th>
 					<th>금액</th>
+					<th>당근 희망여부</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -59,8 +59,8 @@
 						${fn:length(productList)-status.index}
 					</td>
 					
-					<td>${shoppingProduct.itemName}</td>
-					<td>${shoppingProduct.category}</td>
+					<td><a href="/product/shopping_list_write/detail_view?productId=${shoppingProduct.id}" class="text-dark">${shoppingProduct.itemName}</a></td>
+					<td><a href="/product/shopping_list_write/detail_view?productId=${shoppingProduct.id}" class="text-dark">${shoppingProduct.category}</a></td>
 					
 					<td>
 						<fmt:formatDate value="${shoppingProduct.datePurchased}" pattern ="yyyy-MM-dd"/>
@@ -68,6 +68,11 @@
 					
 					<td>
 						<fmt:formatDate value="${shoppingProduct.returnableDeadline}" pattern ="yyyy-MM-dd"/>
+					</td>
+					
+					<td>
+						<fmt:formatNumber value="${shoppingProduct.amount}" />
+					
 					</td>
 					
 					<td>
@@ -81,10 +86,6 @@
 						</c:choose>
 					</td>
 					
-					<td>
-						<fmt:formatNumber value="${shoppingProduct.amount}" />
-					
-					</td>
 					
 				</tr>
 			</c:forEach>

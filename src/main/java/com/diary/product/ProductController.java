@@ -92,7 +92,9 @@ public class ProductController {
 	@GetMapping("/shopping_list_write/detail_view")
 	public String shoppingDetailView(
 			Model model
-			, HttpSession session) {
+			, HttpSession session
+			, @RequestParam("productId") int productId) {
+		
 		int userId = (int)session.getAttribute("userId");
 		
 		model.addAttribute("viewName", "product/shoppingDetail");

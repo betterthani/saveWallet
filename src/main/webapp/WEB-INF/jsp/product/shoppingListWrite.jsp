@@ -58,6 +58,9 @@
 		<%-- 사이즈 --%>
 		<input type="text" class="form-control w-50 mt-3" id="shopping-size" placeholder="사이즈를 입력하세요.">
 		
+		<%-- 컬러 --%>
+		<input type="text" class="form-control w-50 mt-3" id="shopping-color" placeholder="색상을 입력하세요.">
+		
 		<%-- 구매일 --%>
 		<input type="text" id="shopping-date-datepicker" class="form-control w-50 mt-3" placeholder="구매일을 선택하세요. (필수)">
 		

@@ -35,14 +35,18 @@
 
 					<!-- 성별 박스 -->
 					<select class="form-control col-12 mr-3 mb-3" id="gender" name="gender">
+			            <option selected value="">--성별--</option>
 			            <option id="female" value="female">여성</option>
 			            <option id="male" value="male">남성</option>
 			        </select>
 			        
 			        <!-- 연령대 박스 -->
 					<select class="form-control col-12 mr-3 mb-2" id="age" name="age">
-			            <option value="teenageMore">10 ~ 20대</option>
-			            <option value="thirtyMore">30 ~ 40대</option>
+			            <option selected value="">--연령대--</option>
+			            <option value="teenage">10대</option>
+			            <option value="twenty">20대</option>
+			            <option value="thirty">30대</option>
+			            <option value="fortyMore">40대 이상</option>
 			        </select>
 
 					<!-- 회원가입 버튼 -->
