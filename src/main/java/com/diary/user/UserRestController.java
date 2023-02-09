@@ -6,10 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +22,7 @@ import com.diary.user.model.Mail;
 import com.diary.user.model.User;
 import com.diary.user.model.ValidationUser;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
@@ -52,7 +51,7 @@ public class UserRestController {
 	public Map<String, Object> signIn(
 			@RequestParam("loginId") String loginId,
 			@RequestParam("password") String password,
-			HttpSession session){
+			HttpServletRequest request){
 		
 		// 해싱
 		String hashedPassword = EncryptUtils.md5(password);
@@ -64,6 +63,7 @@ public class UserRestController {
 		if(user != null) {
 			result.put("code", 1);
 			
+			HttpSession session = request.getSession();
 			session.setAttribute("userId", user.getId());
 			session.setAttribute("userLoginId", user.getLoginId());
 			session.setAttribute("userNickName", user.getNickName());

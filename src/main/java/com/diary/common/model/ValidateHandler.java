@@ -16,7 +16,7 @@ public class ValidateHandler {
 		Map<String, String> validatorResult = new HashMap<>();
 		for(FieldError error : errors.getFieldErrors()) { // errors.getFieldErrors() : 유효성 검사 실패한 필드 목록 
 			
-			String validKeyName=String.format("valid_%s", error.getField()); //error.getField(): 실패한 필드명
+			String validKeyName =String.format("valid_%s", error.getField()); //error.getField(): 실패한 필드명
 			validatorResult.put("validKeyName", error.getDefaultMessage()); // error.getDefaultMessage(): 실패한 필드 정의된 메세지
 		}
 		return validatorResult;

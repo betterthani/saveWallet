@@ -8,7 +8,6 @@ import com.diary.common.EncryptUtils;
 import com.diary.user.dao.UserMapperRepository;
 import com.diary.user.dao.UserRepository;
 import com.diary.user.model.Mail;
-import com.diary.user.model.UserEntity;
 
 import lombok.AllArgsConstructor;
 

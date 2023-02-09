@@ -6,13 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.diary.product.bo.ProductBO;
 import com.diary.product.model.Product;
-import com.diary.product.model.TypeEnum;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -80,19 +78,23 @@ public class ProductController {
 	 */
 	//localhost:8080/product/shopping_list_write_view
 	@GetMapping("/shopping_list_write_view")
-	public String shoppingListWriteView(Model model, HttpSession session) {
-		Integer userId = (Integer) session.getAttribute("userId");
+	public String shoppingListWriteView(
+			Model model, 
+			HttpSession session) {
+		
+		int userId = (int)session.getAttribute("userId");
+		
 		model.addAttribute("viewName", "product/shoppingListWrite");
 		return "template/layout";
 	}
 	
-	// 글 상세, 수정가능 화면
+	// 글 상세, 수정가능 화면 (productId추가)
 	@GetMapping("/shopping_list_write/detail_view")
 	public String shoppingDetailView(
 			Model model
 			, HttpSession session) {
+		int userId = (int)session.getAttribute("userId");
 		
-		Integer userId = (Integer) session.getAttribute("userId");
 		model.addAttribute("viewName", "product/shoppingDetail");
 		return "template/layout";
 	}

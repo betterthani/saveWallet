@@ -4,7 +4,6 @@ import org.apache.ibatis.type.MappedTypes;
 
 import com.diary.common.model.CodeEnum;
 import com.diary.common.model.CodeEnumTypeHandler;
-import com.diary.user.model.Age;
 
 import lombok.Getter;
 import lombok.Setter;

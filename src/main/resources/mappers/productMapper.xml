@@ -99,4 +99,46 @@
 			</if>
  	</select>
  	
+ 	<!-- 글 게시 -->
+ 	<insert id="insertShoppingProduct" parameterType="com.diary.product.model.Product">
+ 		INSERT INTO `product`
+ 		(
+			`userId`
+			,`type`
+			,`itemName`
+			,`category`
+			,`amount`
+			,`purchasedCategory`
+			,`purchased`
+			,`map`
+			,`size`
+			,`color`
+			,`datePurchased`
+			,`returnableDeadline`
+			,`usedHope`
+			,`productImgPath`
+			,`createdAt`
+			,`updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{userId}
+ 			,'SHOPPING'
+ 			,#{itemName}
+ 			,#{category}
+ 			,#{amount}
+ 			,#{purchasedCategory}
+ 			,#{purchased}
+ 			,#{map}
+ 			,#{size}
+ 			,#{color}
+ 			,#{datePurchased}
+ 			,#{returnableDeadline}
+ 			,#{usedHope}
+ 			,#{productImgPath}
+ 			,NOW()
+ 			,NOW()
+ 		)
+ 	</insert>
+ 	
  </mapper>

@@ -1,24 +1,30 @@
 package com.diary.product.bo;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.diary.common.FileManagerService;
 import com.diary.product.dao.ProductDAO;
+import com.diary.product.model.CategoryEnum;
 import com.diary.product.model.Product;
-import com.diary.product.model.TypeEnum;
+import com.diary.product.model.PurchasedCategoryEnum;
+import com.diary.product.model.ShoppingListDTO;
 
 @Service
 public class ProductBO {
 
 	@Autowired
 	private ProductDAO productDAO;
+	
+	@Autowired
+	private FileManagerService fileManagerService;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private static final int POST_MAX_SIZE = 5;
@@ -65,6 +71,71 @@ public class ProductBO {
 			return true; 
 		}
 		return false;
+	}
+	
+	// shoppingList 글 게시
+	public int addShoppingProduct(String itemName,
+			String category,
+			int amount,
+			String purchasedCategory,
+			String purchased,
+			String map,
+			String size,
+			String color,
+			Date datePurchased,
+			Date returnableDeadline,
+			boolean usedHope,
+			MultipartFile file, 
+			String userLoginId, 
+			int userId) {
+		
+		// 파일 저장
+		String imagePath = null;
+		if(file != null) {
+			imagePath = fileManagerService.savaFile(userLoginId, file);
+		}
+		
+		// 카테고리
+		CategoryEnum categoryType = null;
+		
+		if(category.equals("appliances")) {
+			categoryType = CategoryEnum.APPLIANCES;
+		} else if(category.equals("clothing")) {
+			categoryType = CategoryEnum.CLOTHING;
+		} else if(category.equals("goods")) {
+			categoryType = CategoryEnum.GOODS;
+		} else if(category.equals("cosmetics")) {
+			categoryType = CategoryEnum.COSMETICS;
+		} else if(category.equals("et")) {
+			categoryType = CategoryEnum.ET;
+		}
+		
+		// 구매카테고리
+		PurchasedCategoryEnum purchasedType = null;
+		if(purchasedCategory.equals("online")) {
+			purchasedType = PurchasedCategoryEnum.ONLINE;
+		} else if(purchasedCategory.equals("offline")) {
+			purchasedType = PurchasedCategoryEnum.OFFLINE;
+		}
+		
+		// dao넣을 파라미터 가공
+		Product userProduct = Product.builder()
+				.itemName(itemName)
+				.category(categoryType)
+				.amount(amount)
+				.purchasedCategory(purchasedType)
+				.purchased(purchased)
+				.map(map)
+				.size(size)
+				.color(color)
+				.datePurchased(datePurchased)
+				.returnableDeadline(returnableDeadline)
+				.usedHope(usedHope)
+				.productImgPath(imagePath)
+				.userId(userId)
+				.build();
+		
+		return productDAO.insertShoppingProduct(userProduct);
 	}
 
 	

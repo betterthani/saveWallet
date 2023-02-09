@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.diary.product.model.Product;
-import com.diary.product.model.TypeEnum;
 
 @Repository
 public interface ProductDAO {
@@ -29,5 +28,8 @@ public interface ProductDAO {
 	public int keywordProductCount(
 			@Param("userId") int userId, 
 			@Param("keyword") String keyword);
+	
+	// 글 게시
+	public int insertShoppingProduct(Product userProduct);
 
 }

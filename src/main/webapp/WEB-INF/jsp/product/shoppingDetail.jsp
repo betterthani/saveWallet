@@ -29,6 +29,7 @@
 	<div class="col-7 product-list-write-right ">
 		<input type="text" class="form-control w-50 mt-2" value="SHOPPING" disabled>
 		
+		<%-- 카테고리 --%>
 		<select class="form-control w-50 mt-3" id="category">
 		  <option selected value="">카테고리</option>
 		  <option value="APPLIANCES">가전</option>
@@ -38,25 +39,34 @@
 		  <option value="ET">그 외</option>
 		</select>
 		
-		<input type="text" class="form-control w-50 mt-3" placeholder="금액을 입력하시오.">
+		<%-- 금액 --%>
+		<input type="text" class="form-control w-50 mt-3" placeholder="금액을 입력하세요.">
 		
+		<%-- 구매처 --%>
 		<select class="form-control w-50 mt-3" id="purchasedCategory">
 		  <option selected value="">구매처</option>
 		  <option value="ONLINE">온라인</option>
 		  <option value="OFFLINE">오프라인</option>
 		</select>
+		<input type="text" class="form-control w-50 mt-2 d-none" placeholder="구매처를 입력하세요.">
 		
-		<input type="text" class="form-control w-50 mt-3" placeholder="사이즈를 입력하시오.">
+		<%-- 사이즈 --%>
+		<input type="text" class="form-control w-50 mt-3" placeholder="사이즈를 입력하세요.">
 		
+		<%-- 구매일 --%>
 		<input type="text" id="datePurchased-datepicker" class="form-control w-50 mt-3">
 		
+		<%-- 반품가능일 --%>
 		<input type="text" id="returnableDeadline-datepicker" class="form-control w-50 mt-3">
 		
+		<%-- 당근희망여부 --%>
 		<select class="form-control w-50 mt-3" id="purchasedCategory">
 		  <option selected value="">당근 희망여부</option>
 		  <option value="1">여</option>
 		  <option value="0">부</option>
 		</select>
+		
+		<%-- 수정, 삭제 버튼 --%>
 		<div class="d-flex justify-content-center mr-5">
 			<button type="button" class="btn btn-info mt-3">수정</button>
 			<button type="button" class="btn btn-dark mt-3 ml-3">삭제</button>
@@ -80,11 +90,9 @@
 	</div>
 	
 	<%-- 댓글 쓰기 --%>
-	<c:if test="${not empty userId}">
-		<div class="d-flex">
-			<input type="text" class="form-control w-50" placeholder="Please leave a comment.">
-			<input type="button" class="btn btn-success" value="댓글">
-		</div>
-	</c:if>
+	<div class="d-flex">
+		<input type="text" class="form-control w-50" placeholder="Please leave a comment.">
+		<input type="button" class="btn btn-success" value="댓글">
+	</div>
 </div>
 	

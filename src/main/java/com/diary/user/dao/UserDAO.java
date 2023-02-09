@@ -2,9 +2,7 @@ package com.diary.user.dao;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.diary.user.model.Mail;
 import com.diary.user.model.User;
 
 @Repository
