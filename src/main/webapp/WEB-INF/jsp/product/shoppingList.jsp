@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:if test="${not empty userId}">
 <div class="my-5">
 	<!-- 윗부분 -->
@@ -46,15 +47,18 @@
 				</tr>
 			</thead>
 			<tbody>
-			<c:forEach var="shoppingProduct" items="${productList}">
+			<c:forEach var="shoppingProduct" items="${productList}" varStatus="status">
 				<tr class="text-center">
 					<td>
 						<label>
-							<input type="checkbox" name="select" value="${shoppingProduct.id}">
+							<input type="checkbox" name="select" data-product-id="${shoppingProduct.id}">
 						</label>
 					</td>
 					
-					<td>${shoppingProduct.id}</td>
+					<td>
+						${fn:length(productList)-status.index}
+					</td>
+					
 					<td>${shoppingProduct.itemName}</td>
 					<td>${shoppingProduct.category}</td>
 					

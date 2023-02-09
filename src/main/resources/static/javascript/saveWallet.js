@@ -368,6 +368,7 @@ $(document).ready(function() {
 
 		location.href = "/product/shopping_list_view?keyword=" + keyword;
 	});
+	
 	// 라디오기능 체크
 	$('input[name=sort]').on('click', function() {
 		let checkValue = $('input[name=sort]:checked').val();
@@ -389,9 +390,8 @@ $(document).ready(function() {
 	$('input[name=select]').on('click', function() {
 		// 배열로 값 가져오기
 		$('input[name=select]:checked').each(function() {
-			let checkValue = $(this).val();
+			let checkValue = $(this).data('product-id');
 			//console.log(checkValue);
-
 		});//-> 배열 끝
 
 	});//-> 체크값 가져오기 끝
@@ -428,7 +428,7 @@ $(document).ready(function() {
 		, currentText: "오늘"
 	});
 	
-	// 구매처 오프라인일 경우 적을 구매처오픈
+	// 구매처 온라인일 경우 적을 구매처오픈
 	$('#shopping-purchasedCategory').on('change',function(){
 		let purchasedCategory = $('#shopping-purchasedCategory option:selected').val();
 		// 초기화
