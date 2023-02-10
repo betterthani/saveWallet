@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <div class="d-flex w-100 my-3 mx-3">
 	<!-- 사진 첨부 & 제품명란 -->
 	<div class="col-5 product-list-write-left">
@@ -53,7 +52,36 @@
 		  <option value="online">온라인</option>
 		  <option value="offline">오프라인</option>
 		</select>
-		<input type="text" class="form-control w-50 mt-2 d-none" id="shopping-purchased" placeholder="구매처를 입력하세요. (필수)">
+		<%-- 온라인일 경우 구매처 입력--%>
+		<input type="text" class="form-control w-50 mt-2 d-none" id="shopping-purchased" placeholder="온라인 구매처를 입력하세요. (필수)">
+		
+		<%-- 오프라인일 경우 구매처 입력 --%>
+		<div class="form-control w-50 mt-2 d-none" id="shopping-offline-purchased" placeholder="오프라인 구매처를 입력하세요. (필수)">${purchased}</div>
+		
+		<div class="map_wrap d-none" id="kakaMap">
+		    <div id="map" style="width:100%; height:100%; position:relative; overflow:hidden;"></div>
+		
+		    <div id="menu_wrap" class="bg_white">
+		        <div class="option">
+		            <div>
+						<input type="text" id="keyword-map" size="25" placeholder="키워드(ex.올리브영)"> 
+		            	<button type="button" id="keyword-map-search">검색하기</button> 
+		            </div>
+		        </div>
+		        <hr>
+		        <ul id="placesList"></ul>
+		        <div id="pagination"></div>
+		    </div>
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		<%-- 사이즈 --%>
 		<input type="text" class="form-control w-50 mt-3" id="shopping-size" placeholder="사이즈를 입력하세요.">

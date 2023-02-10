@@ -30,7 +30,6 @@ public class ProductRestController {
 			HttpSession session) {
 		
 		int userId = (int)session.getAttribute("userId");
-		String userAge = (String)session.getAttribute("userAge");
 		String userLoginId = (String)session.getAttribute("userLoginId");
 		
 		Map<String, Object> result = new HashMap<>();
@@ -62,5 +61,6 @@ public class ProductRestController {
 		
 		return result;
 	}
+	
 	
 }

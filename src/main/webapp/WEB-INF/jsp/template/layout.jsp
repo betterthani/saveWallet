@@ -22,6 +22,13 @@
         <!-- style -->
         <link rel="stylesheet" type="text/css" href="/static/css/style.css">
 		<script src="/static/javascript/saveWallet.js" type="text/javascript"></script>
+		
+		<!-- kakao지도 -->
+		<!-- services 라이브러리 불러오기 -->
+		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=15b6e0d89ac91fcf4bcc5e3ece619f84&libraries=services"></script>
+		<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
+		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=15b6e0d89ac91fcf4bcc5e3ece619f84&libraries=services,clusterer,drawing"></script>
+		
 </head>
 <body>
 	<div id="wrap">

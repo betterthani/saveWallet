@@ -39,7 +39,6 @@ public class UserRestController {
 	@Autowired
 	private MailBO mailBO;
 	
-	
 	/**
 	 * 로그인API
 	 * @param loginId
@@ -58,6 +57,8 @@ public class UserRestController {
 		
 		// select DB
 		User user = userBO.getUserByLoginIdPassword(loginId, hashedPassword);
+		
+		
 		
 		Map<String, Object> result = new HashMap<>();
 		if(user != null) {

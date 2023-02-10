@@ -17,7 +17,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
-public class ExchangeRateApi {
+public class ExchangeRateApiController {
 	
 	private final static String baseUrl = "https://www.koreaexim.go.kr/site/program/financial/exchangeJSON";
 	private final String authkey = "CpOkW8AZfVOaLAm2z0M1tkiica6esEVG";

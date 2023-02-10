@@ -37,7 +37,7 @@ public class TestController {
 	// jsp 리턴 점검
 	@GetMapping("/test3")
 	public String test3() {
-		return "test/test";
+		return "test/test1";
 	}
 
 	// DB 접속 정보

@@ -79,10 +79,13 @@ public class ProductController {
 	//localhost:8080/product/shopping_list_write_view
 	@GetMapping("/shopping_list_write_view")
 	public String shoppingListWriteView(
+			@RequestParam(value="purchased", required = false) String purchased, 
 			Model model, 
 			HttpSession session) {
 		
 		int userId = (int)session.getAttribute("userId");
+		
+		model.addAttribute("purchased", purchased);
 		
 		model.addAttribute("viewName", "product/shoppingListWrite");
 		return "template/layout";
