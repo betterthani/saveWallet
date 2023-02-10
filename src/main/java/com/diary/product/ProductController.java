@@ -88,7 +88,7 @@ public class ProductController {
 		model.addAttribute("purchased", purchased);
 		
 		model.addAttribute("viewName", "product/shoppingListWrite");
-		return "template/layout";
+		return "template/layoutMap";
 	}
 	
 	// 글 상세, 수정가능 화면 (productId추가)
