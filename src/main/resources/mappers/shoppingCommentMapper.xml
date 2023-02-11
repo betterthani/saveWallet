@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.diary.shoppingComment.dao.ShoppingCommentDAO">
+ 	<insert id="addSCommentByuserIdProductId" parameterType="map">
+ 		INSERT INTO `shopping_comment`
+ 		(
+	 		`productId`
+			,`userId`
+			,`content`
+			,`createdAt`
+			,`updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{productId}
+ 			,#{userId}
+ 			,#{content}
+ 			,NOW()
+ 			,NOW()
+ 		)
+ 	</insert>
+ 
+ </mapper>

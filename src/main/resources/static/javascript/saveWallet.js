@@ -396,7 +396,141 @@ $(document).ready(function() {
 		});//-> 배열 끝
 
 	});//-> 체크값 가져오기 끝
-
 	
+	//---------------------------------------------------------------------- shoppingList 글 게시
+
+	// 이미지 선택시 사진 보이게 하기
+	$('#formFile-shopping-list').on('change', function() {
+		setImageFromFile(this, '.shopping-img-place');
+	});
+	function setImageFromFile(input, expression) {
+		if (input.files && input.files[0]) {
+			let reader = new FileReader();
+			reader.onload = function(e) {
+				$(expression).attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	// 구매일 데이트피커 설정
+	$('#shopping-date-datepicker').datepicker({
+		dateFormat: "yy-mm-dd" // 2022-11-08
+		, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토']
+		, showButtonPanel: true // 오늘 버튼 활성화
+		, currentText: "오늘"
+	});
+
+	// 반품가능일 데이트피커 설정
+	$('#shopping-returnn-datepicker').datepicker({
+		dateFormat: "yy-mm-dd" // 2022-11-08
+		, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토']
+		, showButtonPanel: true // 오늘 버튼 활성화
+		, currentText: "오늘"
+	});
+
+
+	// 업로드버튼 눌렀을 때
+	$('#shoppingList-upload-btn').on('click', function() {
+		let itemName = $('#shopping-itemName').val().trim();
+		let category = $('#shopping-category option:selected').val();
+		let amount = $('#shopping-amount').val().trim(); //string
+		let purchasedCategory = $('#shopping-purchasedCategory option:selected').val();
+
+		let purchased = '';
+		if (purchasedCategory == 'online') {
+			purchased = $('#shopping-purchased').val(); // 온라인의 경우 주소
+		} else {
+			purchased = document.getElementById('shopping-offline-purchased').innerHTML; // 오프라인일 경우 주소
+		}
+
+		let size = $('#shopping-size').val().trim();
+		let color = $('#shopping-color').val().trim();
+		let datePurchased = $('#shopping-date-datepicker').val(); //2023-02-01종류string
+		let returnableDeadline = $('#shopping-returnn-datepicker').val(); //2023-02-01종류string
+		let usedHope = $('#shopping-usedHope option:selected').val();
+		let file = $('#formFile-shopping-list').val(); //C:\fakepath\ASCII.png
+
+		if (file != '') {
+			let ext = file.split(".").pop().toLowerCase();
+			if (ext != 'jpg' && ext != 'jpeg' && ext != 'gif' && ext != 'png') {
+				alert("이미지 파일만 게시할 수 있습니다.");
+				$('#file').val('');
+				return;
+			}
+		}
+
+		if (file == '') {
+			alert("파일을 선택해주세요.");
+			return;
+		}
+		if (itemName == '') {
+			alert("제품명을 입력해주세요.");
+			return;
+		}
+		if (category == '') {
+			alert("카테고리를 선택해주세요.");
+			return;
+		}
+		if (amount == '') {
+			alert("금액을 입력해주세요.");
+			return;
+		}
+		if (purchasedCategory == '') {
+			alert("구매처를 선택해주세요.");
+			return;
+		}
+		if (purchased == '') {
+			alert("구매처를 입력해주세요.");
+			return;
+		}
+		if (datePurchased == '') {
+			alert("구매일을 선택해주세요.");
+			return;
+		}
+		if (usedHope == '') {
+			alert("당근 희망여부를 선택해주세요.");
+			return;
+		}
+
+		let formData = new FormData();
+		formData.append("itemName", itemName);
+		formData.append("category", category);
+		formData.append("amount", amount);
+		formData.append("purchasedCategory", purchasedCategory);
+		formData.append("purchased", purchased);
+		formData.append("size", size);
+		formData.append("color", color);
+		formData.append("datePurchased", datePurchased);
+		formData.append("returnableDeadline", returnableDeadline);
+		formData.append("usedHope", usedHope);
+		formData.append("file", $('#formFile-shopping-list')[0].files[0]);
+
+		$.ajax({
+			// request
+			type: "POST"
+			, url: "/product/shopping_list_write"
+			, data: formData
+			, enctype: "multipart/form-data"
+			, processData: false
+			, contentType: false
+
+			// response
+			, success: function(data) {
+				if (data.code == 1) {
+					alert("업로드 되었습니다.");
+					location.href = "/product/shopping_list_view";
+				} else {
+					alert("업로드에 실패하였습니다.");
+				}
+			}
+			, error: function(jqXHR, textStatus, errorThrown) {
+				let errorMsg = jqXHR.responseJSON.status;
+				alert(errorMsg + ":" + textStatus);
+			}
+
+		});
+	});//-> 업로드 버튼 끝
+
 
 });//->document끝

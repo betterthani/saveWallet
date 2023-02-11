@@ -141,4 +141,32 @@
  		)
  	</insert>
  	
+ 	<!-- shopping 디테일 select -->
+ 	<select id="selectShoppingProductListByUserIdProductId" parameterType="map" resultType="com.diary.product.model.Product">
+ 		SELECT
+ 			`id`
+			,`userId`
+			,`type`
+			,`itemName`
+			,`category`
+			,`amount`
+			,`purchasedCategory`
+			,`purchased`
+			,`map`
+			,`size`
+			,`color`
+			,`datePurchased`
+			,`returnableDeadline`
+			,`usedHope`
+			,`productImgPath`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`product`
+		WHERE
+			`type` = "SHOPPING" AND
+			`userId` = #{userId} AND
+			`id` = #{productId}
+ 	</select>
+ 	
  </mapper>

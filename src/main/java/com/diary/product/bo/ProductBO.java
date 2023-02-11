@@ -72,7 +72,7 @@ public class ProductBO {
 		return false;
 	}
 	
-	// shoppingList 글 게시
+	// shoppingList 글 게시(insert)
 	public int addShoppingProduct(
 			String itemName,
 			String category,
@@ -115,5 +115,8 @@ public class ProductBO {
 		return productDAO.insertShoppingProduct(userProduct);
 	}
 
-	
+	// 글 디테일 select
+	public List<Product> getShoppingProductListByUserIdProductId(int userId, int productId) {
+		return productDAO.selectShoppingProductListByUserIdProductId(userId, productId);
+	}
 }

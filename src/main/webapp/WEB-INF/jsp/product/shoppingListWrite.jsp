@@ -74,15 +74,6 @@
 		    </div>
 		</div>
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		<%-- 사이즈 --%>
 		<input type="text" class="form-control w-50 mt-3" id="shopping-size" placeholder="사이즈를 입력하세요.">
 		

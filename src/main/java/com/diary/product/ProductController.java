@@ -13,6 +13,7 @@ import com.diary.product.bo.ProductBO;
 import com.diary.product.model.Product;
 
 import jakarta.servlet.http.HttpSession;
+import lombok.Builder;
 
 @Controller
 @RequestMapping("/product")
@@ -71,11 +72,13 @@ public class ProductController {
 	}
 	
 	/**
-	 * 글 작성화면
+	 *  글 작성 API
+	 * @param purchased
 	 * @param model
 	 * @param session
 	 * @return
 	 */
+	 
 	//localhost:8080/product/shopping_list_write_view
 	@GetMapping("/shopping_list_write_view")
 	public String shoppingListWriteView(
@@ -91,7 +94,8 @@ public class ProductController {
 		return "template/layoutMap";
 	}
 	
-	// 글 상세, 수정가능 화면 (productId추가)
+	
+	// 글 상세, 수정가능 화면
 	@GetMapping("/shopping_list_write/detail_view")
 	public String shoppingDetailView(
 			Model model
@@ -100,7 +104,12 @@ public class ProductController {
 		
 		int userId = (int)session.getAttribute("userId");
 		
+		//select
+		List<Product> sProductList = productBO.getShoppingProductListByUserIdProductId(userId, productId);
+		model.addAttribute("sProductList",sProductList);
+		//update
+		
 		model.addAttribute("viewName", "product/shoppingDetail");
-		return "template/layout";
+		return "template/layoutMap";
 	}
 }

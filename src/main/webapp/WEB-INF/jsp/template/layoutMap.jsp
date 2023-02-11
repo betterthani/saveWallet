@@ -21,7 +21,8 @@
         
         <!-- style -->
         <link rel="stylesheet" type="text/css" href="/static/css/style.css">
-		<script src="/static/javascript/shoppingWrite.js" type="text/javascript"></script>
+        <script src="/static/javascript/saveWallet.js" type="text/javascript"></script>
+		<script src="/static/javascript/map.js" type="text/javascript"></script>
 		
 		<!-- kakao지도 -->
 		<!-- services 라이브러리 불러오기 -->

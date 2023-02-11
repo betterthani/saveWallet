@@ -103,11 +103,11 @@
 		<div class="d-flex justify-content-center">
 
 			<c:if test="${prevId ne 0}">
-				<a href="/post/post_list_view?prevId=${prevId}" class="mr-5 text-scuccess">&lt;&lt;이전</a>
+				<a href="/product/shopping_list_view?prevId=${prevId}" class="mr-5 text-scuccess">&lt;&lt;이전</a>
 			</c:if>
 
 			<c:if test="${nextId ne 0}">
-				<a href="/post/post_list_view?nextId=${nextId}" class="text-scuccess">다음&gt;&gt;</a>
+				<a href="/product/shopping_list_view?nextId=${nextId}" class="text-scuccess">다음&gt;&gt;</a>
 			</c:if>
 
 		</div>
