@@ -22,13 +22,14 @@ public class ShoppingCommentRestController {
 	
 	@PostMapping("/create")
 	public Map<String, Object> sCommentCreate(
-			@RequestParam("productId") int productId			
+			@RequestParam("content") String content
+			,@RequestParam("productId") int productId			
 			,HttpSession session){
 		
 		int userId = (int)session.getAttribute("userId");
 		
 		// insert
-		int row = sCommentBO.addSCommentByuserIdProductId(userId, productId);
+		int row = sCommentBO.addSCommentByuserIdProductId(userId, productId,content);
 		Map<String, Object> result = new HashMap<>();
 		
 		if(row > 0) {

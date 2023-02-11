@@ -21,5 +21,21 @@
  			,NOW()
  		)
  	</insert>
+ 	
+ 	<!-- 코멘트 select -->
+ 	<select id="selectsCommentListByProductId" parameterType="int" resultType="com.diary.shoppingComment.model.ShoppingComment">
+ 		SELECT
+ 			`id`
+			,`productId`
+			,`userId`
+			,`content`
+			,`createdAt`
+			,`updatedAt`
+ 		FROM
+ 			`shopping_comment`
+ 		WHERE
+ 			`productId` = #{productId}
+ 	
+ 	</select>
  
  </mapper>

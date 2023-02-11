@@ -141,8 +141,8 @@
  		)
  	</insert>
  	
- 	<!-- shopping 디테일 select -->
- 	<select id="selectShoppingProductListByUserIdProductId" parameterType="map" resultType="com.diary.product.model.Product">
+ 	<!-- 글 가져오기 -->
+ 	<select id="selectProductListByUserIdProductId" parameterType="map" resultType="com.diary.product.model.Product">
  		SELECT
  			`id`
 			,`userId`
@@ -168,5 +168,6 @@
 			`userId` = #{userId} AND
 			`id` = #{productId}
  	</select>
+ 	
  	
  </mapper>

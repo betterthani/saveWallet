@@ -32,9 +32,12 @@ public interface ProductDAO {
 	// 글 게시
 	public int insertShoppingProduct(Product userProduct);
 	
-	// 글 디테일 select
-	public List<Product> selectShoppingProductListByUserIdProductId(
+	// 글 가져오기
+	public List<Product> selectProductListByUserIdProductId(
 			@Param("userId") int userId, 
 			@Param("productId") int productId);
+	
+	
+	
 
 }

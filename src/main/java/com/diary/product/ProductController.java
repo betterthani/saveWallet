@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.diary.product.bo.ProductBO;
+import com.diary.product.model.ProdcutViewDTO;
 import com.diary.product.model.Product;
 
 import jakarta.servlet.http.HttpSession;
-import lombok.Builder;
 
 @Controller
 @RequestMapping("/product")
@@ -103,11 +103,12 @@ public class ProductController {
 			, @RequestParam("productId") int productId) {
 		
 		int userId = (int)session.getAttribute("userId");
+		String userLogindId = (String)session.getAttribute("userLoginId");
+		model.addAttribute("userLogindId", userLogindId);
 		
-		//select
-		List<Product> sProductList = productBO.getShoppingProductListByUserIdProductId(userId, productId);
+		// 가공 select
+		List<ProdcutViewDTO> sProductList = productBO.generateSProudct(userId, productId);
 		model.addAttribute("sProductList",sProductList);
-		//update
 		
 		model.addAttribute("viewName", "product/shoppingDetail");
 		return "template/layoutMap";

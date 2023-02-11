@@ -1,5 +1,6 @@
 package com.diary.product.bo;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -13,14 +14,20 @@ import org.springframework.web.multipart.MultipartFile;
 import com.diary.common.FileManagerService;
 import com.diary.product.dao.ProductDAO;
 import com.diary.product.model.CategoryEnum;
+import com.diary.product.model.ProdcutViewDTO;
 import com.diary.product.model.Product;
 import com.diary.product.model.PurchasedCategoryEnum;
+import com.diary.shoppingComment.bo.ShoppingCommentBO;
+import com.diary.shoppingComment.model.ShoppingComment;
 
 @Service
 public class ProductBO {
 
 	@Autowired
 	private ProductDAO productDAO;
+	
+	@Autowired
+	private ShoppingCommentBO sCommentBO;
 	
 	@Autowired
 	private FileManagerService fileManagerService;
@@ -115,8 +122,30 @@ public class ProductBO {
 		return productDAO.insertShoppingProduct(userProduct);
 	}
 
-	// 글 디테일 select
-	public List<Product> getShoppingProductListByUserIdProductId(int userId, int productId) {
-		return productDAO.selectShoppingProductListByUserIdProductId(userId, productId);
+	// 글 가져오기
+	public List<Product> getProductListByUserIdProductId(int userId, int productId){
+		return productDAO.selectProductListByUserIdProductId(userId, productId);
+	}
+	
+	// 글 가져오기 (가공 ver)
+	public List<ProdcutViewDTO> generateSProudct(int userId, int productId){
+		List<ProdcutViewDTO> sProductView = new ArrayList<>();
+		
+		// 글 여러개 가져오기
+		List<Product> sProductList = getProductListByUserIdProductId(userId, productId);
+		for(Product sProduct : sProductList) {
+			ProdcutViewDTO productView = new ProdcutViewDTO();
+			
+			// 글 1개
+			productView.setProduct(sProduct);
+			
+			// 댓글 여러개
+			List<ShoppingComment> sCommentList = sCommentBO.getsCommentListByProductId(productId);
+			productView.setShopppingCommentList(sCommentList);
+			
+			sProductView.add(productView);
+		}
+		
+		return sProductView;
 	}
 }

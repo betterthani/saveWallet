@@ -531,6 +531,38 @@ $(document).ready(function() {
 
 		});
 	});//-> 업로드 버튼 끝
-
+	//---------------------------------------------------------------------- shoppingList 댓글 게시
+	$('#shopping-comment-uploadBtn').on('click',function(){
+		let content = $('#shopping-comment-content').val().trim();
+		let productId = $(this).data('product-id');
+		
+		if(content == ''){
+			alert("코멘트를 적어주세요.");
+			return;
+		}
+		let formData = new FormData();
+		formData.append("content", content);
+		formData.append("productId", productId);
+		
+		$.ajax({
+			type:"POST"
+			,url:"/shoppingComment/create"
+			,data:formData
+			, contentType: false
+			, processData: false
+			, success: function(data) {
+				if (data.code == 1) {
+					document.location.reload();
+				} else {
+					alert("댓글 게시에 실패했습니다.");
+					return;
+				}
+			}
+			, error: function(jqXHR, textStatus, errorThrown) {
+				let errorMsg = jqXHR.responseJSON.status;
+				alert(errorMsg + ":" + textStatus);
+			}
+		});
+	});
 
 });//->document끝

@@ -22,7 +22,13 @@ public class ProductRestController {
 	@Autowired
 	private ProductBO productBO;
 	
-	// shoppingList 글 게시 API
+	/**
+	 * shoppingList 글 게시 API
+	 * @param shoppingProduct
+	 * @param file
+	 * @param session
+	 * @return
+	 */
 	@PostMapping("/shopping_list_write")
 	public Map<String, Object> shoppingListWrite(
 			@ModelAttribute("shoppingProduct") ShoppingListDTO shoppingProduct,

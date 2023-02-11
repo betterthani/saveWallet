@@ -12,7 +12,7 @@ public class ShoppingComment {
 	private int id;
 	private int productId;
 	private int userId;
-	private int content;
+	private String content;
 	private Date createdAt;
 	private Date updatedAt;
 	
