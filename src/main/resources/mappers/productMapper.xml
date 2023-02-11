@@ -220,5 +220,13 @@
  			
  	</update>
  	
+ 	<!-- 해당 글 삭제 -->
+ 	<delete id="deletesProductByUserIdProductId" parameterType="map">
+ 		DELETE FROM `product`
+ 		WHERE
+ 			`userId` = #{userId}
+ 			AND `id` = #{productId}
+ 	</delete>
+ 	
  	
  </mapper>

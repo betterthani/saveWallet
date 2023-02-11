@@ -94,8 +94,13 @@ public class ProductController {
 		return "template/layoutMap";
 	}
 	
-	
-	// 글 상세, 수정가능 화면
+	/**
+	 * 글 상세, 수정가능 화면
+	 * @param model
+	 * @param session
+	 * @param productId
+	 * @return
+	 */
 	@GetMapping("/shopping_list_write/detail_view")
 	public String shoppingDetailView(
 			Model model
@@ -104,6 +109,7 @@ public class ProductController {
 		
 		int userId = (int)session.getAttribute("userId");
 		String userLogindId = (String)session.getAttribute("userLoginId");
+		model.addAttribute("userId", userId);
 		model.addAttribute("userLogindId", userLogindId);
 		
 		// 가공 select

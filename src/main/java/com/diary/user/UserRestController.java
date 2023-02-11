@@ -150,7 +150,7 @@ public class UserRestController {
 		boolean isDuplicated = userBO.existLoginId(validationUser.getLoginId());
 		if(isDuplicated) {
 			// 아이디 중복
-			result.put("existLoginId", "existLoginId");
+			result.put("existLoginId", 1);
 			result.put("code", 2);
 		} else {
 			// 중복되지 않고, 유효성 검사도 통과

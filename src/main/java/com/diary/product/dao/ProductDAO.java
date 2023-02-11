@@ -58,4 +58,9 @@ public interface ProductDAO {
 			@Param("usedHope") boolean usedHope,
 			@Param("imgPath") String imgPath);
 
+	// 해당 글 삭제
+	public boolean deletesProductByUserIdProductId(
+			@Param("userId") int userId,
+			@Param("productId") int productId);
+	
 }

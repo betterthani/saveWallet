@@ -114,6 +114,15 @@ $(document).ready(function() {
 			, contentType: false
 			, processData: false
 			, success: function(data) {
+				
+				// 아이디 존재
+				//초기화
+				$('#idCheckDuplicated').addClass("d-none");
+				if (data.existLoginId == 1) {
+					$('#idCheckDuplicated').removeClass("d-none");
+					return;
+				}
+				
 				if (data.code == 500) {
 					// 유효성검사 실패(ValidateHandler,ValidateUser연결)
 					// 공백의 경우
@@ -129,14 +138,6 @@ $(document).ready(function() {
 					$('#idCheckLength').addClass('d-none');
 					if (data.validKeyName == 'userIdLength') {
 						$('#idCheckLength').removeClass('d-none');
-						return;
-					}
-
-					// 아이디 존재
-					//초기화
-					$('#idCheckDuplicated').addClass("d-none");
-					if (data.existLoginId == 'existLoginId') {
-						$('#idCheckDuplicated').removeClass("d-none");
 						return;
 					}
 
@@ -387,15 +388,55 @@ $(document).ready(function() {
 		}
 	});
 
-	// 체크됐을때 해당 productid 가져오기 
+	/*// 체크됐을때 해당 productid 가져오기 
 	$('input[name=select]').on('click', function() {
+		let checkValue = $(this).data('product-id');
+		//alert(checkValue);
+		
 		// 배열로 값 가져오기
 		$('input[name=select]:checked').each(function() {
 			let checkValue = $(this).data('product-id');
-			//console.log(checkValue);
+			console.log(checkValue);
+			$('#delete-btn').on('click',function(){
+				alert(checkValue);
+			});
+			
 		});//-> 배열 끝
 
 	});//-> 체크값 가져오기 끝
+	*/
+	// 삭제 버튼 눌렀을 때
+	$('#delete-btn').on('click', function() {
+
+		if ($('input[name=select]').prop('checked', false)) {
+			alert("삭제할 내용을 선택해주세요.");
+			return;
+		}
+
+		if (confirm("삭제하시겠습니까?")) {
+			$('input[name=select]:checked').each(function() {
+				let checkValue = $(this).data('product-id');
+
+				$.ajax({
+					type: "DELETE"
+					, url: "/product/shopping_list/delete"
+					, data: { "productId": checkValue }
+					, success: function(data) {
+						if (data.code == 1) {
+							alert("글이 삭제되었습니다.");
+							document.location.reload();
+						} else {
+							alert("글 삭제에 실패했습니다.");
+						}
+					}
+					, error: function(jqXHR, textStatus, errorThrown) {
+						let errorMsg = jqXHR.responseJSON.status;
+						alert(errorMsg + ":" + textStatus);
+					}
+				});
+			});
+		}
+	});
 
 	//---------------------------------------------------------------------- shoppingList 글 게시
 
@@ -438,7 +479,7 @@ $(document).ready(function() {
 		let purchasedCategory = $('#shopping-purchasedCategory option:selected').val();
 
 		let purchased = '';
-		if (purchasedCategory == 'online') {
+		if (purchasedCategory == 'ONLINE') {
 			purchased = $('#shopping-purchased').val(); // 온라인의 경우 주소
 		} else {
 			purchased = document.getElementById('shopping-offline-purchased').innerHTML; // 오프라인일 경우 주소
@@ -531,6 +572,7 @@ $(document).ready(function() {
 
 		});
 	});//-> 업로드 버튼 끝
+
 	//---------------------------------------------------------------------- shoppingList 댓글 게시
 	$('#shopping-comment-uploadBtn').on('click', function() {
 		let content = $('#shopping-comment-content').val().trim();
@@ -660,5 +702,60 @@ $(document).ready(function() {
 		});
 
 	});// 수정버튼 눌렀을때 end
+	//---------------------------------------------------------------------- shoppingList 글 삭제
+
+	// 게시글 삭제 버튼 누를 때
+	$('#shopping-detail-delBtn').on('click', function() {
+		let userId = $(this).data('user-id');
+		let productId = $(this).data('product-id');
+
+		$.ajax({
+			type: "DELETE"
+			, url: "/product/shopping_list/delete"
+			, data: { "userId": userId, "productId": productId }
+			, success: function(data) {
+				if (data.code == 1) {
+					alert("글이 삭제가 되었습니다.");
+					location.href = "/product/shopping_list_view"
+				}
+			}
+			, error: function(jqXHR, textStatus, errorThrown) {
+				let errorMsg = jqXHR.responseJSON.status;
+				alert(errorMsg + ":" + textStatus);
+			}
+		});
+	});
+
+	// 코멘트 삭제버튼 누를때
+	$('.commentDelBtn').on('click', function() {
+		let sCommentId = $(this).data('comment-id');
+		let productId = $(this).data('product-id');
+
+		let formData = new FormData();
+		formData.append("sCommentId", sCommentId);
+		formData.append("productId", productId);
+
+		$.ajax({
+			type: "DELETE"
+			, url: "/shoppingComment/delete"
+			, data: formData
+			, processData: false
+			, contentType: false
+
+			, success: function(data) {
+				if (data.code == 1) {
+					alert("댓글이 삭제됐습니다.");
+					document.location.reload();
+				} else {
+					alert("댓글 삭제에 실패했습니다.");
+					return;
+				}
+			}
+			, error: function(jqXHR, textStatus, errorThrown) {
+				let errorMsg = jqXHR.responseJSON.status;
+				alert(errorMsg + ":" + textStatus);
+			}
+		});
+	});
 
 });//->document끝

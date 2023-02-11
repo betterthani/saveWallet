@@ -37,5 +37,39 @@
  			`productId` = #{productId}
  	
  	</select>
+ 	<!-- 댓글 전체 삭제 -->
+ 	<delete id="deleteSCommnetByUserIdProductId" parameterType="map">
+ 		DELETE FROM `shopping_comment`
+ 		WHERE
+ 			`userId` = #{userId}
+ 			AND `productId` = #{productId}
+ 	</delete>
+ 	
+ 	<!-- 해당 댓글 삭제 -->
+ 	<delete id="deleteSCommnetByUserIdProductIdsCommentId" parameterType="map">
+ 		DELETE FROM `shopping_comment`
+ 		WHERE
+ 			`userId` = #{userId}
+ 			AND `id` = #{sCommentId}
+ 			AND `productId` = #{productId}
+ 	</delete>
+ 	
+ 	<!-- 해당 댓글 조회 -->
+ 	<select id="existCommentByUserIdProductIdsCommentId" parameterType="map" resultType="int">
+ 		SELECT
+ 			`id`
+			,`productId`
+			,`userId`
+			,`content`
+			,`createdAt`
+			,`updatedAt`
+ 		FROM
+ 			`shopping_comment`
+ 		WHERE
+ 			`userId` = #{userId}
+ 			AND `id` = #{sCommentId}
+ 			AND `productId` = #{productId}
+ 	
+ 	</select>
  
  </mapper>

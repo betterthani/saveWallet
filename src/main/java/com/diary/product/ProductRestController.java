@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -113,6 +114,26 @@ public class ProductRestController {
 		
 		return result;
 	}
+	
+	/**
+	 * 글과 해당 코멘트 삭제API
+	 * @param productId
+	 * @param session
+	 * @return
+	 */
+	@DeleteMapping("/shopping_list/delete")
+	public Map<String, Object> sDelete(
+			@RequestParam("productId") int productId,
+			HttpSession session){
+		int userId = (int) session.getAttribute("userId");
+		
+		// 기존의 내용 있는지 확인 후 삭제
+		productBO.generateDelete(userId, productId);
+		Map<String, Object> result = new HashMap<>();
+		result.put("code", 1);
+		return result;
+	}
+	
 	
 	
 }

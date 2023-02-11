@@ -51,7 +51,7 @@
 				<tr class="text-center">
 					<td>
 						<label>
-							<input type="checkbox" name="select" data-product-id="${shoppingProduct.id}">
+							<input type="checkbox" name="select" class="checkBox-list" data-product-id="${shoppingProduct.id}">
 						</label>
 					</td>
 					
@@ -96,7 +96,7 @@
 		<div class="d-flex align-items-center justify-content-end">
 			
 			<a href="/product/shopping_list_write_view"><input type="button" class="btn btn-succeess create-btn mx-2" value="글작성"></a>
-			<input type="button" class="btn btn-secondary delete-btn mx-2" value="삭제">
+			<input type="button" class="btn btn-secondary mx-2" id="delete-btn" value="삭제">
 		</div>
 		
 		<%-- 페이징 --%>

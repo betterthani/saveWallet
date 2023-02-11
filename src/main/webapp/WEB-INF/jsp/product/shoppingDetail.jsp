@@ -99,7 +99,7 @@
 			<%-- 수정, 삭제 버튼 --%>
 			<div class="d-flex justify-content-center mr-5">
 				<button type="button" class="btn btn-info mt-3" id="shopping-detail-editBtn" data-product-id="${shoppingDetail.product.id}">수정</button>
-				<button type="button" class="btn btn-dark mt-3 ml-3" id="shopping-detail-delBtn" data-product-id="${shoppingDetail.product.id}">삭제</button>
+				<button type="button" class="btn btn-dark mt-3 ml-3" id="shopping-detail-delBtn" data-user-id="${userId}" data-product-id="${shoppingDetail.product.id}">삭제</button>
 			</div>
 		
 		</div>
@@ -113,11 +113,8 @@
 			<div class="pb-2">
 				<span class="font-weight-bold" id="shopping-detail-nickName">${userLogindId }</span>
 				<span id="shopping-detail-comment">${sComment.content}</span>
-				
 				<%-- 댓글 삭제 버튼 --%>
-				<a href="#" class="commentDelBtn">
-					<i class="fa fa-minus-square text-dark"></i>
-				</a>
+				<i class="fa fa-minus-square text-dark btn commentDelBtn" data-comment-id="${sComment.id}" data-product-id="${shoppingDetail.product.id}"></i>
 			</div>
 		</c:forEach>
 		

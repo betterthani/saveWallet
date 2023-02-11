@@ -183,23 +183,30 @@ public class ProductBO {
 				fileManagerService.deleteFile(product.getProductImgPath());
 			}
 		}
-	/*	
-		// db update
-		Product userProduct = Product.builder()
-				.userId(userId)
-				.itemName(itemName)
-				.category(CategoryEnum.ofCategory(category))
-				.amount(amount)
-				.size(size)
-				.color(color)
-				.datePurchased(datePurchased)
-				.returnableDeadline(returnableDeadline)
-				.usedHope(usedHope)
-				.productImgPath(imgPath)
-				.build();
-	*/	
 		
 		return productDAO.updateShoppingList(userId, productId, itemName, CategoryEnum.ofCategory(category), amount, size, color, datePurchased, returnableDeadline, usedHope, imgPath);
+	}
+	
+	// 글 삭제
+	public void generateDelete(int userId, int productId) {
+
+		// 글 조회
+		Product sProduct = getProductByUserIdProductId(userId, productId);
+		
+		if(sProduct == null) {
+			logger.warn("[글 삭제] post is null. productId:{}, userId:{}", productId, userId);
+		}
+		
+		// 이미지 있으면 삭제
+		if (sProduct.getProductImgPath() != null) {
+			fileManagerService.deleteFile(sProduct.getProductImgPath());
+		}
+		
+		// 글 삭제
+		productDAO.deletesProductByUserIdProductId(userId, productId);
+
+		// 코멘트 있으면 삭제
+		sCommentBO.deleteSCommnetByUserIdProductId(userId, productId);
 	}
 	
 }
