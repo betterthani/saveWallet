@@ -9,8 +9,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 public enum PurchasedCategoryEnum implements CodeEnum{
-	ONLINE("online"),
-	OFFLINE("offline");
+	ONLINE("ONLINE"),
+	OFFLINE("OFFLINE");
 	
 	@Getter
 	@Setter

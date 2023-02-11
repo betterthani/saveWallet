@@ -9,8 +9,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 public enum TypeEnum implements CodeEnum{
-	SHOPPING("shopping"),
-	WISH("wish");
+	SHOPPING("SHOPPING"),
+	WISH("WISH");
 	
 	@Getter
 	@Setter

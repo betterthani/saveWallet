@@ -16,7 +16,7 @@ $(document).ready(function() {
 			}, 0);
 		}
 
-		if (purchasedCategory == 'online') {
+		if (purchasedCategory == 'ONLINE') {
 			$('#shopping-purchased').removeClass('d-none');
 		} else {
 
@@ -307,7 +307,7 @@ $(document).ready(function() {
 		}, 0);
 	}
 
-	if (purchasedCategory == 'online') {
+	if (purchasedCategory == 'ONLINE') {
 		$('#shopping-detail-purchased').removeClass('d-none');
 	} else {
 

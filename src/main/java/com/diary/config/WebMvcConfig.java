@@ -11,12 +11,6 @@ import com.diary.product.converter.TypeConverter;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 	
-	// type컨버터 addConverter로 재정의하여 추가
-	@Override
-	public void addFormatters(FormatterRegistry registry) {
-		registry.addConverter(new TypeConverter());
-	}
-	
 	// 이미지
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -24,4 +18,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		.addResourceHandler("/images/**") // 웹 이미지 주소 http://localhost/images/aaaa_16205468768/sun.png
 		.addResourceLocations("file:///" + FileManagerService.FILE_UPLOAD_PATH); // 실제 파일 위치(경로)
 	}
+	
+	// type컨버터 addConverter로 재정의하여 추가
+	@Override
+	public void addFormatters(FormatterRegistry registry) {
+		registry.addConverter(new TypeConverter());
+	}
+	
 }

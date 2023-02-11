@@ -9,11 +9,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 public enum CategoryEnum implements CodeEnum{
-	APPLIANCES("appliances"),
-	CLOTHING("clothing"),
-	GOODS("goods"),
-	COSMETICS("cosmetics"),
-	ET("et");
+	APPLIANCES("APPLIANCES"),
+	CLOTHING("CLOTHING"),
+	GOODS("GOODS"),
+	COSMETICS("COSMETICS"),
+	ET("ET");
 	
 	CategoryEnum(String category){
 		this.category = category;

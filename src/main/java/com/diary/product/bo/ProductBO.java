@@ -56,17 +56,15 @@ public class ProductBO {
 		return productDAO.selectProductList(userId, direction, standardId, POST_MAX_SIZE, keyword, orderCategory);
 	}
 	
+	// 페이징 이전 마지막 페이지 여부
 	public boolean isPrevLastPage(int prevId, int userId) { 
-
 		int maxProductId = productDAO.selectProductIdByUserIdSort(userId, "DESC");
-
 		return maxProductId == prevId ? true : false;
 	}
-
+	
+	// 페이징 다음 마지막 페이지 여부
 	public boolean isNextLastPage(int nextId, int userId) {
-		
 		int minProductid = productDAO.selectProductIdByUserIdSort(userId, "ASC");
-
 		return minProductid == nextId ? true: false;
 	}
 	
@@ -148,4 +146,60 @@ public class ProductBO {
 		
 		return sProductView;
 	}
+	
+	// 기존 글 가져오기
+	public Product getProductByUserIdProductId(int userId, int productId) {
+		return productDAO.selectProductByUserIdProductId(userId, productId);
+	}
+	
+	// shoppinglist글 수정하기
+	public int updateShoppingList(
+			int userId,
+			String userLoginId,
+			int productId,
+			String itemName,
+			String category,
+			int amount,
+			String size,
+			String color,
+			Date datePurchased,
+			Date returnableDeadline,
+			boolean usedHope,
+			MultipartFile file) {
+		
+		// 기존 글
+		Product product = getProductByUserIdProductId(userId, productId);
+		if(product == null) {
+			logger.warn("[update product] 수정할 product가 존재하지 않습니다. productId:{},userId:{}", productId,userId);
+			
+		}
+		
+		// 수정할게 있을 경우
+		String imgPath = null;
+		if(file != null) {
+			imgPath = fileManagerService.savaFile(userLoginId, file);
+			
+			if(imgPath != null && product.getProductImgPath() != null) {
+				fileManagerService.deleteFile(product.getProductImgPath());
+			}
+		}
+	/*	
+		// db update
+		Product userProduct = Product.builder()
+				.userId(userId)
+				.itemName(itemName)
+				.category(CategoryEnum.ofCategory(category))
+				.amount(amount)
+				.size(size)
+				.color(color)
+				.datePurchased(datePurchased)
+				.returnableDeadline(returnableDeadline)
+				.usedHope(usedHope)
+				.productImgPath(imgPath)
+				.build();
+	*/	
+		
+		return productDAO.updateShoppingList(userId, productId, itemName, CategoryEnum.ofCategory(category), amount, size, color, datePurchased, returnableDeadline, usedHope, imgPath);
+	}
+	
 }

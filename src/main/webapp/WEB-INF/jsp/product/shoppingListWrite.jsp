@@ -36,11 +36,11 @@
 		<%-- 카테고리 --%>
 		<select class="form-control w-50 mt-3" id="shopping-category">
 		  <option selected value="">카테고리 (필수)</option>
-		  <option value="appliances">가전</option>
-		  <option value="clothing">의류</option>
-		  <option value="goods">잡화</option>
-		  <option value="cosmetics">화장품</option>
-		  <option value="et">그 외</option>
+		  <option value="APPLIANCES">가전</option>
+		  <option value="CLOTHING">의류</option>
+		  <option value="GOODS">잡화</option>
+		  <option value="COSMETICS">화장품</option>
+		  <option value="ET">그 외</option>
 		</select>
 		
 		<%-- 금액 --%>
@@ -49,8 +49,8 @@
 		<%-- 구매처 --%>
 		<select class="form-control w-50 mt-3" id="shopping-purchasedCategory">
 		  <option selected value="">구매처 (필수)</option>
-		  <option value="online">온라인</option>
-		  <option value="offline">오프라인</option>
+		  <option value="ONLINE">온라인</option>
+		  <option value="OFFLINE">오프라인</option>
 		</select>
 		<%-- 온라인일 경우 구매처 입력--%>
 		<input type="text" class="form-control w-50 mt-2 d-none" id="shopping-purchased" placeholder="온라인 구매처를 입력하세요. (필수)">

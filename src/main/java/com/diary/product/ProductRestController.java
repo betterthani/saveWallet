@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,7 @@ import jakarta.servlet.http.HttpSession;
 @RestController
 @RequestMapping("/product")
 public class ProductRestController {
+	
 	@Autowired
 	private ProductBO productBO;
 	
@@ -63,6 +65,50 @@ public class ProductRestController {
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "게시 실패했습니다. 관리자에게 문의하세요.");
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 쇼핑리스트 글 수정 API
+	 * @param shoppingProduct
+	 * @param file
+	 * @param productId
+	 * @param session
+	 * @return
+	 */
+	// /product/shopping_list_update
+	@PutMapping("/shopping_list_update")
+	public Map<String, Object> sListUpdate(
+			@ModelAttribute("shoppingProduct") ShoppingListDTO shoppingProduct,
+			@RequestParam(value= "file", required =false) MultipartFile file,
+			@RequestParam("productId") int productId,
+			HttpSession session) {
+		
+		int userId = (int) session.getAttribute("userId");
+		String userLoginId = (String) session.getAttribute("userLoginId");
+		
+		// update
+		int row = productBO.updateShoppingList(
+				userId, 
+				userLoginId, 
+				productId, 
+				shoppingProduct.getItemName(), 
+				shoppingProduct.getCategory(), 
+				shoppingProduct.getAmount(), 
+				shoppingProduct.getSize(), 
+				shoppingProduct.getColor(), 
+				shoppingProduct.getDatePurchased(), 
+				shoppingProduct.getReturnableDeadline(), 
+				shoppingProduct.isUsedHope(), 
+				file);
+		
+		Map<String, Object> result = new HashMap<>();
+		if(row > 0) {
+			result.put("code", 1);
+		}else {
+			result.put("code", 500);
 		}
 		
 		return result;

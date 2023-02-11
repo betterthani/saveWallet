@@ -169,5 +169,56 @@
 			`id` = #{productId}
  	</select>
  	
+ 	<!-- 기존 글 가져오기 -->
+ 	<select id="selectProductByUserIdProductId" parameterType="map" resultType="com.diary.product.model.Product">
+ 		SELECT
+ 			`id`
+			,`userId`
+			,`type`
+			,`itemName`
+			,`category`
+			,`amount`
+			,`purchasedCategory`
+			,`purchased`
+			,`map`
+			,`size`
+			,`color`
+			,`datePurchased`
+			,`returnableDeadline`
+			,`usedHope`
+			,`productImgPath`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`product`
+		WHERE
+			`type` = "SHOPPING" AND
+			`userId` = #{userId} AND
+			`id` = #{productId}
+ 	</select>
+ 	
+ 	<!-- shoppinglist글 수정하기 -->
+ 	<update id="updateShoppingList" parameterType="map">
+ 		UPDATE `product`
+ 		SET
+ 			`itemName` = #{itemName}
+			,`category` = #{category}
+			,`amount` = #{amount}
+			,`size` = #{size}
+			,`color` = #{color}
+			,`datePurchased` = #{datePurchased}
+			,`returnableDeadline` = #{returnableDeadline}
+			,`usedHope` = #{usedHope}
+			<if test="imgPath != null">
+			,`productImgPath` = #{imgPath}
+			</if>
+			,`updatedAt` = NOW()
+		WHERE
+			`type` = "SHOPPING" 
+			AND `id` = #{productId}
+			AND `userId` = #{userId}
+ 			
+ 	</update>
+ 	
  	
  </mapper>

@@ -12,7 +12,7 @@
 			<!-- 사진 첨부 -->
 			<div class="product-list-write-pic">
 				<div class="shopping-img-place">
-					<img alt="필수항목 이미지" src="${shoppingDetail.product.productImgPath}" class="shopping-img-place w-100">
+					<img alt="필수항목 이미지" src="${shoppingDetail.product.productImgPath}" class="shopping-img-place w-100" id="shopping-img-edit">
 				</div>
 				<div class="mb-3">
 				  <input class="form-control" type="file" id="formFile-shopping-edit" accept=".jpg, .png, .jpeg, .gif">
@@ -38,21 +38,21 @@
 			<%-- 카테고리 --%>
 			<select class="form-control w-50 mt-3" id="category-shopping-detail">
 			  <option selected value="">카테고리</option>
-			  <option value="appliances" ${shoppingDetail.product.category == "APPLIANCES" ? 'selected' : ''}>가전</option>
-			  <option value="clothing" ${shoppingDetail.product.category == "CLOTHING" ? 'selected' : ''}>의류</option>
-			  <option value="goods" ${shoppingDetail.product.category == "GOODS" ? 'selected' : ''}>잡화</option>
-			  <option value="cosmetics" ${shoppingDetail.product.category == "COSMETICS" ? 'selected' : ''}>화장품</option>
-			  <option value="et" ${shoppingDetail.product.category == "ET" ? 'selected' : ''}>그 외</option>
+			  <option value="APPLIANCES" ${shoppingDetail.product.category == "APPLIANCES" ? 'selected' : ''}>가전</option>
+			  <option value="CLOTHING" ${shoppingDetail.product.category == "CLOTHING" ? 'selected' : ''}>의류</option>
+			  <option value="GOODS" ${shoppingDetail.product.category == "GOODS" ? 'selected' : ''}>잡화</option>
+			  <option value="COSMETICS" ${shoppingDetail.product.category == "COSMETICS" ? 'selected' : ''}>화장품</option>
+			  <option value="ET" ${shoppingDetail.product.category == "ET" ? 'selected' : ''}>그 외</option>
 			</select>
 			
 			<%-- 금액 --%>
-			<input type="text" class="form-control w-50 mt-3"id="shopping-detail-amount" maxlength="10" value="<fmt:formatNumber value="${shoppingDetail.product.amount}"/>" placeholder="금액을 입력하세요. (필수)">
+			<input type="text" class="form-control w-50 mt-3"id="shopping-detail-amount" maxlength="10" value="${shoppingDetail.product.amount}" placeholder="금액을 입력하세요. (필수)">
 			
 			<%-- 구매처 --%>
 			<select class="form-control w-50 mt-3" id="purchasedCategory-detail"  disabled>
 			  <option selected value="">구매처</option>
-			  <option value="online" ${shoppingDetail.product.purchasedCategory == "ONLINE" ? 'selected' : ''}>온라인</option>
-			  <option value="offline" ${shoppingDetail.product.purchasedCategory == "OFFLINE" ? 'selected' : ''}>오프라인</option>
+			  <option value="ONLINE" ${shoppingDetail.product.purchasedCategory == "ONLINE" ? 'selected' : ''}>온라인</option>
+			  <option value="OFFLINE" ${shoppingDetail.product.purchasedCategory == "OFFLINE" ? 'selected' : ''}>오프라인</option>
 			</select>
 			<%-- 온라인일 경우 구매처 입력--%>
 			<input type="text" class="form-control w-50 mt-2 d-none" id="shopping-detail-purchased" placeholder="온라인 구매처를 입력하세요. (필수)" value="${shoppingDetail.product.purchased}" disabled>

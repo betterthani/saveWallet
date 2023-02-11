@@ -396,7 +396,7 @@ $(document).ready(function() {
 		});//-> 배열 끝
 
 	});//-> 체크값 가져오기 끝
-	
+
 	//---------------------------------------------------------------------- shoppingList 글 게시
 
 	// 이미지 선택시 사진 보이게 하기
@@ -453,9 +453,9 @@ $(document).ready(function() {
 
 		if (file != '') {
 			let ext = file.split(".").pop().toLowerCase();
-			if (ext != 'jpg' && ext != 'jpeg' && ext != 'gif' && ext != 'png') {
-				alert("이미지 파일만 게시할 수 있습니다.");
-				$('#file').val('');
+			if ($.inArray(ext, ['jpg', 'jpeg', 'png', 'gif']) == -1) {
+				alert("지원하는 확장자가 아닙니다.");
+				$('#file').val("");
 				return;
 			}
 		}
@@ -532,22 +532,22 @@ $(document).ready(function() {
 		});
 	});//-> 업로드 버튼 끝
 	//---------------------------------------------------------------------- shoppingList 댓글 게시
-	$('#shopping-comment-uploadBtn').on('click',function(){
+	$('#shopping-comment-uploadBtn').on('click', function() {
 		let content = $('#shopping-comment-content').val().trim();
 		let productId = $(this).data('product-id');
-		
-		if(content == ''){
+
+		if (content == '') {
 			alert("코멘트를 적어주세요.");
 			return;
 		}
 		let formData = new FormData();
 		formData.append("content", content);
 		formData.append("productId", productId);
-		
+
 		$.ajax({
-			type:"POST"
-			,url:"/shoppingComment/create"
-			,data:formData
+			type: "POST"
+			, url: "/shoppingComment/create"
+			, data: formData
 			, contentType: false
 			, processData: false
 			, success: function(data) {
@@ -564,5 +564,101 @@ $(document).ready(function() {
 			}
 		});
 	});
+	//---------------------------------------------------------------------- shoppingList 글 수정
+
+	// 이미지 선택시 사진 보여지기
+	$('#formFile-shopping-edit').on('change', function() {
+		setImageFromFile(this, '#shopping-img-edit');
+	});
+	function setImageFromFile(input, expression) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$(expression).attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	// 수정버튼 눌렀을때
+	$('#shopping-detail-editBtn').on('click', function() {
+		let itemName = $('#shopping-detail-itemName').val().trim();
+		let category = $('#category-shopping-detail option:selected').val();
+		let amount = $('#shopping-detail-amount').val().trim(); //string
+		let size = $('#shopping-detail-size').val().trim();
+		let color = $('#shopping-detail-color').val().trim();
+		let datePurchased = $('#shopping-detail-datepicker').val(); //2023-02-01종류string
+		let returnableDeadline = $('#shopping-detail-returnn-datepicker').val(); //2023-02-01종류string
+		let usedHope = $('#shopping-detail-usedHope option:selected').val();
+		let file = $('#formFile-shopping-edit').val(); //C:\fakepath\111.txt
+		let productId = $(this).data('product-id');
+
+		if (file != '') {
+			let ext = file.split(".").pop().toLowerCase();
+			if ($.inArray(ext, ['jpg', 'jpeg', 'png', 'gif']) == -1) {
+				alert("이미지 파일만 업로드 할 수 있습니다.");
+				$('#formFile-shopping-edit').val(""); // 파일을 비운다.
+				return;
+			}
+		}
+
+		if (itemName == '') {
+			alert("제품명을 입력해주세요.");
+			return;
+		}
+		if (category == '') {
+			alert("카테고리를 선택해주세요.");
+			return;
+		}
+		if (amount == '') {
+			alert("금액을 입력해주세요.");
+			return;
+		}
+		if (datePurchased == '') {
+			alert("구매일을 선택해주세요.");
+			return;
+		}
+		if (usedHope == '') {
+			alert("당근 희망여부를 선택해주세요.");
+			return;
+		}
+
+		let formData = new FormData();
+		formData.append("itemName", itemName);
+		formData.append("category", category);
+		formData.append("amount", amount);
+		formData.append("size", size);
+		formData.append("color", color);
+		formData.append("datePurchased", datePurchased);
+		formData.append("returnableDeadline", returnableDeadline);
+		formData.append("usedHope", usedHope);
+		formData.append("file", $('#formFile-shopping-edit')[0].files[0]);
+		formData.append("productId", productId);
+
+		$.ajax({
+			//request
+			type: "PUT"
+			, url: "/product/shopping_list_update"
+			, data: formData
+			, enctype: "multipart/form-data"
+			, processData: false
+			, contentType: false
+
+			//response
+			, success: function(data) {
+				if (data.code == 1) {
+					alert("내용이 수정되었습니다.");
+					document.location.reload();
+				} else {
+					alert("내용 수정에 실패했습니다.");
+				}
+			}
+			, error: function(jqXHR, textStatus, errorThrown) {
+				let errorMsg = jqXHR.responseJSON.status;
+				alert(errorMsg + ":" + textStatus);
+			}
+		});
+
+	});// 수정버튼 눌렀을때 end
 
 });//->document끝

@@ -1,10 +1,12 @@
 package com.diary.product.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.diary.product.model.CategoryEnum;
 import com.diary.product.model.Product;
 
 @Repository
@@ -37,7 +39,23 @@ public interface ProductDAO {
 			@Param("userId") int userId, 
 			@Param("productId") int productId);
 	
+	// 기존 글 가져오기
+	public Product selectProductByUserIdProductId(
+			@Param("userId") int userId, 
+			@Param("productId") int productId);
 	
-	
+	// shoppinglist글 수정하기
+	public int updateShoppingList(
+			@Param("userId") int userId,
+			@Param("productId") int productId,
+			@Param("itemName") String itemName,
+			@Param("category") CategoryEnum category,
+			@Param("amount") int amount,
+			@Param("size") String size,
+			@Param("color") String color,
+			@Param("datePurchased") Date datePurchased,
+			@Param("returnableDeadline") Date returnableDeadline,
+			@Param("usedHope") boolean usedHope,
+			@Param("imgPath") String imgPath);
 
 }
