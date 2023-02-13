@@ -754,7 +754,49 @@ $(document).ready(function() {
 		});
 	});
 	
-	//
+	//---------------------------------------------------monthly
+	$('#goalCount').on('keyup', function(){
+		let goalCount = $('#goalCount').val();
+		let expendituresplit = $('#expenditure').val().split(","); // 지출액
+		expendituresplit = Number(expendituresplit[0].concat(expendituresplit[1])); // 최종 지출액
+		
+		let leftCount = $('#leftCount').attr('value', goalCount-expendituresplit);
+	});
+	
+	$('#target-amount-btn').on('click',function(){
+		let goalCount = $('#goalCount').val(); // 목표 금액
+		let remainingAmount = $('#leftCount').val(); // 남은 금액
+		
+		if(goalCount == ''){
+			alert("목표금액을 입력해주세요.");
+			return;
+		}
+		
+		if(remainingAmount == ''){
+			alert("남은 금액이 설정되지 않았습니다.");
+			return;
+		}
+		
+		$.ajax({
+			type:"POST"
+			,url:"/amountInfo"
+			,data:{"goalCount":goalCount, "remainingAmount":remainingAmount}
+			,success:function(data){
+				if(data.code == 1){
+					alert("목표액, 남은 금액이 저장되었습니다.");
+					document.location.reload();
+				}else {
+					alert("저장에 실패했습니다.");
+				}
+			}
+			, error: function(jqXHR, textStatus, errorThrown) {
+				let errorMsg = jqXHR.responseJSON.status;
+				alert(errorMsg + ":" + textStatus);
+			}
+		});
+		
+	});
+	
 	
 
 });//->document끝

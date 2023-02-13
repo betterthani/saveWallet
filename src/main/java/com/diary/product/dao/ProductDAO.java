@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.diary.product.model.CategoryEnum;
+import com.diary.product.model.MonthDTO;
 import com.diary.product.model.Product;
 
 @Repository
@@ -65,5 +66,8 @@ public interface ProductDAO {
 	
 	// 유저의 쇼핑목록 가져오기
 	public List<Product> selectSProductListByUserId(int userId);
+	
+	// 월별 합계
+	public List<MonthDTO> selectGroupBySum(int userId);
 	
 }

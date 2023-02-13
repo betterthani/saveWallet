@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.diary.amountInfo.dao.AmountInfoDAO">
+
+	<insert id="insertAmountInfoByUserId" parameterType="map">
+		INSERT INTO `amount_info`
+		(
+			`userId`
+			,`goalCount`
+			,`remainingAmount`
+			,`createdAt`
+		)
+		VALUES
+		(
+			#{userId}
+			,#{goalCount}
+			,#{remainingAmount}
+			,NOW()			
+		)
+	</insert>
+	
+	<select id="selectAmountInfoByUserId" parameterType="int" resultType="Integer">
+		SELECT
+			`id`
+			,`userId`
+			,`goalCount`
+			,`remainingAmount`
+			,`createdAt`
+		FROM
+			`amount_info`
+		WHERE
+			`userId` = #{userId}
+	</select>
+	
+	<delete id="deleteAmountInfoUserId" parameterType="int">
+		DELETE FROM `amount_info`
+ 		WHERE
+ 			`userId` = #{userId}
+	
+	</delete>
+	
+	<select id="selectamountInfoListByUserId" parameterType="int" resultType="com.diary.amountInfo.model.AmountInfo">
+		SELECT
+			`id`
+			,`userId`
+			,`goalCount`
+			,`remainingAmount`
+			,`createdAt`
+		FROM
+			`amount_info`
+		WHERE
+			`userId` = #{userId}
+	</select>
+
+</mapper>

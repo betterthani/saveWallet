@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.diary.common.FileManagerService;
 import com.diary.product.dao.ProductDAO;
 import com.diary.product.model.CategoryEnum;
+import com.diary.product.model.MonthDTO;
 import com.diary.product.model.ProdcutViewDTO;
 import com.diary.product.model.Product;
 import com.diary.product.model.PurchasedCategoryEnum;
@@ -212,6 +213,11 @@ public class ProductBO {
 	// 유저의 쇼핑목록 가져오기
 	public List<Product> getSProductListByUserId(int userId){
 		return productDAO.selectSProductListByUserId(userId);
+	}
+	
+	// 월별 합계
+	public List<MonthDTO> getGroupBySum(int userId){
+		return productDAO.selectGroupBySum(userId);
 	}
 	
 }

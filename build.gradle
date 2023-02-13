@@ -31,7 +31,6 @@ dependencies {
 	// jsonParse
 	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
 	
-	
 	// webClient
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	
@@ -46,6 +45,7 @@ dependencies {
 	
 	// jpaRepository-> 이메일 보내기
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	
 	
 	
 }

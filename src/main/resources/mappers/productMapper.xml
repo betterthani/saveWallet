@@ -229,7 +229,7 @@
  	</delete>
  	
  	<!-- 유저의 쇼핑목록 가져오기 -->
- 	<select id="selectSProductListByUserId" resultType="com.diary.product.model.Product">
+ 	<select id="selectSProductListByUserId" resultType="com.diary.product.model.Product" parameterType="int">
  		SELECT
  			`id`
 			,`userId`
@@ -255,5 +255,16 @@
 			AND `userId` = #{userId}
  	</select>
  	
+ 	<!-- 월별 합계 -->
+ 	<select id="selectGroupBySum" resultType="com.diary.product.model.MonthDTO"  parameterType="int">
+ 		SELECT
+ 			DATE_FORMAT(`datePurchased`,'%Y-%m') m
+		    ,SUM(`amount`) sum
+		FROM `product`
+		WHERE
+			`type` = "SHOPPING"
+			AND `userId` = #{userId}
+		GROUP BY m;
+ 	</select>
  	
  </mapper>
