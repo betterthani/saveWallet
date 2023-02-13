@@ -228,5 +228,32 @@
  			AND `id` = #{productId}
  	</delete>
  	
+ 	<!-- 유저의 쇼핑목록 가져오기 -->
+ 	<select id="selectSProductListByUserId" resultType="com.diary.product.model.Product">
+ 		SELECT
+ 			`id`
+			,`userId`
+			,`type`
+			,`itemName`
+			,`category`
+			,`amount`
+			,`purchasedCategory`
+			,`purchased`
+			,`map`
+			,`size`
+			,`color`
+			,`datePurchased`
+			,`returnableDeadline`
+			,`usedHope`
+			,`productImgPath`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`product`
+		WHERE
+			`type` = "SHOPPING"
+			AND `userId` = #{userId}
+ 	</select>
+ 	
  	
  </mapper>

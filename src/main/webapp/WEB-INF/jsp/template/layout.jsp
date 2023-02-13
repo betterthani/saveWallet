@@ -23,6 +23,10 @@
         <link rel="stylesheet" type="text/css" href="/static/css/style.css">
 		<script src="/static/javascript/saveWallet.js" type="text/javascript"></script>
 		
+		<!-- fullcalender -->
+		<link href='/static/fullcalendar-5.6.0/lib/main.css' rel='stylesheet' />
+		<script src='/static/fullcalendar-5.6.0/lib/main.js'></script>
+		
 </head>
 <body>
 	<div id="wrap">

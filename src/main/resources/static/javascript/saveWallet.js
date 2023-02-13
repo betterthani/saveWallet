@@ -114,7 +114,7 @@ $(document).ready(function() {
 			, contentType: false
 			, processData: false
 			, success: function(data) {
-				
+
 				// 아이디 존재
 				//초기화
 				$('#idCheckDuplicated').addClass("d-none");
@@ -122,7 +122,7 @@ $(document).ready(function() {
 					$('#idCheckDuplicated').removeClass("d-none");
 					return;
 				}
-				
+
 				if (data.code == 500) {
 					// 유효성검사 실패(ValidateHandler,ValidateUser연결)
 					// 공백의 경우
@@ -408,12 +408,8 @@ $(document).ready(function() {
 	// 삭제 버튼 눌렀을 때
 	$('#delete-btn').on('click', function() {
 
-		if ($('input[name=select]').prop('checked', false)) {
-			alert("삭제할 내용을 선택해주세요.");
-			return;
-		}
-
 		if (confirm("삭제하시겠습니까?")) {
+			
 			$('input[name=select]:checked').each(function() {
 				let checkValue = $(this).data('product-id');
 
@@ -757,5 +753,8 @@ $(document).ready(function() {
 			}
 		});
 	});
+	
+	//
+	
 
 });//->document끝

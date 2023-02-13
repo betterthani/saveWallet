@@ -63,4 +63,7 @@ public interface ProductDAO {
 			@Param("userId") int userId,
 			@Param("productId") int productId);
 	
+	// 유저의 쇼핑목록 가져오기
+	public List<Product> selectSProductListByUserId(int userId);
+	
 }

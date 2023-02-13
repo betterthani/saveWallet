@@ -209,4 +209,9 @@ public class ProductBO {
 		sCommentBO.deleteSCommnetByUserIdProductId(userId, productId);
 	}
 	
+	// 유저의 쇼핑목록 가져오기
+	public List<Product> getSProductListByUserId(int userId){
+		return productDAO.selectSProductListByUserId(userId);
+	}
+	
 }
