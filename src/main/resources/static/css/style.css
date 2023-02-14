@@ -71,3 +71,4 @@ input:invalid {border: 3px solid red; color:red;}
 
 #table-mini-box{width: 300px; table-layout:fixed;}
 #wish-content-table{table-layout:fixed;}
+#mini-img-box{widows: 50px; height: 50px;}

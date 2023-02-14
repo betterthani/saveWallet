@@ -38,6 +38,7 @@
 							<input type="checkbox" name="select-wish" id="allcheck-wish">
 						</label>
 					</th>
+					<th>제품컷</th>
 					<th>물품명</th>
 					<th>카테고리</th>
 					<th>금액</th>
@@ -52,6 +53,9 @@
 						<label>
 							<input type="checkbox" name="select-wish" data-product-id="${wish.id}">
 						</label>
+					</td>
+					<td>
+						<a href="/product/wish_list_write/detail_view?productId=${wish.id }" class="text-dark"><img alt="이미지" src="${wish.productImgPath }" id="mini-img-box"></a>
 					</td>
 					<td>
 						<a href="/product/wish_list_write/detail_view?productId=${wish.id }" class="text-dark">${wish.itemName }</a>
