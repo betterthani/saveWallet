@@ -22,7 +22,7 @@
 		</thead>
 		<tbody>
 			<td>
-				<input type="text" class="form-control" value="<fmt:formatNumber value="${sum}"/>" id="expenditure">
+				<input type="number" id="expenditure" class="form-control" value="${sum}">
 			</td>
 		</tbody>
 	</table>
@@ -32,7 +32,8 @@
 			<th>남은 금액</th>
 		</thead>
 		<tbody>
-			<td><input type="number" class="form-control" id="leftCount" value="${amount.remainingAmount}"></td>
+			<td>
+			<input type="number" id="leftCount" class="form-control" value="${amount.remainingAmount}">
 		</c:forEach>
 		</tbody>
 	</table>
