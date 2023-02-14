@@ -411,12 +411,13 @@ $(document).ready(function() {
 		if (confirm("삭제하시겠습니까?")) {
 
 			$('input[name=select]:checked').each(function() {
+				let type = "SHOPPING";
 				let checkValue = $(this).data('product-id');
 
 				$.ajax({
 					type: "DELETE"
 					, url: "/product/shopping_list/delete"
-					, data: { "productId": checkValue }
+					, data: { "type": type, "productId": checkValue }
 					, success: function(data) {
 						if (data.code == 1) {
 							alert("글이 삭제되었습니다.");
@@ -795,10 +796,10 @@ $(document).ready(function() {
 		});
 
 	});
-	//--------------------------------------------------- wishList
+	//--------------------------------------------------- wishList 글 저장(글 게시)
 
 	$('#wishList-upload-btn').on('click', function() {
-		
+
 		let itemName = $('#shopping-itemName').val().trim();
 		let category = $('#shopping-category option:selected').val();
 		let amount = $('#shopping-amount').val().trim(); //string
@@ -848,7 +849,7 @@ $(document).ready(function() {
 			alert("구매처를 입력해주세요.");
 			return;
 		}
-		
+
 		let formData = new FormData();
 		formData.append("itemName", itemName);
 		formData.append("category", category);
@@ -858,34 +859,97 @@ $(document).ready(function() {
 		formData.append("size", size);
 		formData.append("color", color);
 		formData.append("file", $('#formFile-shopping-list')[0].files[0]);
-		
+
 		$.ajax({
-			type:"POST"
-			,url:"/product/wish_list_write"
-			,data:formData
+			type: "POST"
+			, url: "/product/wish_list_write"
+			, data: formData
 			, enctype: "multipart/form-data"
 			, processData: false
 			, contentType: false
-			,success:function(data){
-				if(data.code == 1){
+			, success: function(data) {
+				if (data.code == 1) {
 					alert("저장에 성공했습니다.");
-					location.href="/product/wish_list_view";
+					location.href = "/product/wish_list_view";
+				} else if (data.code == 2) {
+					alert("글 개수 제한에 도달했습니다. 기존 글 삭제 후 작성해주세요.");
+					location.href = "/product/wish_list_view";
+					return;
 				} else {
-					alert(data.errorMessage);
+					alert("저장에 실패했습니다.");
 					return;
 				}
-				
+
 			}
 			, error: function(jqXHR, textStatus, errorThrown) {
 				let errorMsg = jqXHR.responseJSON.status;
 				alert(errorMsg + ":" + textStatus);
 			}
 		});
-		
-		
-		
 	});
 
+	// 전체체크박스 기능
+	$('#allcheck-wish').on('click', function() {
+		if ($('#allcheck-wish').prop("checked")) {
+			$('input[name=select-wish]').prop('checked', true);
+		} else {
+			$('input[name=select-wish]').prop('checked', false);
+		}
+	});
+
+	// 위시리스트 삭제버튼 눌렀을 때
+	$('#wish-del-btn').on('click', function() {
+		if (confirm("삭제하시겠습니까?")) {
+			$('input[name=select-wish]:checked').each(function() {
+				let type = "WISH";
+				let productId = $(this).data('product-id');
+
+				// 해당 글 삭제
+				$.ajax({
+					type: "DELETE"
+					, url: "/product/wish_list/delete"
+					, data: { "type": type, "productId": productId }
+					, success: function(data) {
+						if (data.code == 1) {
+							alert("글이 삭제되었습니다.");
+							document.location.reload();
+						} else {
+							alert("글 삭제에 실패했습니다.");
+						}
+					}
+					, error: function(jqXHR, textStatus, errorThrown) {
+						let errorMsg = jqXHR.responseJSON.status;
+						alert(errorMsg + ":" + textStatus);
+					}
+				});
+
+			});
+		}
+	});
+
+	// 위시리스트 디테일에서 삭제하기
+	$('#wishList-detail-del-btn').on('click', function() {
+		let productId = $(this).data('product-id');
+		let type = "WISH"
+		// 해당 글 삭제
+		$.ajax({
+			type: "DELETE"
+			, url: "/product/wish_list/delete"
+			, data: { "type": type, "productId": productId }
+			, success: function(data) {
+				if (data.code == 1) {
+					alert("글이 삭제되었습니다.");
+					location.href="/product/wish_list_view";
+				} else {
+					alert("글 삭제에 실패했습니다.");
+				}
+			}
+			, error: function(jqXHR, textStatus, errorThrown) {
+				let errorMsg = jqXHR.responseJSON.status;
+				alert(errorMsg + ":" + textStatus);
+			}
+		});
+	});
 
 
 });//->document끝

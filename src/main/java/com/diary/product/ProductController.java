@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.diary.amountInfo.bo.AmountInfoBO;
+import com.diary.amountInfo.model.AmountInfo;
 import com.diary.product.bo.ProductBO;
-import com.diary.product.model.ProdcutViewDTO;
+import com.diary.product.model.ProductViewDTO;
 import com.diary.product.model.Product;
 
 import jakarta.servlet.http.HttpSession;
@@ -21,6 +23,9 @@ public class ProductController {
 
 	@Autowired
 	private ProductBO productBO;
+	
+	@Autowired
+	private AmountInfoBO amountInfoBO;
 
 	/**
 	 * 쇼핑리스트 (게시목록 화면)
@@ -95,7 +100,7 @@ public class ProductController {
 	}
 	
 	/**
-	 * 글 상세, 수정가능 화면
+	 * 쇼핑리스트 글 상세, 수정가능 화면
 	 * @param model
 	 * @param session
 	 * @param productId
@@ -113,20 +118,37 @@ public class ProductController {
 		model.addAttribute("userLogindId", userLogindId);
 		
 		// 가공 select
-		List<ProdcutViewDTO> sProductList = productBO.generateSProudct(userId, productId);
+		List<ProductViewDTO> sProductList = productBO.generateSProudct(userId, productId, "SHOPPING");
 		model.addAttribute("sProductList",sProductList);
 		
 		model.addAttribute("viewName", "product/shoppingDetail");
 		return "template/layoutMap";
 	}
 	
-	//위시리스트 목록화면
+	/**
+	 * 위시리스트 목록화면
+	 * @param model
+	 * @param session
+	 * @return
+	 */
 	@GetMapping("/wish_list_view")
 	public String wishListVeiw(
 			Model model
 			, HttpSession session) {
 		
 		int userId = (int)session.getAttribute("userId");
+		
+		List<Product> wishProductList = productBO.getSProductListByUserId(userId, "WISH");
+		model.addAttribute("wishProductList",wishProductList);
+		
+		int amountSum = 0;
+		for(int i = 0; i < wishProductList.size(); i++) {
+			amountSum += wishProductList.get(i).getAmount();
+		}
+		model.addAttribute("wishAmountSum",amountSum); // 희망 물품 금액 합계
+		
+		AmountInfo amounInfo = amountInfoBO.getamountInfoByUserId(userId);
+		model.addAttribute("amounInfo",amounInfo);
 		
 		model.addAttribute("viewName", "product/wishList");
 		return "template/layout";
@@ -146,6 +168,23 @@ public class ProductController {
 		int userId = (int)session.getAttribute("userId");
 		
 		model.addAttribute("viewName", "product/wishListWrite");
+		return "template/layoutMap";
+	}
+	
+	// 위시리스트 글 상세, 수정가능 화면
+	@GetMapping("/wish_list_write/detail_view")
+	public String wishListWirte(
+			Model model,
+			HttpSession session,
+			@RequestParam("productId") int productId) {
+		
+		int userId = (int)session.getAttribute("userId");
+		
+		// 가공 select
+		Product wishProduct = productBO.getProductByUserIdProductId(userId, productId, "WISH");
+		model.addAttribute("wishProduct",wishProduct);
+		
+		model.addAttribute("viewName", "product/wishListDetail");
 		return "template/layoutMap";
 	}
 	

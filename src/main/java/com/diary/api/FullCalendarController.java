@@ -70,11 +70,13 @@ public class FullCalendarController {
 
 	@GetMapping("/monthPlan")
 	@ResponseBody
-	public List<Map<String, Object>> monthPlan(HttpSession session, Model model) {
+	public List<Map<String, Object>> monthPlan(
+			HttpSession session, 
+			Model model) {
 
 		int userId = (int)session.getAttribute("userId");
-
-		List<Product> productList = productBO.getSProductListByUserId(userId);
+		
+		List<Product> productList = productBO.getSProductListByUserId(userId, "SHOPPING");
 		JSONArray jsonArr = new JSONArray();
 
 		HashMap<String, Object> hash = new HashMap<>();

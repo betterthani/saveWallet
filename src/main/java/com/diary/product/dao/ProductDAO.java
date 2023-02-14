@@ -38,15 +38,18 @@ public interface ProductDAO {
 	// 글 가져오기
 	public List<Product> selectProductListByUserIdProductId(
 			@Param("userId") int userId, 
-			@Param("productId") int productId);
+			@Param("productId") int productId,
+			@Param("type") String type);
 	
 	// 기존 글 가져오기
 	public Product selectProductByUserIdProductId(
 			@Param("userId") int userId, 
-			@Param("productId") int productId);
+			@Param("productId") int productId,
+			@Param("type") String type);
 	
 	// shoppinglist글 수정하기
 	public int updateShoppingList(
+			@Param("type") String type,
 			@Param("userId") int userId,
 			@Param("productId") int productId,
 			@Param("itemName") String itemName,
@@ -65,13 +68,19 @@ public interface ProductDAO {
 			@Param("productId") int productId);
 	
 	// 유저의 쇼핑목록 가져오기
-	public List<Product> selectSProductListByUserId(int userId);
+	public List<Product> selectSProductListByUserId(
+			@Param("userId") int userId,
+			@Param("type") String type);
 	
 	// 월별 합계
 	public List<MonthDTO> selectGroupBySum(int userId);
 	
 	// 위시리스트 insert
 	public int insertwishList(Product wishProduct);
+
+	// 위시리스트 list개수 조회
+	public int selectWishProductCountByUserId(int userId);
+	
 	
 	
 }

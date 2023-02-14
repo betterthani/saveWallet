@@ -15,7 +15,7 @@ import com.diary.common.FileManagerService;
 import com.diary.product.dao.ProductDAO;
 import com.diary.product.model.CategoryEnum;
 import com.diary.product.model.MonthDTO;
-import com.diary.product.model.ProdcutViewDTO;
+import com.diary.product.model.ProductViewDTO;
 import com.diary.product.model.Product;
 import com.diary.product.model.PurchasedCategoryEnum;
 import com.diary.shoppingComment.bo.ShoppingCommentBO;
@@ -122,18 +122,18 @@ public class ProductBO {
 	}
 
 	// 글 가져오기
-	public List<Product> getProductListByUserIdProductId(int userId, int productId){
-		return productDAO.selectProductListByUserIdProductId(userId, productId);
+	public List<Product> getProductListByUserIdProductId(int userId, int productId, String type){
+		return productDAO.selectProductListByUserIdProductId(userId, productId, type);
 	}
 	
-	// 글 가져오기 (가공 ver)
-	public List<ProdcutViewDTO> generateSProudct(int userId, int productId){
-		List<ProdcutViewDTO> sProductView = new ArrayList<>();
+	// 쇼핑리스트 글 가져오기 (가공 ver)
+	public List<ProductViewDTO> generateSProudct(int userId, int productId, String type){
+		List<ProductViewDTO> sProductView = new ArrayList<>();
 		
 		// 글 여러개 가져오기
-		List<Product> sProductList = getProductListByUserIdProductId(userId, productId);
+		List<Product> sProductList = getProductListByUserIdProductId(userId, productId, type);
 		for(Product sProduct : sProductList) {
-			ProdcutViewDTO productView = new ProdcutViewDTO();
+			ProductViewDTO productView = new ProductViewDTO();
 			
 			// 글 1개
 			productView.setProduct(sProduct);
@@ -149,12 +149,13 @@ public class ProductBO {
 	}
 	
 	// 기존 글 가져오기
-	public Product getProductByUserIdProductId(int userId, int productId) {
-		return productDAO.selectProductByUserIdProductId(userId, productId);
+	public Product getProductByUserIdProductId(int userId, int productId, String type) {
+		return productDAO.selectProductByUserIdProductId(userId, productId, type);
 	}
 	
 	// shoppinglist글 수정하기
 	public int updateShoppingList(
+			String type,
 			int userId,
 			String userLoginId,
 			int productId,
@@ -169,7 +170,8 @@ public class ProductBO {
 			MultipartFile file) {
 		
 		// 기존 글
-		Product product = getProductByUserIdProductId(userId, productId);
+		type = "SHOPPING";
+		Product product = getProductByUserIdProductId(userId, productId,type);
 		if(product == null) {
 			logger.warn("[update product] 수정할 product가 존재하지 않습니다. productId:{},userId:{}", productId,userId);
 			
@@ -184,15 +186,15 @@ public class ProductBO {
 				fileManagerService.deleteFile(product.getProductImgPath());
 			}
 		}
-		
-		return productDAO.updateShoppingList(userId, productId, itemName, CategoryEnum.ofCategory(category), amount, size, color, datePurchased, returnableDeadline, usedHope, imgPath);
+		return productDAO.updateShoppingList(type, userId, productId, itemName, CategoryEnum.ofCategory(category), amount, size, color, datePurchased, returnableDeadline, usedHope, imgPath);
 	}
 	
-	// 글 삭제
-	public void generateDelete(int userId, int productId) {
+	// 쇼핑리스트 글 삭제(가공)
+	public void generateDelete(int userId, int productId, String type) {
 
 		// 글 조회
-		Product sProduct = getProductByUserIdProductId(userId, productId);
+		type = "SHOPPING";
+		Product sProduct = getProductByUserIdProductId(userId, productId, type);
 		
 		if(sProduct == null) {
 			logger.warn("[글 삭제] post is null. productId:{}, userId:{}", productId, userId);
@@ -211,8 +213,8 @@ public class ProductBO {
 	}
 	
 	// 유저의 쇼핑목록 가져오기
-	public List<Product> getSProductListByUserId(int userId){
-		return productDAO.selectSProductListByUserId(userId);
+	public List<Product> getSProductListByUserId(int userId, String type){
+		return productDAO.selectSProductListByUserId(userId, type);
 	}
 	
 	// 월별 합계
@@ -256,6 +258,29 @@ public class ProductBO {
 		return productDAO.insertwishList(wishProduct);
 	}
 	
+	// 위시리스트 list개수 조회
+	public int gettWishProductCountByUserId(int userId) {
+		return productDAO.selectWishProductCountByUserId(userId);
+	}
 	
+	// 위시리스트 삭제(가공)
+	public void generateWishDelete(int userId, int productId, String type) {
+
+		// 글 조회
+		type = "WISH";
+		Product wProduct = getProductByUserIdProductId(userId, productId, type);
+			
+		if(wProduct == null) {
+			logger.warn("[글 삭제] post is null. productId:{}, userId:{}", productId, userId);
+		}
+		
+		// 이미지 있으면 삭제
+		if (wProduct.getProductImgPath() != null) {
+			fileManagerService.deleteFile(wProduct.getProductImgPath());
+		}
+		
+		// 글 삭제
+		productDAO.deletesProductByUserIdProductId(userId, productId);
+	}
 	
 }

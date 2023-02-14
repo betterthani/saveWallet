@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:if test="${not empty userId}">
+<h3 class="my-3 text-secondary">SHOPPING LIST</h3>
 <div class="my-5">
 	<!-- 윗부분 -->
 	<div class="product-list-up d-flex align-items-center justify-content-between">

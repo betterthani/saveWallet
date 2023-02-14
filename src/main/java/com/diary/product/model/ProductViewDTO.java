@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 
-public class ProdcutViewDTO {
+public class ProductViewDTO {
 	// 1개의 포스트
 	private Product product;
 	// 여러개의 댓글

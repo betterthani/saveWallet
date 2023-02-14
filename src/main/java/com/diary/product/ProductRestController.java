@@ -93,6 +93,7 @@ public class ProductRestController {
 		
 		// update
 		int row = productBO.updateShoppingList(
+				shoppingProduct.getType(),
 				userId, 
 				userLoginId, 
 				productId, 
@@ -117,7 +118,7 @@ public class ProductRestController {
 	}
 	
 	/**
-	 * 글과 해당 코멘트 삭제API
+	 * 쇼핑리스트 글과 해당 코멘트 삭제API
 	 * @param productId
 	 * @param session
 	 * @return
@@ -125,11 +126,12 @@ public class ProductRestController {
 	@DeleteMapping("/shopping_list/delete")
 	public Map<String, Object> sDelete(
 			@RequestParam("productId") int productId,
+			@RequestParam("type") String type,
 			HttpSession session){
 		int userId = (int) session.getAttribute("userId");
 		
 		// 기존의 내용 있는지 확인 후 삭제
-		productBO.generateDelete(userId, productId);
+		productBO.generateDelete(userId, productId, type);
 		Map<String, Object> result = new HashMap<>();
 		result.put("code", 1);
 		return result;
@@ -152,25 +154,43 @@ public class ProductRestController {
 		String userLoginId = (String)session.getAttribute("userLoginId");
 		
 		Map<String, Object> result = new HashMap<>();
-		int row = productBO.addwishList(
-				shoppingProduct.getItemName(), 
-				shoppingProduct.getCategory(), 
-				shoppingProduct.getAmount(), 
-				shoppingProduct.getPurchasedCategory(), 
-				shoppingProduct.getPurchased(), 
-				shoppingProduct.getSize(), 
-				shoppingProduct.getColor(), 
-				file, 
-				userLoginId, 
-				userId);
-		
-		if(row > 0) {
-			// 저장 성공
+		// select
+		int countRow = productBO.gettWishProductCountByUserId(userId);
+		if(countRow < 5) {
+			// 글의 개수가 5개 이하일 경우 저장
+			//insert
+			productBO.addwishList(
+					shoppingProduct.getItemName(), 
+					shoppingProduct.getCategory(), 
+					shoppingProduct.getAmount(), 
+					shoppingProduct.getPurchasedCategory(), 
+					shoppingProduct.getPurchased(), 
+					shoppingProduct.getSize(), 
+					shoppingProduct.getColor(), 
+					file, 
+					userLoginId, 
+					userId);
 			result.put("code", 1);
-		} else {
-			result.put("errorMessage", "저장에 실패했습니다.");
+			} else {
+			// 저장하지 않음
+			result.put("code", 2);
 		}
 		
+		return result;
+	}
+	
+	// 위시리스트 글 삭제API
+	@DeleteMapping("/wish_list/delete")
+	public Map<String, Object> wDelete(
+			@RequestParam("productId") int productId,
+			@RequestParam("type") String type,
+			HttpSession session){
+		int userId = (int) session.getAttribute("userId");
+		
+		// 기존의 내용 있는지 확인 후 삭제
+		productBO.generateWishDelete(userId, productId, type);
+		Map<String, Object> result = new HashMap<>();
+		result.put("code", 1);
 		return result;
 	}
 	

@@ -331,6 +331,47 @@ $(document).ready(function() {
 	setTimeout(function() {
 		$('#keyword-detail-map-search').trigger('click');
 	});
+	//---------------------------------------------------------------------- wishList Detail 수정, 확대 부분
+	// db에서 불러온 셀렉값에 따라 변동(online, offline) -> 고정값이기에 on이벤트 생략
+	let wishpurchasedCategory = $('#purchasedCategory-detail-wish option:selected').val();
+
+	// 초기화
+	$('#wish-detail-purchased').addClass('d-none');
+	$('#wish-offline-detail-purchased').addClass('d-none');
+	$('#kakaMap-wishdetail').addClass('d-none');
+
+	/// 온라인일 경우
+	if ($('#kakaMap-wishdetail').css("display") == "none") {
+		window.setTimeout(function() {
+			map.relayout();
+		}, 0);
+	}
+
+	if (wishpurchasedCategory == 'ONLINE') {
+		$('#wish-detail-purchased').removeClass('d-none');
+	} else {
+
+		$('#wish-offline-detail-purchased').removeClass('d-none');
+		$('#kakaMap-wishdetail').removeClass('d-none');
+
+		if ($('#kakaMap-wishdetail').css("display") != "none") {
+			window.setTimeout(function() {
+				map.relayout();
+			}, 0);
+		}
+	}
+
+	// 글수정 화면에서 오프라인일경우 지도 검색 누를 때
+	$('#keyword-detail-wish-search').on('click', function(e) {
+		let keyword = $('#keyword-map').val();
+		keywordSearch(keyword);
+	});
+
+	// 자동입력 버튼(오프라인일 경우)
+	setTimeout(function() {
+		$('#keyword-detail-wish-search').trigger('click');
+	});
+
 
 
 });//-> document end

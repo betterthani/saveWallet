@@ -164,7 +164,7 @@
 		FROM
 			`product`
 		WHERE
-			`type` = "SHOPPING" AND
+			`type` = #{type} AND
 			`userId` = #{userId} AND
 			`id` = #{productId}
  	</select>
@@ -192,7 +192,7 @@
 		FROM
 			`product`
 		WHERE
-			`type` = "SHOPPING" AND
+			`type` = #{type} AND
 			`userId` = #{userId} AND
 			`id` = #{productId}
  	</select>
@@ -214,7 +214,7 @@
 			</if>
 			,`updatedAt` = NOW()
 		WHERE
-			`type` = "SHOPPING" 
+			`type` = #{type}
 			AND `id` = #{productId}
 			AND `userId` = #{userId}
  			
@@ -229,7 +229,7 @@
  	</delete>
  	
  	<!-- 유저의 쇼핑목록 가져오기 -->
- 	<select id="selectSProductListByUserId" resultType="com.diary.product.model.Product" parameterType="int">
+ 	<select id="selectSProductListByUserId" resultType="com.diary.product.model.Product" parameterType="map">
  		SELECT
  			`id`
 			,`userId`
@@ -251,8 +251,9 @@
 		FROM
 			`product`
 		WHERE
-			`type` = "SHOPPING"
+			`type` = #{type}
 			AND `userId` = #{userId}
+		ORDER BY `id` DESC
  	</select>
  	
  	<!-- 월별 합계 -->
@@ -300,6 +301,19 @@
  			,NOW()
  		)
  	</insert>
+ 	
+ 	<!-- 위시리스트 글 개수 가져오기 -->
+ 	<select id="selectWishProductCountByUserId" parameterType="int" resultType="int">
+ 		SELECT
+ 			COUNT(*)
+		FROM
+			`product`
+		WHERE
+			`type` = "WISH" AND
+			`userId` = #{userId}
+		
+ 	</select>
+ 	
  	
  	
  </mapper>
