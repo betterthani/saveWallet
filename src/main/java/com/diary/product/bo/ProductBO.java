@@ -220,4 +220,42 @@ public class ProductBO {
 		return productDAO.selectGroupBySum(userId);
 	}
 	
+	// 위시리스트 insert
+	public int addwishList(
+			String itemName,
+			String category,
+			int amount,
+			String purchasedCategory,
+			String purchased,
+			String size,
+			String color,
+			MultipartFile file, 
+			String userLoginId, 
+			int userId
+			) {
+		
+		// 파일 저장
+		String imagePath = null;
+			if(file != null) {
+			imagePath = fileManagerService.savaFile(userLoginId, file);
+		}
+		
+		// 가공
+		Product wishProduct = Product.builder()
+				.itemName(itemName)
+				.category(CategoryEnum.ofCategory(category))
+				.amount(amount)
+				.purchasedCategory(PurchasedCategoryEnum.ofPurchasedCategory(purchasedCategory))
+				.purchased(purchased)
+				.size(size)
+				.color(color)
+				.productImgPath(imagePath)
+				.userId(userId)
+				.build();
+		
+		return productDAO.insertwishList(wishProduct);
+	}
+	
+	
+	
 }

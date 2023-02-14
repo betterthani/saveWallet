@@ -409,7 +409,7 @@ $(document).ready(function() {
 	$('#delete-btn').on('click', function() {
 
 		if (confirm("삭제하시겠습니까?")) {
-			
+
 			$('input[name=select]:checked').each(function() {
 				let checkValue = $(this).data('product-id');
 
@@ -434,7 +434,7 @@ $(document).ready(function() {
 		}
 	});
 
-	//---------------------------------------------------------------------- shoppingList 글 게시
+	//---------------------------------------------------------------------- shoppingList 글 게시(글 쓰기)
 
 	// 이미지 선택시 사진 보이게 하기
 	$('#formFile-shopping-list').on('change', function() {
@@ -753,38 +753,38 @@ $(document).ready(function() {
 			}
 		});
 	});
-	
+
 	//---------------------------------------------------monthly
-	$('#goalCount').on('keyup', function(){
+	$('#goalCount').on('keyup', function() {
 		let goalCount = $('#goalCount').val(); // 목표금액
 		let expenditure = Number($('#expenditure').val()); // 지출액
-		
-		let leftCount = $('#leftCount').attr('value', (goalCount-expenditure)); // 남은금액
+
+		let leftCount = $('#leftCount').attr('value', (goalCount - expenditure)); // 남은금액
 	});
-	
-	$('#target-amount-btn').on('click',function(){
+
+	$('#target-amount-btn').on('click', function() {
 		let goalCount = $('#goalCount').val(); // 목표 금액
 		let remainingAmount = Number($('#leftCount').val()); // 남은 금액
-		
-		if(goalCount == ''){
+
+		if (goalCount == '') {
 			alert("목표금액을 입력해주세요.");
 			return;
 		}
-		
-		if(remainingAmount == ''){
+
+		if (remainingAmount == '') {
 			alert("남은 금액이 설정되지 않았습니다.");
 			return;
 		}
-		
+
 		$.ajax({
-			type:"POST"
-			,url:"/amountInfo"
-			,data:{"goalCount":goalCount, "remainingAmount":remainingAmount}
-			,success:function(data){
-				if(data.code == 1){
+			type: "POST"
+			, url: "/amountInfo"
+			, data: { "goalCount": goalCount, "remainingAmount": remainingAmount }
+			, success: function(data) {
+				if (data.code == 1) {
 					alert("목표액, 남은 금액이 저장되었습니다.");
 					document.location.reload();
-				}else {
+				} else {
 					alert("저장에 실패했습니다.");
 				}
 			}
@@ -793,9 +793,99 @@ $(document).ready(function() {
 				alert(errorMsg + ":" + textStatus);
 			}
 		});
+
+	});
+	//--------------------------------------------------- wishList
+
+	$('#wishList-upload-btn').on('click', function() {
+		
+		let itemName = $('#shopping-itemName').val().trim();
+		let category = $('#shopping-category option:selected').val();
+		let amount = $('#shopping-amount').val().trim(); //string
+		let purchasedCategory = $('#shopping-purchasedCategory option:selected').val();
+
+		let purchased = '';
+		if (purchasedCategory == 'ONLINE') {
+			purchased = $('#shopping-purchased').val(); // 온라인의 경우 주소
+		} else {
+			purchased = document.getElementById('shopping-offline-purchased').innerHTML; // 오프라인일 경우 주소
+		}
+
+		let size = $('#shopping-size').val().trim();
+		let color = $('#shopping-color').val().trim();
+		let file = $('#formFile-shopping-list').val(); //C:\fakepath\ASCII.png
+
+		if (file != '') {
+			let ext = file.split(".").pop().toLowerCase();
+			if ($.inArray(ext, ['jpg', 'jpeg', 'png', 'gif']) == -1) {
+				alert("지원하는 확장자가 아닙니다.");
+				$('#file').val("");
+				return;
+			}
+		}
+
+		if (file == '') {
+			alert("파일을 선택해주세요.");
+			return;
+		}
+		if (itemName == '') {
+			alert("제품명을 입력해주세요.");
+			return;
+		}
+		if (category == '') {
+			alert("카테고리를 선택해주세요.");
+			return;
+		}
+		if (amount == '') {
+			alert("금액을 입력해주세요.");
+			return;
+		}
+		if (purchasedCategory == '') {
+			alert("구매처를 선택해주세요.");
+			return;
+		}
+		if (purchased == '') {
+			alert("구매처를 입력해주세요.");
+			return;
+		}
+		
+		let formData = new FormData();
+		formData.append("itemName", itemName);
+		formData.append("category", category);
+		formData.append("amount", amount);
+		formData.append("purchasedCategory", purchasedCategory);
+		formData.append("purchased", purchased);
+		formData.append("size", size);
+		formData.append("color", color);
+		formData.append("file", $('#formFile-shopping-list')[0].files[0]);
+		
+		$.ajax({
+			type:"POST"
+			,url:"/product/wish_list_write"
+			,data:formData
+			, enctype: "multipart/form-data"
+			, processData: false
+			, contentType: false
+			,success:function(data){
+				if(data.code == 1){
+					alert("저장에 성공했습니다.");
+					location.href="/product/wish_list_view";
+				} else {
+					alert(data.errorMessage);
+					return;
+				}
+				
+			}
+			, error: function(jqXHR, textStatus, errorThrown) {
+				let errorMsg = jqXHR.responseJSON.status;
+				alert(errorMsg + ":" + textStatus);
+			}
+		});
+		
+		
 		
 	});
-	
-	
+
+
 
 });//->document끝

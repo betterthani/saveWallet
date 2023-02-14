@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+    pageEncoding="UTF-8"%>
 <div class="d-flex w-100 my-3 mx-3">
 	<!-- 사진 첨부 & 제품명란 -->
 	<div class="col-5 product-list-write-left">
@@ -31,7 +29,7 @@
 	<div class="col-7 product-list-write-right ">
 	
 		<%-- 타입 고정값 : shopping --%>
-		<input type="text" class="form-control w-50 mt-2" value="SHOPPING" id="shopping-type" disabled>
+		<input type="text" class="form-control w-50 mt-2" value="WISH" disabled>
 		
 		<%-- 카테고리 --%>
 		<select class="form-control w-50 mt-3" id="shopping-category">
@@ -80,24 +78,12 @@
 		<%-- 컬러 --%>
 		<input type="text" class="form-control w-50 mt-3" id="shopping-color" placeholder="색상을 입력하세요.">
 		
-		<%-- 구매일 --%>
-		<input type="text" id="shopping-date-datepicker" class="form-control w-50 mt-3" placeholder="구매일을 선택하세요. (필수)">
-		
-		<%-- 반품가능일 --%>
-		<input type="text" id="shopping-returnn-datepicker" class="form-control w-50 mt-3" placeholder="반품가능 기한을 선택하세요.">
-		
-		<%-- 당근희망여부 --%>
-		<select class="form-control w-50 mt-3" id="shopping-usedHope">
-		  <option selected value="">당근 희망여부 (필수)</option>
-		  <option value="1">여</option>
-		  <option value="0">부</option>
-		</select>
-		
 		<%-- 업로드 버튼 --%>
 		<div class="d-flex justify-content-center mr-5">
-			<button type="button" class="btn btn-success mt-3 " id="shoppingList-upload-btn">업로드</button>
+			<button type="button" class="btn btn-success mt-3 " id="wishList-upload-btn">업로드</button>
 		</div>
 	
 	</div>
 
 </div>
+    

@@ -29,8 +29,8 @@ public class AmountInfoBO {
 		amountInfoDAO.deleteAmountInfoUserId(userId);
 	}
 
-	public List<AmountInfo> getamountInfoListByUserId(int userId) {
-		return amountInfoDAO.selectamountInfoListByUserId(userId);
+	public AmountInfo getamountInfoByUserId(int userId) {
+		return amountInfoDAO.selectamountInfoByUserId(userId);
 	}
 
 }

@@ -32,7 +32,7 @@
 	
 		<!-- 나머지 정보들 -->
 		<div class="col-7 product-list-write-right ">
-			<input type="text" class="form-control w-50 mt-2" value="SHOPPING" disabled>
+			<input type="text" class="form-control w-50 mt-2" value="SHOPPING" id="shopping-type" disabled>
 			
 			
 			<%-- 카테고리 --%>

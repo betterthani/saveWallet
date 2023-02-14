@@ -99,7 +99,7 @@
 			</if>
  	</select>
  	
- 	<!-- 글 게시 -->
+ 	<!-- 쇼핑리스트 글 게시 -->
  	<insert id="insertShoppingProduct" parameterType="com.diary.product.model.Product">
  		INSERT INTO `product`
  		(
@@ -266,5 +266,40 @@
 			AND `userId` = #{userId}
 		GROUP BY m;
  	</select>
+ 	
+ 	<!-- 위시리스트 글 게시 -->
+ 	<insert id="insertwishList" parameterType="com.diary.product.model.Product">
+ 		INSERT INTO `product`
+ 		(
+			`userId`
+			,`type`
+			,`itemName`
+			,`category`
+			,`amount`
+			,`purchasedCategory`
+			,`purchased`
+			,`size`
+			,`color`
+			,`productImgPath`
+			,`createdAt`
+			,`updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{userId}
+ 			,'WISH'
+ 			,#{itemName}
+ 			,#{category}
+ 			,#{amount}
+ 			,#{purchasedCategory}
+ 			,#{purchased}
+ 			,#{size}
+ 			,#{color}
+ 			,#{productImgPath}
+ 			,NOW()
+ 			,NOW()
+ 		)
+ 	</insert>
+ 	
  	
  </mapper>

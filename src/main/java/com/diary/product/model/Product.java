@@ -14,7 +14,7 @@ import lombok.Setter;
 public class Product {
 	private int id;
 	private int userId;
-	private TypeEnum type;
+	private String type;
 	private String itemName;
 	private CategoryEnum category;
 	private int amount;

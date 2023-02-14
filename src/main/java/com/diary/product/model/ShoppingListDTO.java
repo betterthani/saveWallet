@@ -11,6 +11,7 @@ import lombok.Setter;
 @Setter
 public class ShoppingListDTO {
 	
+	private String type;
 	private String itemName;
 	private String category;
 	private int amount;

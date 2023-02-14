@@ -60,8 +60,8 @@ public class FullCalendarController {
 		model.addAttribute("nowDate", nowDate);
 		
 		// select
-		List<AmountInfo> amountinfoList = amountInfoBO.getamountInfoListByUserId(userId);
-		model.addAttribute("amountinfoList",amountinfoList);
+		AmountInfo amountinfo = amountInfoBO.getamountInfoByUserId(userId);
+		model.addAttribute("amountinfo",amountinfo);
 		
 		model.addAttribute("viewName", "fullcalendar/calendar");
 		return "template/layout";

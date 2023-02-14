@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.diary.product.bo.ProductBO;
+import com.diary.product.dao.ProductDAO;
 import com.diary.product.model.ShoppingListDTO;
 
 import jakarta.servlet.http.HttpSession;
@@ -134,6 +135,43 @@ public class ProductRestController {
 		return result;
 	}
 	
-	
+	/**
+	 * wishList 글 게시 API
+	 * @param shoppingProduct
+	 * @param file
+	 * @param session
+	 * @return
+	 */
+	@PostMapping("/wish_list_write")
+	public Map<String, Object> wProductWrite(
+			@ModelAttribute("shoppingProduct") ShoppingListDTO shoppingProduct,
+			@RequestParam(value= "file", required =false) MultipartFile file,
+			HttpSession session
+			){
+		int userId = (int)session.getAttribute("userId");
+		String userLoginId = (String)session.getAttribute("userLoginId");
+		
+		Map<String, Object> result = new HashMap<>();
+		int row = productBO.addwishList(
+				shoppingProduct.getItemName(), 
+				shoppingProduct.getCategory(), 
+				shoppingProduct.getAmount(), 
+				shoppingProduct.getPurchasedCategory(), 
+				shoppingProduct.getPurchased(), 
+				shoppingProduct.getSize(), 
+				shoppingProduct.getColor(), 
+				file, 
+				userLoginId, 
+				userId);
+		
+		if(row > 0) {
+			// 저장 성공
+			result.put("code", 1);
+		} else {
+			result.put("errorMessage", "저장에 실패했습니다.");
+		}
+		
+		return result;
+	}
 	
 }

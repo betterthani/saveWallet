@@ -70,4 +70,8 @@ public interface ProductDAO {
 	// 월별 합계
 	public List<MonthDTO> selectGroupBySum(int userId);
 	
+	// 위시리스트 insert
+	public int insertwishList(Product wishProduct);
+	
+	
 }

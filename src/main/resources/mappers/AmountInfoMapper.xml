@@ -41,7 +41,7 @@
 	
 	</delete>
 	
-	<select id="selectamountInfoListByUserId" parameterType="int" resultType="com.diary.amountInfo.model.AmountInfo">
+	<select id="selectamountInfoByUserId" parameterType="int" resultType="com.diary.amountInfo.model.AmountInfo">
 		SELECT
 			`id`
 			,`userId`

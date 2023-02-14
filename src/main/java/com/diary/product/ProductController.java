@@ -72,7 +72,7 @@ public class ProductController {
 	}
 	
 	/**
-	 *  글 작성 API
+	 *  쇼핑리스트 글 작성 화면
 	 * @param purchased
 	 * @param model
 	 * @param session
@@ -119,4 +119,34 @@ public class ProductController {
 		model.addAttribute("viewName", "product/shoppingDetail");
 		return "template/layoutMap";
 	}
+	
+	//위시리스트 목록화면
+	@GetMapping("/wish_list_view")
+	public String wishListVeiw(
+			Model model
+			, HttpSession session) {
+		
+		int userId = (int)session.getAttribute("userId");
+		
+		model.addAttribute("viewName", "product/wishList");
+		return "template/layout";
+	}
+	
+	/**
+	 * 위시리스트 글 작성 화면
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	@GetMapping("/wish_write_view")
+	public String wishWriteView(
+			Model model
+			, HttpSession session) {
+		
+		int userId = (int)session.getAttribute("userId");
+		
+		model.addAttribute("viewName", "product/wishListWrite");
+		return "template/layoutMap";
+	}
+	
 }

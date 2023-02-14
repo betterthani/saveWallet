@@ -22,6 +22,6 @@ public interface AmountInfoDAO {
 	// delete
 	public void deleteAmountInfoUserId(int userId);
 	
-	public List<AmountInfo> selectamountInfoListByUserId(int userId);
+	public AmountInfo selectamountInfoByUserId(int userId);
 
 }

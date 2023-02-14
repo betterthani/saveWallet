@@ -66,3 +66,8 @@ input:invalid {border: 3px solid red; color:red;}
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
+
+
+
+#table-mini-box{width: 300px; table-layout:fixed;}
+#wish-content-table{table-layout:fixed;}
