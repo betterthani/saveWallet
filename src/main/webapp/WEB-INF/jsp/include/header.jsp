@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- 상호명 --%>
 <h1 id="logo">
-<a href="#">
+<a href="/post/timeline_view">
 	<span>Save Wallet</span>
 </a>
 

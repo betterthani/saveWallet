@@ -939,7 +939,7 @@ $(document).ready(function() {
 			, success: function(data) {
 				if (data.code == 1) {
 					alert("글이 삭제되었습니다.");
-					location.href="/product/wish_list_view";
+					location.href = "/product/wish_list_view";
 				} else {
 					alert("글 삭제에 실패했습니다.");
 				}
@@ -950,6 +950,104 @@ $(document).ready(function() {
 			}
 		});
 	});
+	//--------------------------------------------------- 이거 어때? 글 올리기
+	// 파일 업로드 아이콘
+	$('#fileUploadBtn').on('click', function(e) {
+		e.preventDefault();
+		$('#post-file-btn').click();
+	});
 
+	// 파일 선택
+	$('#post-file-btn').on('change', function(e) {
+
+		let file = e.target.files[0];
+		let ext = file.name.split(".").pop().toLowerCase();
+
+		let maxFileCnt = 3   // 첨부파일 최대 개수
+		let attFileCnt = document.querySelectorAll('.filebox').length    // 기존 추가된 첨부파일 개수
+		let remainFileCnt = maxFileCnt - attFileCnt    // 추가로 첨부가능한 개수
+		let curFileCnt = e.target.files.length  // 현재 선택된 첨부파일 개수
+
+		// 첨부파일 개수 확인
+		// 최대 개수 초과 시
+		if (curFileCnt > remainFileCnt) {
+			alert("이미지는 최대 " + maxFileCnt + "개 까지 첨부 가능합니다.")
+		} else {
+			// 최대 개수 넘지 않았을 시
+			if ($.inArray(ext, ['jpg', 'jpeg', 'png', 'gif']) > -1) {
+				filesArr.push(file);
+
+				let data = '';
+				data += '<div id="post-file-btn' + fileNo + '" class="d-flex col-8 justify-content-between filebox">';
+				data += '	<div>' + file.name + '</div>';
+				data += '	<a href="#" onclick="deleteFile(' + fileNo + ');"><i class="fa fa-times text-dark"></i></a>';
+				data += '</div>';
+
+				$('#fileList').append(data);
+				fileNo++;
+
+			} else {
+				alert("이미지 파일만 가능합니다");
+				return;
+			}
+		}
+
+		$('#post-file-btn').val('');
+
+	});
+
+	$('#post-upload-btn').on('click', function() {
+		//alert(111);
+		let title = $('#post-title').val().trim();
+		let subject = $('#post-subject').val().trim();
+
+		if (title == '') {
+			alert("제목을 입력해주세요.");
+			return;
+		}
+
+		if (document.querySelectorAll('.filebox').length == 0) {
+			alert("사진을 올려주세요.");
+			return;
+		}
+
+		if (subject == '') {
+			alert("내용을 입력해주세요.");
+			return;
+		}
+
+		let formData = new FormData();
+		formData.append("title", title);
+		formData.append("subject", subject);
+		for (var i = 0; i < filesArr.length; i++) {
+			if (filesArr[i] !== undefined) {
+				formData.append("fileList", filesArr[i]);
+			}
+		}
+
+		$.ajax({
+			type: "POST"
+			, url: "/post/timeline_create"
+			, data: formData
+			, enctype: "multipart/form-data"
+			, processData: false
+			, contentType: false
+
+			, success: function(data) {
+				if (data.code == 1) {
+					alert("등록이 완료되었습니다");
+					location.href = "/post/timeline_view";
+				} else if(data.code == 500){
+					alert(data.errorMessage);
+					return;
+				}
+			}
+			, error: function(jqXHR, textStatus, errorThrown) {
+				let errorMsg = jqXHR.responseJSON.status;
+				alert(errorMsg + ":" + textStatus);
+			}
+		});
+
+	});
 
 });//->document끝

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.diary.post.dao.PostImageDAO">
+	<insert id="addPostImageByUserIdUserLoginIdFIle" parameterType="map">
+		INSERT INTO `post_image`
+		(
+			`postId`
+			,`userId`
+			,`postImgPath`
+			,`createdAt`
+			,`updatedAt`
+		)
+		VALUES
+		(
+			#{postId}
+			,#{userId}
+			,#{postImgPath}
+			,NOW()
+			,NOW()
+		)
+	</insert>
+	
+	<select id="selectPostImageList" parameterType="int" resultType="com.diary.post.model.PostImage">
+		SELECT
+			`id`
+			,`postId`
+			,`userId`
+			,`postImgPath`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`post_image`
+		WHERE
+			`postId` = #{postId}
+	</select>
+</mapper>

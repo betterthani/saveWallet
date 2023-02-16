@@ -24,5 +24,8 @@ public interface UserDAO {
 			@Param("loginId") String loginId, 
 			@Param("email") String email);
 	
+	// 유저 아이디로 조회
+	public User selectUserByUserId(int userId); 
+	
 
 }

@@ -71,4 +71,20 @@ input:invalid {border: 3px solid red; color:red;}
 
 #table-mini-box{width: 300px; table-layout:fixed;}
 #wish-content-table{table-layout:fixed;}
-#mini-img-box{widows: 50px; height: 50px;}
+#mini-img-box{width: 50px; height: 50px;}
+
+.contents-box {width:650px;}
+.post-pic-box{width:100%; min-height: 400px; border: 1px solid gray;}
+.delBtn{position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 13px;
+    background-color: #000;
+    color: #fff;
+    width: 18px;
+    height: 18px;
+    line-height: 16px;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;}
+

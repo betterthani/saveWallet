@@ -33,6 +33,12 @@ public class UserBO {
 		return userDAO.existFindPasswordByLoginIdEmail(loginId, email);
 	}
 	
+	// 유저 아이디로 조회
+	public User getUserByUserId(int userId) {
+		return userDAO.selectUserByUserId(userId);
+	}
+	
+	
 	
 	
 }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.diary.post.dao.PostDAO">
+ 	<insert id="insertPost" parameterType="com.diary.post.model.Post" useGeneratedKeys="true" keyProperty="id">
+ 		INSERT INTO `post`
+ 		(
+			`userId`
+			,`title`
+			,`subject`
+			,`createdAt`
+			,`updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{userId}
+ 			,#{title}
+ 			,#{subject}
+ 			,NOW()
+ 			,NOW()
+ 		)
+ 	</insert>
+ 	
+ 	<select id="selectpostList" resultType="com.diary.post.model.Post">
+ 		SELECT
+ 			`id`
+			,`userId`
+			,`title`
+			,`subject`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`post`
+ 	
+ 	</select>
+ 
+ 
+ </mapper>
