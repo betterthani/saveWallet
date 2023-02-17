@@ -19,4 +19,19 @@ public class SaveBO {
 		}
 		return saveDAO.existSave(userId, postId) > 0 ? true : false;
 	}
+	
+	// 저장 토글
+	public boolean saveToggle(int userId, int postId) {
+		boolean existSave = existSave(userId, postId);
+		if(existSave) {
+			// 눌려있을 경우 삭제
+			saveDAO.deleteSaveByUserIdPostId(userId, postId);
+		} else {
+			// 안 눌렸을 경우 insert
+			saveDAO.insertSaveByUserIdPostId(userId, postId);
+		}
+		return true;
+	}
+	
+	
 }

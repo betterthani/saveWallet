@@ -9,7 +9,6 @@ import lombok.Setter;
 @Setter
 public class Save {
 
-	private int id;
 	private int postId;
 	private int userId;
 	private Date createdAt;

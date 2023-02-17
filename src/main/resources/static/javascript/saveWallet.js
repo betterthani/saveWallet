@@ -995,7 +995,8 @@ $(document).ready(function() {
 		$('#post-file-btn').val('');
 
 	});
-
+	
+	// 이거 어때? 게시물 업로드 눌렀을 때
 	$('#post-upload-btn').on('click', function() {
 		//alert(111);
 		let title = $('#post-title').val().trim();
@@ -1050,5 +1051,38 @@ $(document).ready(function() {
 
 	});
 	
+	// 저장하기 버튼 눌렀을때
+	$('.save-post-btn').on('click',function(e){
+		e.preventDefault();
+		let userId = $(this).data('user-id');
+		let postId = $(this).data('post-id');
+		//alert("userId" + userId + "postId" + postId);
+		
+		let formData = new FormData();
+		formData.append("userId", userId);
+		formData.append("postId", postId);
+		
+		$.ajax({
+			url:"/save/" + postId
+			,data:formData
+			, contentType: false
+			, processData: false
+			,success:function(data){
+				if(data.code == 1){
+					document.location.reload(true);
+				} else {
+					alert("저장에 실패했습니다.");
+					return false;
+				}
+			}
+			, error: function(jqXHR, textStatus, errorThrown) {
+				let errorMsg = jqXHR.responseJSON.status;
+				alert(errorMsg + ":" + textStatus);
+			}
+			
+		});
+		
+	});
+	//-------------------------------------------------------------> 
 	
 });//->document끝

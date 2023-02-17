@@ -41,7 +41,7 @@
 						<%-- 저장하기 기능 --%>
 						<div>
 						
-							<a href="#" class="save-post-btn" data-user-Id="${userId }" data-post-id="${cardView.post.id }">
+							<a href="#" class="save-post-btn" data-user-id="${userId }" data-post-id="${cardView.post.id }">
 								<c:choose>
 									<c:when test="${cardView.filledSave eq true}">
 										<%-- 저장하기 눌렀을때 --%>

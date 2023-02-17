@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.diary.save.dao.SaveDAO">
+ 	<!-- 저장 눌렀는지 여부 -->
  	<select id="existSave" parameterType="map" resultType="int">
  		SELECT
 	 		COUNT(*)
@@ -13,4 +14,31 @@
  			</if>
  			`postId` = #{postId}
  	</select>
+ 	
+ 	<!-- 저장 했을 경우 삭제 -->
+ 	<delete id="deleteSaveByUserIdPostId" parameterType="map">
+ 		DELETE FROM `save`
+ 		WHERE
+ 			`userId` = #{userId}
+ 			AND `postId` = #{postId}
+ 	</delete>
+ 	
+ 	<!-- 저장하기 -->
+ 	<insert id="insertSaveByUserIdPostId" parameterType="map">
+ 		INSERT INTO `save`
+ 		(
+			`postId`
+			,`userId`
+			,`createdAt`
+			,`updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{postId}
+ 			,#{userId}
+ 			,NOW()
+ 			,NOW()
+ 		)
+ 	
+ 	</insert>
  </mapper>
