@@ -79,3 +79,36 @@
 		</div>
 	</div>
 </div>
+<script>
+	$(document).ready(function(){
+		$('#datepicker').datepicker({
+			dateFormat: "yy-mm-dd" // 2022-11-08
+			, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토']
+			, showButtonPanel: true // 오늘 버튼 활성화
+			, currentText: "오늘"
+			, maxDate: 0 // 오늘 이후 날짜 선택불가
+			, beforeShowDay: function(date) { // 주말 비활성화
+				let day = date.getDay();
+				return [(day != 0 && day != 6)];
+			}
+			, onSelect: function(data) {
+
+				let day = data;
+				let allData = { "searchdate": day };
+
+				$.ajax({
+					url: "/exchangeRate/paste_view"
+					, data: allData
+					, contentType: "application/json;charset=UTF-8"
+					, success: function(data) {
+						location.href = "/exchangeRate/paste_view?searchdate=" + day;
+					}
+					, error: function(jqXHR, textStatus, errorThrown) {
+						let errorMsg = jqXHR.responseJSON.status;
+						alert(errorMsg + ":" + textStatus);
+					}
+				});
+
+			}
+	});});
+</script>

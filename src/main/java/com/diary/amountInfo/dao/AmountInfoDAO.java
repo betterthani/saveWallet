@@ -15,7 +15,7 @@ public interface AmountInfoDAO {
 			@Param("remainingAmount") int remainingAmount);
 	
 	//select
-	public Integer selectAmountInfoByUserId(int userId);
+	public boolean existAmountInfoByUserId(int userId);
 	
 	// delete
 	public void deleteAmountInfoUserId(int userId);

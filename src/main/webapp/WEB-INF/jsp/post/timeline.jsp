@@ -28,11 +28,14 @@
 					</div>
 	
 					<%-- 카드 이미지 --%>
-					<c:forEach var="postImage" items="${cardView.postImageList }">
-					<div class="card-img">
-						<img src="${postImage.postImgPath }" class="w-100" alt="본문 이미지">
+					<div class="full-size-box">
+						<ul class="slider">
+							<c:forEach var="postImage" items="${cardView.postImageList }">
+								<li><img src="${postImage.postImgPath }" class="w-100 time-img-size" alt="본문 이미지"></li>
+							</c:forEach>
+						</ul>
 					</div>
-					</c:forEach>
+					
 					<%-- 저장하기 --%>
 					<div class="d-flex justify-content-end align-items-center">					
 						<%-- 저장하기 기능 --%>
@@ -111,3 +114,8 @@
     </div>
   </div>
 </div>
+<script>
+$(document).ready(function(){
+  $('.slider').bxSlider();
+});
+</script>

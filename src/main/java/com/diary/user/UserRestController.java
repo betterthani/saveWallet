@@ -58,8 +58,6 @@ public class UserRestController {
 		// select DB
 		User user = userBO.getUserByLoginIdPassword(loginId, hashedPassword);
 		
-		
-		
 		Map<String, Object> result = new HashMap<>();
 		if(user != null) {
 			result.put("code", 1);

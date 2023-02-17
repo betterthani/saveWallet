@@ -26,7 +26,7 @@ $(document).ready(function() {
 			, processData: false
 			, success: function(data) {
 				if (data.code == 1) {
-					document.location.href = "/product/shopping_list_view";
+					document.location.href = "/calendar";
 				} else if (data.code == 2) {
 					alert("아이디 혹은 비밀번호를 재확인해주세요.");
 					document.location.reload();
@@ -1049,5 +1049,6 @@ $(document).ready(function() {
 		});
 
 	});
-
+	
+	
 });//->document끝

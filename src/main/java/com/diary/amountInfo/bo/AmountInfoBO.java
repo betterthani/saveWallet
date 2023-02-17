@@ -18,8 +18,8 @@ public class AmountInfoBO {
 	}
 
 	// select
-	public Integer getAmountInfoByUserId(int userId) {
-		return amountInfoDAO.selectAmountInfoByUserId(userId);
+	public boolean existAmountInfoByUserId(int userId) {
+		return amountInfoDAO.existAmountInfoByUserId(userId);
 	}
 
 	// delete

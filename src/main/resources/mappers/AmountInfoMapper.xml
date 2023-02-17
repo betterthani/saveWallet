@@ -21,13 +21,9 @@
 		)
 	</insert>
 	
-	<select id="selectAmountInfoByUserId" parameterType="int" resultType="Integer">
+	<select id="existAmountInfoByUserId" parameterType="int" resultType="boolean">
 		SELECT
-			`id`
-			,`userId`
-			,`goalCount`
-			,`remainingAmount`
-			,`createdAt`
+			COUNT(*)
 		FROM
 			`amount_info`
 		WHERE

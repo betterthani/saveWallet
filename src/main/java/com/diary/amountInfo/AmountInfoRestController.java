@@ -18,6 +18,13 @@ public class AmountInfoRestController {
 	@Autowired
 	private AmountInfoBO amountInfoBO;
 	
+	/**
+	 * 캘린더상 목표금액, 남은금액 조회, 삭제, 생성API
+	 * @param goalCount
+	 * @param remainingAmount
+	 * @param session
+	 * @return
+	 */
 	@PostMapping("/amountInfo")
 	public Map<String, Object> amountInfo(
 			@RequestParam("goalCount") int goalCount
@@ -28,8 +35,8 @@ public class AmountInfoRestController {
 		
 		Map<String, Object> result = new HashMap<>();
 		// db있는지 조회
-		Integer row = amountInfoBO.getAmountInfoByUserId(userId);
-		if(row != null) {
+		boolean row = amountInfoBO.existAmountInfoByUserId(userId);
+		if(row) {
 			// 데이터 있으면 삭제
 			amountInfoBO.deleteAmountInfoUserId(userId);
 			// insert

@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,7 +39,13 @@ public class FullCalendarController {
 	private AmountInfoBO amountInfoBO;
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
-
+	
+	/**
+	 * 캘린더 화면
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/calendar")
 	public String fullCalendar(
 			HttpSession session
@@ -51,11 +58,17 @@ public class FullCalendarController {
 		Date now = new Date();
 		String nowDate = sd.format(now);
 		
+		
 		// select 
 		List<MonthDTO> monthList = productBO.getGroupBySum(userId);
-		if(monthList.get(0).getM().equals(nowDate)) {
-			model.addAttribute("sum", monthList.get(0).getSum());
-		}
+		
+		if(!ObjectUtils.isEmpty(monthList)) {
+			
+			if(monthList.get(0).getM().equals(nowDate)) {
+				model.addAttribute("sum", monthList.get(0).getSum());
+			}
+		} 
+		
 		
 		model.addAttribute("nowDate", nowDate);
 		
@@ -67,7 +80,13 @@ public class FullCalendarController {
 		return "template/layout";
 
 	}
-
+	
+	/**
+	 * 캘린더 조회API
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/monthPlan")
 	@ResponseBody
 	public List<Map<String, Object>> monthPlan(

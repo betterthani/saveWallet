@@ -88,3 +88,5 @@ input:invalid {border: 3px solid red; color:red;}
     text-align: center;
     cursor: pointer;}
 
+.time-img-size{width: 100%; height: 425px;}
+.full-size-box {width: 100%; height: 460px; }
