@@ -36,4 +36,19 @@ public class PostImageBO {
 		return postImageDAO.selectPostImageList(postId);
 	}
 	
+	// 해당 사진 조회
+	public List<PostImage> getPostImageListByUserIdPostId(int userId, int postId){
+		return postImageDAO.selectPostImageListByUserIdPostId(userId, postId);
+	}
+	
+	// 해당 사진 삭제 
+	public void deletePostImageByUserIdPostId(int userId, int postId, String postImgPath) {
+		
+		if(postImgPath != null) {
+			fileManagerService.deleteFile(postImgPath);
+		}
+		
+		postImageDAO.deletePostImageByUserIdPostId(userId, postId);
+	}
+	
 }

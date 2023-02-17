@@ -995,7 +995,7 @@ $(document).ready(function() {
 		$('#post-file-btn').val('');
 
 	});
-	
+
 	// 이거 어때? 게시물 업로드 눌렀을 때
 	$('#post-upload-btn').on('click', function() {
 		//alert(111);
@@ -1038,7 +1038,7 @@ $(document).ready(function() {
 				if (data.code == 1) {
 					alert("등록이 완료되었습니다");
 					location.href = "/post/timeline_view";
-				} else if(data.code == 500){
+				} else if (data.code == 500) {
 					alert(data.errorMessage);
 					return;
 				}
@@ -1050,25 +1050,25 @@ $(document).ready(function() {
 		});
 
 	});
-	
+
 	// 저장하기 버튼 눌렀을때
-	$('.save-post-btn').on('click',function(e){
+	$('.save-post-btn').on('click', function(e) {
 		e.preventDefault();
 		let userId = $(this).data('user-id');
 		let postId = $(this).data('post-id');
 		//alert("userId" + userId + "postId" + postId);
-		
+
 		let formData = new FormData();
 		formData.append("userId", userId);
 		formData.append("postId", postId);
-		
+
 		$.ajax({
-			url:"/save/" + postId
-			,data:formData
+			url: "/save/" + postId
+			, data: formData
 			, contentType: false
 			, processData: false
-			,success:function(data){
-				if(data.code == 1){
+			, success: function(data) {
+				if (data.code == 1) {
 					document.location.reload(true);
 				} else {
 					alert("저장에 실패했습니다.");
@@ -1079,32 +1079,32 @@ $(document).ready(function() {
 				let errorMsg = jqXHR.responseJSON.status;
 				alert(errorMsg + ":" + textStatus);
 			}
-			
+
 		});
 	});
-	
+
 	// 댓글달기 버튼 누를때
-	$('.comment-btn').on('click',function(){
+	$('.comment-btn').on('click', function() {
 		let postId = $(this).data('post-id');
 		let content = $(this).siblings('input').val().trim();
-		
-		if(content == ''){
+
+		if (content == '') {
 			alert("댓글 내용을 입력해주세요.");
 			return;
 		}
-		
+
 		let formData = new FormData();
-		formData.append("content",content);
-		formData.append("postId",postId);
-		
+		formData.append("content", content);
+		formData.append("postId", postId);
+
 		$.ajax({
-			type:"POST"
-			,url:"/postComment/create"
-			,data:formData
+			type: "POST"
+			, url: "/postComment/create"
+			, data: formData
 			, contentType: false
 			, processData: false
-			,success:function(data){
-				if(data.code == 1){
+			, success: function(data) {
+				if (data.code == 1) {
 					document.location.reload(true);
 				} else {
 					alert("댓글 저장에 실패했습니다.");
@@ -1116,27 +1116,27 @@ $(document).ready(function() {
 				alert(errorMsg + ":" + textStatus);
 			}
 		});
-		
+
 	});
-	
+
 	// 댓글 삭제하기
-	$('.post-comment-del-btn').on('click',function(e){
+	$('.post-comment-del-btn').on('click', function(e) {
 		e.preventDefault();
 		let postId = $(this).data('post-id');
 		let postCommentId = $(this).data('comment-id');
-		
+
 		let formData = new FormData();
-		formData.append("postId",postId);
-		formData.append("postCommentId",postCommentId);
-		
+		formData.append("postId", postId);
+		formData.append("postCommentId", postCommentId);
+
 		$.ajax({
-			type:"DELETE"
-			,url:"/postComment/delete"
-			,data:formData
+			type: "DELETE"
+			, url: "/postComment/delete"
+			, data: formData
 			, contentType: false
 			, processData: false
-			,success:function(data){
-				if(data.code == 1){
+			, success: function(data) {
+				if (data.code == 1) {
 					document.location.reload(true);
 				} else {
 					alert("댓글 기재에 실패했습니다.");
@@ -1148,8 +1148,49 @@ $(document).ready(function() {
 				alert(errorMsg + ":" + textStatus);
 			}
 		});
-		
+
 	});
+
+	// 더보기 버튼 클릭
+	$('.more-btn').on('click', function(e) {
+		e.preventDefault();
+
+		let postId = $(this).data('post-id'); // getting
+		//alert(postId);
+
+		$('#modal').data('post-id', postId); // setting 모달 태그에 data-post-id를 심어 넣어줌
+	});
+
+	// 모달 안에있는 삭제하기 버튼 클릭
+	$('#modal #deletePostBtn').on('click', function(e) {
+		e.preventDefault();
+
+		let postId = $('#modal').data('post-id');
+		let formData = new FormData();
+		formData.append("postId", postId);
+
+		$.ajax({
+			type: "DELETE"
+			, url: "/post/timeline_delete"
+			, data: formData
+			, contentType: false
+			, processData: false
+			, success: function(data) {
+				if (data.code == 1) {
+					alert("삭제에 성공했습니다.");
+					location.href = "/post/timeline_view"
+				} else {
+					alert("댓글 기재에 실패했습니다.");
+					return false;
+				}
+			}
+			, error: function(jqXHR, textStatus, errorThrown) {
+				var errorMsg = jqXHR.responseJSON.status;
+				alert(errorMsg + ":" + textStatus);
+			}
+		});
+	});
+
 	//-------------------------------------------------------------> 
-	
+
 });//->document끝

@@ -57,5 +57,12 @@
  			AND `postId` = #{postId}
  			AND `id` = #{postCommentId}
 	</select>
+	
+	<!--  게시물 댓글 삭제하기 -->
+	<delete id="deletePostCommentByPostId" parameterType="int">
+		DELETE FROM `post_comment`
+ 		WHERE
+ 			`postId` = #{postId}
+	</delete>
 
  </mapper>

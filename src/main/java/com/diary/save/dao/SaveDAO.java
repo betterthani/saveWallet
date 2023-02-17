@@ -20,4 +20,7 @@ public interface SaveDAO {
 	public void insertSaveByUserIdPostId(
 			@Param("userId") int userId, 
 			@Param("postId") int postId);
+	
+	// 게시물 save삭제
+	public void deleteSaveByPostId(int postId);
 }

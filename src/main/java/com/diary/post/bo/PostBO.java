@@ -102,4 +102,32 @@ public class PostBO {
 		return cardViewList;
 	}
 	
+	// 이거어때? 카드 삭제하기
+	public boolean generateDeletePost(int userId, int postId) {
+		// 포스트 있는지 여부
+		int row = postDAO.selectPostByUserIdPostId(userId, postId);
+		if(row > 0) {
+			// 해당 포스트 삭제
+			postDAO.deletePostByUserIdPostId(userId, postId);
+			
+			// 사진 삭제
+			List<PostImage> postImageList = postImageBO.getPostImageListByUserIdPostId(userId, postId);
+			for(PostImage postImage : postImageList) {
+				postImageBO.deletePostImageByUserIdPostId(userId, postId, postImage.getPostImgPath());
+			}
+			
+			// 댓글 삭제
+			postCommentBO.deletePostCommentByPostId(postId);
+			
+			// 저장하기 삭제
+			saveBO.deleteSaveByPostId(postId);
+			
+			return true;
+			
+		} else {
+			// 해당 게시물 없음
+			return false;
+		}
+	}
+	
 }

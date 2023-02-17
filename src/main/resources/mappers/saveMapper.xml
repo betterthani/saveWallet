@@ -41,4 +41,11 @@
  		)
  	
  	</insert>
+ 	
+ 	<!-- 게시물 save삭제 -->
+ 	<delete id="deleteSaveByPostId" parameterType="int">
+ 		DELETE FROM `save`
+ 		WHERE
+ 			`postId` = #{postId}
+ 	</delete>
  </mapper>

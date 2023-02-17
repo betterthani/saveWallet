@@ -20,6 +20,7 @@ public class SaveBO {
 		return saveDAO.existSave(userId, postId) > 0 ? true : false;
 	}
 	
+	
 	// 저장 토글
 	public boolean saveToggle(int userId, int postId) {
 		boolean existSave = existSave(userId, postId);
@@ -33,5 +34,9 @@ public class SaveBO {
 		return true;
 	}
 	
+	// 게시물 save삭제
+	public void deleteSaveByPostId(int postId) {
+		saveDAO.deleteSaveByPostId(postId);
+	}
 	
 }

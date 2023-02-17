@@ -78,5 +78,10 @@ public class PostCommentBO {
 		}
 	}
 	
+	// 게시물 댓글 삭제
+	public void deletePostCommentByPostId(int postId) {
+		postCommentDAO.deletePostCommentByPostId(postId);
+	}
+	
 	
 }

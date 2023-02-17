@@ -30,4 +30,7 @@ public interface PostCommentDAO {
 			@Param("userId") int userId, 
 			@Param("postId") int postId,
 			@Param("postCommentId") int postCommentId);
+	
+	// 게시물 댓글 삭제
+	public void deletePostCommentByPostId(int postId);
 }

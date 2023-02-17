@@ -38,7 +38,8 @@
 						</ul>
 					</div>
 					
-					<%-- 저장하기 --%>
+					<%-- 저장하기 : 로그인했을 경우만 보여지기 --%>
+					<c:if test="${not empty userId}">
 					<div class="d-flex justify-content-end align-items-center">					
 						<%-- 저장하기 기능 --%>
 						<div>
@@ -58,6 +59,7 @@
 							
 						</div>
 					</div>
+					</c:if>
 					
 					<%-- 글 --%>
 					<div class="card-post m-3">
