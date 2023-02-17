@@ -1,5 +1,3 @@
-
-
 package com.diary.post;
 
 import java.util.List;
@@ -9,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.diary.post.bo.PostBO;
 import com.diary.post.model.CardView;
@@ -51,6 +50,35 @@ public class PostController {
 	@GetMapping("/write_view")
 	public String postWriteView(Model model) {
 		model.addAttribute("viewName", "post/postWrite");
+		return "template/layout";
+	}
+	
+	
+	/**
+	 * 이거 어때? 수정화면
+	 * @param model
+	 * @param session
+	 * @param postId
+	 * @return
+	 */
+	// localhost:8080/post/timeline_edit_view
+	@GetMapping("/timeline_edit_view")
+	public String timelineEditView(
+			Model model, 
+			HttpSession session,
+			@RequestParam("postId") int postId) {
+		int userId = (int) session.getAttribute("userId");
+		
+		CardView cardViewList = postBO.generateCardListByUserIdPostId(userId, postId);
+		model.addAttribute("cardViewList",cardViewList);
+		model.addAttribute("image",cardViewList.getPostImageList().get(0).getPostImgPath());
+		
+		if(cardViewList.getPostImageList().size() > 1) {
+			model.addAttribute("image1",cardViewList.getPostImageList().get(1).getPostImgPath());
+			model.addAttribute("image2",cardViewList.getPostImageList().get(2).getPostImgPath());
+		}
+		
+		model.addAttribute("viewName", "post/timelineEdit");
 		return "template/layout";
 	}
 }

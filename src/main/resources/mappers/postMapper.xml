@@ -49,6 +49,17 @@
  	<!-- 해당 글 있는지 조회 -->
  	<select id="selectPostByUserIdPostId" resultType="int" parameterType="map">
  		SELECT
+ 			COUNT(*)
+		FROM
+			`post`
+		WHERE
+ 			`userId` = #{userId}
+ 			AND `id` = #{postId}
+ 	</select>
+ 	
+ 	<!-- 글 목록 가져오기 select -->
+ 	<select id="selectPostListByUserIdPostId" resultType="com.diary.post.model.Post" parameterType="map">
+ 		SELECT
  			`id`
 			,`userId`
 			,`title`
@@ -61,5 +72,17 @@
  			`userId` = #{userId}
  			AND `id` = #{postId}
  	</select>
+ 	
+ 	<!-- 글 업데이트 -->
+ 	<update id="updatePost" parameterType="map">
+ 		UPDATE `post`
+ 		SET
+ 			`title` = #{title}
+ 			,`subject` = #{subject}
+ 			, `updatedAt` = NOW()
+ 		WHERE
+ 			`userId`= #{userId}
+ 			AND `id`= #{postId}
+ 	</update>
  
  </mapper>

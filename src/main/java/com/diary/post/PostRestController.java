@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -65,7 +66,9 @@ public class PostRestController {
 	 * @return
 	 */
 	@DeleteMapping("/timeline_delete")
-	public Map<String, Object> timelineDelete(HttpSession session, @RequestParam("postId") int postId) {
+	public Map<String, Object> timelineDelete(
+			HttpSession session, 
+			@RequestParam("postId") int postId) {
 
 		int userId = (int) session.getAttribute("userId");
 		Map<String, Object> result = new HashMap<>();
@@ -80,5 +83,23 @@ public class PostRestController {
 
 		return result;
 	}
+	
+	// 타임라인 수정하기 API
+	@PutMapping("/timeline_edit")
+	public Map<String, Object> timelineEdit(
+			@RequestParam("postId") int postId,
+			@RequestParam("title") String title,
+			@RequestParam("subject") String subject,
+			HttpSession session){
+		
+		int userId = (int) session.getAttribute("userId");
+		Map<String, Object> result = new HashMap<>();
+		
+		postBO.updatePost(userId, postId, title, subject);
+		result.put("code", 1);
+		
+		return result;
+	}
+	
 
 }

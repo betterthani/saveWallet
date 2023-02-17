@@ -3,6 +3,8 @@ package com.diary.post.bo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,6 +39,8 @@ public class PostBO {
 	@Autowired
 	private SaveBO saveBO;
 	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	// 글 insert
 	public void addPost(Post post) {
 		postDAO.insertPost(post);
@@ -69,7 +73,7 @@ public class PostBO {
 		return postDAO.selectpostList();
 	}
 	
-	// 타임라인 select(가공)
+	// 타임라인 메인 화면 select(가공)
 	public List<CardView> generateCardList(Integer userId){
 		List<CardView> cardViewList = new ArrayList<>();
 		
@@ -103,6 +107,7 @@ public class PostBO {
 	}
 	
 	// 이거어때? 카드 삭제하기
+	@Transactional
 	public boolean generateDeletePost(int userId, int postId) {
 		// 포스트 있는지 여부
 		int row = postDAO.selectPostByUserIdPostId(userId, postId);
@@ -127,6 +132,46 @@ public class PostBO {
 		} else {
 			// 해당 게시물 없음
 			return false;
+		}
+	}
+	
+	// 글 목록 가져오기 select
+	public List<Post> getPostListByUserIdPostId(int userId, int postId){
+		return postDAO.selectPostListByUserIdPostId(userId, postId);
+	}
+	
+	//  타임라인 수정화면 불러오기
+	public CardView generateCardListByUserIdPostId(int userId, int postId){
+		
+		CardView cardView = new CardView();
+		
+		// 글 목록
+		List<Post> postList = getPostListByUserIdPostId(userId, postId);
+		for(Post post : postList) {
+			
+			// 글
+			cardView.setPost(post);
+			
+			// 사진 여러개
+			List<PostImage> postImageList = postImageBO.getPostImageList(postId);
+			cardView.setPostImageList(postImageList);
+			
+			// 글쓴이 정보
+			User user = userBO.getUserByUserId(userId);
+			cardView.setUser(user);
+			
+		}
+		return cardView;
+	}
+	
+	// 타임라인 수정하기
+	public void updatePost(int userId, int postId, String title, String subject) {
+		// 존재하는지 여부 조회
+		int row = postDAO.selectPostByUserIdPostId(userId, postId);
+		if (row > 0) {
+			postDAO.updatePost(userId, postId, title, subject);
+		} else {
+			logger.warn("[update post] 수정할 post가 존재하지 않습니다. postId:{},userId:{}", postId,userId);
 		}
 	}
 	

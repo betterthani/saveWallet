@@ -63,8 +63,8 @@
 					
 					<%-- 글 --%>
 					<div class="card-post m-3">
-						<h4 class="font-weight-bold">${cardView.post.title }</h4>
-						<span>${cardView.post.subject }</span>
+						<h4 class="font-weight-bold post-title" >${cardView.post.title }</h4>
+						<span class="post-subject">${cardView.post.subject }</span>
 					</div>
 	
 					<%-- 댓글 --%>
@@ -112,6 +112,9 @@
 	<%--modal-dialog-centered: 모달 창 수직으로 가운데 정렬 --%>
   <div class="modal-dialog modal-sm modal-dialog-centered">
     <div class="modal-content text-center">
+    	<div class="py-3 border-bottom">
+    		<a href="#" id="editPostBtn">수정하기</a>
+    	</div>
     	<div class="py-3 border-bottom">
     		<a href="#" id="deletePostBtn">삭제하기</a>
     	</div>

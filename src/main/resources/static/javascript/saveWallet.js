@@ -1190,7 +1190,48 @@ $(document).ready(function() {
 			}
 		});
 	});
-
-	//-------------------------------------------------------------> 
+	
+	// 모달 안에있는 수정하기 버튼 클릭
+	$('#modal #editPostBtn').on('click', function(e) {
+		e.preventDefault();
+		let postId = $('#modal').data('post-id');
+		
+		location.href = "/post/timeline_edit_view?postId=" + postId;
+	});
+	
+	//-------------------------------------------------------------> 이거 어때? 수정화면
+	$('#post-edit-btn').on('click',function(){
+		let postId = $(this).data('post-id');
+		let title = $('.post-edit-title').val();
+		let subject = $('.post-edit-subject').val();
+		
+		let formData = new FormData();
+		formData.append("postId", postId);
+		formData.append("title", title);
+		formData.append("subject", subject);
+		
+		$.ajax({
+			type:"PUT"
+			,url:"/post/timeline_edit"
+			,data:formData
+			, contentType: false
+			, processData: false
+			, success: function(data) {
+				if (data.code == 1) {
+					alert("수정에 성공했습니다.");
+					location.href = "/post/timeline_view"
+				} else {
+					alert("수정에 실패했습니다.");
+					return;
+				}
+			}
+			, error: function(jqXHR, textStatus, errorThrown) {
+				var errorMsg = jqXHR.responseJSON.status;
+				alert(errorMsg + ":" + textStatus);
+			}
+		});
+		
+		
+	});
 
 });//->document끝
