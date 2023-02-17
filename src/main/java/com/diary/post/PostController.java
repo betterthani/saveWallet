@@ -75,7 +75,9 @@ public class PostController {
 		
 		if(cardViewList.getPostImageList().size() > 1) {
 			model.addAttribute("image1",cardViewList.getPostImageList().get(1).getPostImgPath());
-			model.addAttribute("image2",cardViewList.getPostImageList().get(2).getPostImgPath());
+			if(cardViewList.getPostImageList().size() > 2) {
+				model.addAttribute("image2",cardViewList.getPostImageList().get(2).getPostImgPath());
+			}
 		}
 		
 		model.addAttribute("viewName", "post/timelineEdit");
