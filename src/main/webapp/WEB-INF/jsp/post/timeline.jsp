@@ -22,9 +22,11 @@
 						<span class="font-weight-bold"><a href="" class="individualBtn text-dark">${cardView.user.loginId }</a></span>
 	
 						<%-- 더보기(내가 쓴 글일 떄만 노출) --%>
-						<a href="#" class="more-btn" data-toggle="modal" data-target="#modal" data-post-id=${cardView.post.id }>
-							<img src="https://www.iconninja.com/files/860/824/939/more-icon.png" width="30">
-						</a>
+						<c:if test="${userId eq cardView.post.userId }">
+							<a href="#" class="more-btn" data-toggle="modal" data-target="#modal" data-post-id=${cardView.post.id }>
+								<img src="https://www.iconninja.com/files/860/824/939/more-icon.png" width="30">
+							</a>
+						</c:if>
 					</div>
 	
 					<%-- 카드 이미지 --%>
@@ -76,18 +78,22 @@
 						<div class="card-comment m-1">
 								<span class="font-weight-bold">${postComment.user.loginId }:</span>
 								<span>${postComment.postComment.content }</span>
-							
-								<%-- 댓글 삭제 버튼 --%>
-								<a href="#" class="commentDelBtn">
-									<img src="https://www.iconninja.com/files/603/22/506/x-icon.png" width="10px" height="10px">
-								</a>
+								
+								<%-- 댓글 삭제 버튼 : 내 게시물,내 댓글일 경우 활성화 --%>
+								<c:if test="${userId eq cardView.post.userId || userId eq postComment.postComment.userId}">
+									<a href="#" class="post-comment-del-btn" data-comment-id="${postComment.postComment.id }" data-post-id="${cardView.post.id }">
+										<img src="https://www.iconninja.com/files/603/22/506/x-icon.png" width="10px" height="10px">
+									</a>
+								</c:if>
 						</div>
 					</c:forEach>
-						<%-- 댓글 쓰기 --%>
+						<%-- 댓글 쓰기 : 로그인 된 상태에서만 보이기 --%>
+						<c:if test="${not empty userId}">
 							<div class="comment-write d-flex border-top mt-2">
 								<input type="text" class="form-control border-0 mr-2" placeholder="댓글 달기"> 
 								<button type="button" class="comment-btn btn btn-light" data-post-id="${cardView.post.id }">게시</button>
 							</div>
+						</c:if>
 					</div>
 					<%--// 댓글 목록 끝 --%>
 				</div>

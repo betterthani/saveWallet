@@ -49,6 +49,34 @@ public class PostCommentBO {
 		
 		// 결과 리턴
 		return postCommentViewList;
-		
 	}
+	
+	// 댓글 insert
+	public int addPostCommentByUserIdPostId(int userId, int postId, String content) {
+		return postCommentDAO.insertPostCommentByUserIdPostId(userId, postId, content);
+	}
+	
+	// 해당 댓글 삭제하기
+	public void deletePostCommentByUserIdPostIdCommentId(int userId, int postId, int postCommentId) {
+		postCommentDAO.deletePostCommentByUserIdPostIdCommentId(userId, postId, postCommentId);
+	}
+	
+	// 해당 댓글 조회
+	public int getPostCommentByUserIdPostIdCommentId(int userId, int postId, int postCommentId) {
+		return postCommentDAO.selectPostCommentByUserIdPostIdCommentId(userId, postId, postCommentId);
+	}
+	
+	// 해당 댓글 삭제 가공
+	public boolean generateDeleteComment(int userId, int postId, int postCommentId) {
+		int row = getPostCommentByUserIdPostIdCommentId(userId, postId, postCommentId);
+		if(row > 0) {
+			// 조회할 경우 있으면 삭제
+			deletePostCommentByUserIdPostIdCommentId(userId, postId, postCommentId);
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	
 }

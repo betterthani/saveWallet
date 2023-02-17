@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.diary.postComment.dao.PostCommentDAO">
+ 	<!-- 댓글 가져오기 -->
 	<select id="selectPostCommentListByPostId" parameterType="int" resultType="com.diary.postComment.model.PostComment">
 		SELECT
 			`id`
@@ -14,6 +15,47 @@
 			`post_comment`
 		WHERE
 			`postId` = #{postId}
+	</select>
+	
+	<!-- 댓글 넣기 -->
+	<insert id="insertPostCommentByUserIdPostId" parameterType="map">
+		INSERT INTO `post_comment`
+		(
+			`postId`
+			,`userId`
+			,`content`
+			,`createdAt`
+			,`updatedAt`
+		)
+		VALUES
+		(
+			#{postId}
+			,#{userId}
+			,#{content}
+			,NOW()
+			,NOW()
+		)
+	</insert>
+	
+	<!--  해당 댓글 삭제하기 -->
+	<delete id="deletePostCommentByUserIdPostIdCommentId" parameterType="map">
+		DELETE FROM `post_comment`
+ 		WHERE
+ 			`userId` = #{userId}
+ 			AND `postId` = #{postId}
+ 			AND `id` = #{postCommentId}
+	</delete>
+	
+	<!-- 해당 댓글 조회 -->
+	<select id="selectPostCommentByUserIdPostIdCommentId" resultType="int" parameterType="map">
+		SELECT
+			COUNT(*)
+		FROM
+			`post_comment`
+		WHERE
+ 			`userId` = #{userId}
+ 			AND `postId` = #{postId}
+ 			AND `id` = #{postCommentId}
 	</select>
 
  </mapper>
