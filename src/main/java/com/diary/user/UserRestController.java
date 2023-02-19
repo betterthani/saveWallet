@@ -8,9 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.diary.common.EncryptUtils;
 import com.diary.common.model.ValidateHandler;
@@ -20,6 +22,7 @@ import com.diary.user.model.Age;
 import com.diary.user.model.Gender;
 import com.diary.user.model.Mail;
 import com.diary.user.model.User;
+import com.diary.user.model.ValidationPassword;
 import com.diary.user.model.ValidationUser;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -185,5 +188,105 @@ public class UserRestController {
 		Mail maildto = mailBO.createMailChangePassword(email);
 		mailBO.mailSend(maildto);
 	}
+	
+	/**
+	 * 프로필 수정 API
+	 * @param session
+	 * @param nickName
+	 * @param statusMessage
+	 * @param password
+	 * @param file
+	 * @return
+	 */
+	@PutMapping("/myPage/update")
+	public Map<String, Object> myPageUpdate(
+			HttpSession session,
+			@RequestParam("nickName") String nickName,
+			@RequestParam("statusMessage") String statusMessage,
+			@RequestParam("password") String password,
+			@RequestParam(value="file", required = false) MultipartFile file){
+		
+		int userId = (int)session.getAttribute("userId");
+		String userLoginId = (String)session.getAttribute("userLoginId");
+		
+		// 해싱
+		String hashedPassword = EncryptUtils.md5(password);
+		
+		Map<String, Object> result = new HashMap<>();
+		boolean existPassword = userBO.getPasswordByPassword(userId, hashedPassword);
+		if(existPassword) {
+			userBO.updateUser(userId, nickName, userLoginId, statusMessage, hashedPassword, file);
+			result.put("code", 1);
+		} else {
+			result.put("code", 2);
+		}
+		return result;
+	}
+		
+	/**
+	 * 비밀번호 수정API
+	 * @param password
+	 * @param changePassword
+	 * @param session
+	 * @return
+	 */
+	@PutMapping("/password_update")
+	public Map<String, Object> passwordUpdate(
+			@RequestParam("password") String password,
+			@RequestParam("changePassword") String changePassword,
+			HttpSession session){
+		
+		int userId = (int)session.getAttribute("userId");
+		
+		// 해싱
+		String hashedPassword = EncryptUtils.md5(password);
+		String newHashedPassword = EncryptUtils.md5(changePassword);
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		// 비밀번호 맞는지 조회
+		boolean existPassword = userBO.getPasswordByPassword(userId, hashedPassword);
+		if(existPassword) {
+			// 맞으면 비밀번호 업데이트
+			userBO.passwordUpdate(userId, newHashedPassword);
+			result.put("code", 1);
+		} else {
+			// 기존 비밀번호 비일치
+			result.put("code", 2);
+		}
+		//
+		return result;
+	}
+	
+	/**
+	 * 비밀번호 유효성 검사 API
+	 * @param validationPassword
+	 * @param errors
+	 * @return
+	 */
+	@PostMapping("/passwordUpdate_validation")
+	public Map<String,Object> passwordUpdateValidation(
+			@ModelAttribute @Valid ValidationPassword validationPassword
+			, Errors errors){
+		Map<String,Object> result=new HashMap<String,Object>();
+		
+		// 유효성 검사
+		if(errors.hasErrors()) {
+			
+			// 유효성 통과 못한 필드와 메세지 핸들링
+			Map<String, String> validatorResult = validateHandler.validateHandling(errors);
+			for(String key : validatorResult.keySet()) {
+				result.put(key, validatorResult.get(key));
+			}
+			result.put("code",500);
+		}
+		
+		return result;
+		
+	}
+	
+	
+	
+	
 	
 }

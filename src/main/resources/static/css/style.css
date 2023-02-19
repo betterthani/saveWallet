@@ -90,3 +90,11 @@ input:invalid {border: 3px solid red; color:red;}
 
 .time-img-size{width: 100%; height: 425px;}
 .full-size-box {width: 100%; height: 460px; }
+
+.edit-box {width:450px;}
+.profileBox{width: 250px; height: 250px;}
+.buttonBox{display: flex;
+      flex-wrap: wrap;
+      flex-direction: column; /*수직 정렬*/
+      align-items: center;
+      justify-content: center;}

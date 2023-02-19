@@ -1,16 +1,25 @@
 package com.diary.user.bo;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.diary.common.FileManagerService;
 import com.diary.user.dao.UserDAO;
 import com.diary.user.model.User;
 
 @Service
 public class UserBO {
 	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private UserDAO userDAO;
+	
+	@Autowired
+	private FileManagerService fileManagerService;
 	
 	
 	// 로그인
@@ -38,7 +47,36 @@ public class UserBO {
 		return userDAO.selectUserByUserId(userId);
 	}
 	
+	// 비밀번호 조회
+	public boolean getPasswordByPassword(int userId,String password) {
+		return userDAO.selectPasswordByUserId(userId, password);
+	}
 	
+	// 유저 프로필 업데이트
+	public void updateUser(int userId, String nickName, String userLoginId, String statusMessage, String password, MultipartFile file) {
+		// 기존 유저
+		User user = getUserByUserId(userId);
+		if(user == null) {
+			logger.warn("[update User] 수정할 유저 정보가 없습니다. userId:{}",userId);
+			return;
+		}
+		
+		// 수정할게 있을 때
+		String profileImgPath = null;
+		if(file != null) {
+			profileImgPath = fileManagerService.savaFile(userLoginId, file);
+			
+			if(profileImgPath != null && user.getProfileImgPath() != null) {
+				fileManagerService.deleteFile(user.getProfileImgPath());
+			}
+		}
+		
+		// db update
+		userDAO.updateUser(userId, nickName, statusMessage, password, profileImgPath);
+	}
 	
-	
+	// 비밀번호 업데이트
+	public void passwordUpdate(int userId, String changePassword) {
+		userDAO.passwordUpdate(userId, changePassword);
+	}
 }

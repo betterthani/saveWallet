@@ -96,5 +96,37 @@
 			`id` = #{userId}
 	</select>
 	
+	<!-- 비밀번호 있는지 조회 -->
+	<select id="selectPasswordByUserId" resultType="boolean" parameterType="map">
+		SELECT
+			COUNT(*)
+		FROM
+			`user`
+		WHERE
+			`id` = #{userId} AND
+			`password` = #{password}
+	</select>
+	
+	<!-- 프로필 업데이트 -->
+	<update id="updateUser" parameterType="map">
+		UPDATE `user`
+		SET
+			`nickName` = #{nickName}
+			, `statusMessage` = #{statusMessage}
+			<if test="profileImgPath != null">
+			, `profileImgPath` = #{profileImgPath}
+			</if>
+		WHERE
+			`id` = #{userId}
+	</update>
+	
+	<!-- 비밀번호 업데이트 -->
+	<update id="passwordUpdate" parameterType="map">
+		UPDATE `user`
+		SET
+			`password` = #{changePassword}
+		WHERE
+			`id` = #{userId}
+	</update>
 	
 </mapper>

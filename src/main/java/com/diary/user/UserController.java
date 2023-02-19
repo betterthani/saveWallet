@@ -3,6 +3,7 @@ package com.diary.user;
 import java.lang.reflect.Member;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -11,11 +12,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.diary.user.bo.UserBO;
+import com.diary.user.model.User;
+
 import jakarta.servlet.http.HttpSession;
 
 @RequestMapping("/user")
 @Controller
 public class UserController {
+	
+	@Autowired
+	private UserBO userBO;
 	
 	/**
 	 * 로그인 화면
@@ -64,5 +71,24 @@ public class UserController {
 		return "template/layout";
 	}
 	
+	/**
+	 * 마이페이지 화면
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	@GetMapping("/mypage_view")
+	public String myPageView(
+			Model model,
+			HttpSession session) {
+		
+		int userId = (int) session.getAttribute("userId");
+		
+		User user = userBO.getUserByUserId(userId);
+		model.addAttribute("user", user);
+		
+		model.addAttribute("viewName", "user/myPage");
+		return "template/layoutUserPage";
+	}
 	
 }

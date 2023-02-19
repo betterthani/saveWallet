@@ -2,6 +2,7 @@ package com.diary.user.dao;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.diary.user.model.User;
 
@@ -26,6 +27,24 @@ public interface UserDAO {
 	
 	// 유저 아이디로 조회
 	public User selectUserByUserId(int userId); 
+	
+	// 비밀번호 조회
+	public boolean selectPasswordByUserId(
+			@Param("userId") int userId, 
+			@Param("password") String password);
+	
+	// 프로필 업데이트
+	public void updateUser(
+			@Param("userId") int  userId, 
+			@Param("nickName") String nickName, 
+			@Param("statusMessage") String statusMessage, 
+			@Param("password") String password, 
+			@Param("profileImgPath") String profileImgPath);
+	
+	// 비밀번호 업데이트
+	public void passwordUpdate(
+			@Param("userId") int userId, 
+			@Param("changePassword") String changePassword);
 	
 
 }

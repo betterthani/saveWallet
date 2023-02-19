@@ -17,7 +17,7 @@
 	<%-- 로그아웃, 개인정보 --%>
 	<c:if test="${not empty userId}">
 		<div class="mr-3">
-			<span><a href="#" class="text-dark font-weight-bold">${userNickName}</a>님 안녕하세요.</span> 
+			<span><a href="/user/mypage_view?userId=${userId}" class="text-dark font-weight-bold">${userNickName}</a>님 안녕하세요.</span> 
 			<a href="/user/sign_out" class="ml-2 font-weight-bold text-success">로그아웃</a>
 		</div>
 	</c:if>
