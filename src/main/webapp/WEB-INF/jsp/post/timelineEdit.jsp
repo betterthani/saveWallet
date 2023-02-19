@@ -19,13 +19,9 @@
 					<%-- 카드 이미지 --%>
 					<div class="full-size-box">
 						<ul class="slider">
-							<li><img src="${image}" class="w-100 time-img-size" alt="본문 이미지" disabled></li>
-							<c:if test="${not empty image1}">
-							<li><img src="${image1}" class="w-100 time-img-size" alt="본문 이미지" disabled></li>
-							</c:if>
-							<c:if test="${not empty image2}">
-							<li><img src="${image2}" class="w-100 time-img-size" alt="본문 이미지" disabled></li>
-							</c:if>
+							<c:forEach var="postImage" items="${cardViewList.postImageList}">
+								<li><img src="${postImage.postImgPath}" class="w-100 time-img-size" alt="본문 이미지" disabled></li>
+							</c:forEach>
 						</ul>
 					</div>
 					

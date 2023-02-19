@@ -71,14 +71,6 @@ public class PostController {
 		
 		CardView cardViewList = postBO.generateCardListByUserIdPostId(userId, postId);
 		model.addAttribute("cardViewList",cardViewList);
-		model.addAttribute("image",cardViewList.getPostImageList().get(0).getPostImgPath());
-		
-		if(cardViewList.getPostImageList().size() > 1) {
-			model.addAttribute("image1",cardViewList.getPostImageList().get(1).getPostImgPath());
-			if(cardViewList.getPostImageList().size() > 2) {
-				model.addAttribute("image2",cardViewList.getPostImageList().get(2).getPostImgPath());
-			}
-		}
 		
 		model.addAttribute("viewName", "post/timelineEdit");
 		return "template/layout";
