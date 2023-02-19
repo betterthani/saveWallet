@@ -48,4 +48,13 @@
  		WHERE
  			`postId` = #{postId}
  	</delete>
+ 	
+ 	<!-- 회원탈퇴시 삭제 -->
+ 	<delete id="deleteSaveByUserId" parameterType="int">
+ 		DELETE FROM `save`
+ 		WHERE
+ 			`userId` = #{userId}
+ 	</delete>
+ 	
+ 	
  </mapper>

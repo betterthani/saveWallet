@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -16,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.diary.common.EncryptUtils;
 import com.diary.common.model.ValidateHandler;
+import com.diary.post.bo.PostBO;
+import com.diary.product.bo.ProductBO;
 import com.diary.user.bo.MailBO;
 import com.diary.user.bo.UserBO;
 import com.diary.user.model.Age;
@@ -41,6 +44,12 @@ public class UserRestController {
 	
 	@Autowired
 	private MailBO mailBO;
+	
+	@Autowired
+	private PostBO postBO;
+	
+	@Autowired
+	private ProductBO productBO;
 	
 	/**
 	 * 로그인API
@@ -285,7 +294,42 @@ public class UserRestController {
 		
 	}
 	
-	
+	/**
+	 * 회원탈퇴 API
+	 * @param session
+	 * @param password
+	 * @return
+	 */
+	@DeleteMapping("/secession")
+	public Map<String,Object> userSecession(
+			HttpSession session,
+			@RequestParam("password") String password){
+		
+		int userId = (int)session.getAttribute("userId");
+		
+		// 해싱
+		String hashedPassword = EncryptUtils.md5(password);
+		
+		Map<String,Object> result = new HashMap<String,Object>();
+		User user = userBO.getUserByUserIdPassword(userId, hashedPassword);
+		// 회원정보 조회
+		if(user != null) {
+			// 있을 경우 회원 삭제, 프로필 삭제
+			userBO.deleteUserByUserId(userId, hashedPassword);
+			
+			// amountInfo ,post, postcomment, postImage, save삭제
+			postBO.generateDelete(userId);
+			
+			// product삭제 , shoppingComment삭제
+			productBO.generateDelete(userId);
+			
+			result.put("code", 1);
+		} else {
+			result.put("code", 2);
+			result.put("result", "기존 비밀번호가 아닙니다.");
+		}
+		return result;
+	}
 	
 	
 	

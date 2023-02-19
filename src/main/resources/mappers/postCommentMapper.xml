@@ -64,5 +64,13 @@
  		WHERE
  			`postId` = #{postId}
 	</delete>
+	
+	<!--  회원탈퇴시 삭제 -->
+	<delete id="deletePostCommentByUserId" parameterType="int">
+		DELETE FROM `post_comment`
+ 		WHERE
+ 			`userId` = #{userId}
+	</delete>
+	
 
  </mapper>

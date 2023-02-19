@@ -314,6 +314,38 @@
 		
  	</select>
  	
+ 	<!-- 회원탈퇴시 삭제 -->
+ 	<delete id="deleteProduct" parameterType="int">
+ 		DELETE FROM `product`
+ 		WHERE `userId` = #{userId}
+ 	</delete>
+ 	
+ 	<!-- 회원탈퇴시 조회 -->
+ 	<select id="selectProductByUserId" resultType="com.diary.product.model.Product" parameterType="int">
+ 		SELECT
+ 			`id`
+			,`userId`
+			,`type`
+			,`itemName`
+			,`category`
+			,`amount`
+			,`purchasedCategory`
+			,`purchased`
+			,`map`
+			,`size`
+			,`color`
+			,`datePurchased`
+			,`returnableDeadline`
+			,`usedHope`
+			,`productImgPath`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`product`
+		WHERE
+			`userId` = #{userId}
+ 	</select>
+ 	
  	
  	
  </mapper>

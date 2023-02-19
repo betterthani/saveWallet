@@ -43,7 +43,9 @@
  		DELETE FROM `post`
  		WHERE
  			`userId` = #{userId}
+ 			<if test="postId != null">
  			AND `id` = #{postId}
+ 			</if>
  	</delete>
  	
  	<!-- 해당 글 있는지 조회 -->

@@ -37,12 +37,12 @@ public class PostImageBO {
 	}
 	
 	// 해당 사진 조회
-	public List<PostImage> getPostImageListByUserIdPostId(int userId, int postId){
+	public List<PostImage> getPostImageListByUserIdPostId(int userId, Integer postId){
 		return postImageDAO.selectPostImageListByUserIdPostId(userId, postId);
 	}
 	
 	// 해당 사진 삭제 
-	public void deletePostImageByUserIdPostId(int userId, int postId, String postImgPath) {
+	public void deletePostImageByUserIdPostId(int userId, Integer postId, String postImgPath) {
 		
 		if(postImgPath != null) {
 			fileManagerService.deleteFile(postImgPath);

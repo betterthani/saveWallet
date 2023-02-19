@@ -81,6 +81,12 @@ public interface ProductDAO {
 	// 위시리스트 list개수 조회
 	public int selectWishProductCountByUserId(int userId);
 	
+	// 회원탈퇴시 삭제
+	public void deleteProduct(int userId);
+	
+	// 회원탈퇴시 조회
+	public List<Product> selectProductByUserId(int userId);
+	
 	
 	
 }

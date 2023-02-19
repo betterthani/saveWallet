@@ -33,4 +33,7 @@ public interface PostCommentDAO {
 	
 	// 게시물 댓글 삭제
 	public void deletePostCommentByPostId(int postId);
+	
+	// 회원탈퇴시 삭제
+	public void deletePostCommentByUserId(int userId); 
 }

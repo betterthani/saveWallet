@@ -46,5 +46,11 @@ public interface UserDAO {
 			@Param("userId") int userId, 
 			@Param("changePassword") String changePassword);
 	
-
+	// 탈퇴시 회원정보 조회
+	public User selectUserByUserIdPassword(
+			@Param("userId") int userId, 
+			@Param("password") String password);
+	
+	// 회원 삭제
+	public void deleteUserByUserId(int userId);
 }

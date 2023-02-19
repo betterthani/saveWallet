@@ -85,8 +85,9 @@ $(document).ready(function() {
 			}
 		});
 
-	});
+	});//프로필 변경 버튼끝
 
+	// 비밀번호 변경 버튼 누를때
 	$('#passwordEditBtn').on('click', function() {
 		let password = $('.password').val();
 		let changePassword = $('.change-password').val();
@@ -145,13 +146,13 @@ $(document).ready(function() {
 						, contentType: false
 						, processData: false
 						, success: function(data) {
-							if(data.code == 1){
+							if (data.code == 1) {
 								alert("비밀번호 변경이 되었습니다.");
 								document.location.reload();
-							} else if(data.code == 2) {
+							} else if (data.code == 2) {
 								alert("기존 비밀번호가 일치하지 않습니다.");
 								return;
-							} else{
+							} else {
 								alert("비밀번호 변경에 실패했습니다.");
 								return;
 							}
@@ -160,16 +161,49 @@ $(document).ready(function() {
 							let errorMsg = jqXHR.responseJSON.status;
 							alert(errorMsg + ":" + textStatus);
 						}
-						});//->ajax end
+					});//->ajax end
 				}
 			}
 
 		});
-	});
-	
+	});// 비밀번호 변경 버튼 끝
+
 	// 회원탈퇴 버튼 눌렀을때
-	$('#exitUserBtn').on('click',function(){
-		alert(111);
-	});
+	$('#exitUserBtn').on('click', function() {
+		let password = $('.password').val();
+
+		if (password == '') {
+			alert("기존 비밀번호를 입력해주세요.");
+			return;
+		}
+		if (confirm("탈퇴 하시겠습니까?")) {
+			let formData = new FormData();
+			formData.append("password", password);
+
+			$.ajax({
+				type: "DELETE"
+				, url: "/user/secession"
+				, data: formData
+				, contentType: false
+				, processData: false
+				, success: function(data) {
+					if (data.code == 1) {
+						alert("회원 탈퇴가 정상적으로 되었습니다.");
+						location.href = "/user/sign_out";
+					} else if (data.code == 2) {
+						alert(data.result);
+						return;
+					} else {
+						alert("회원탈퇴에 실패했습니다.");
+						return;
+					}
+				}
+				, error: function(jqXHR, textStatus, errorThrown) {
+					let errorMsg = jqXHR.responseJSON.status;
+					alert(errorMsg + ":" + textStatus);
+				}
+			});
+		}
+	}); // -> 회원탈퇴 끝
 
 });

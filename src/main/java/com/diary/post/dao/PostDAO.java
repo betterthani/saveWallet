@@ -19,7 +19,7 @@ public interface PostDAO {
 	// 해당 글 삭제하기
 	public void deletePostByUserIdPostId(
 			@Param("userId") int userId, 
-			@Param("postId") int postId);
+			@Param("postId") Integer postId);
 	
 	// 해당 글 있는지 select
 	public int selectPostByUserIdPostId(
@@ -37,4 +37,6 @@ public interface PostDAO {
 			@Param("postId") int postId, 
 			@Param("title") String title, 
 			@Param("subject") String subject);
+	
+	
 }

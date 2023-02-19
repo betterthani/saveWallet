@@ -53,5 +53,10 @@ public class ShoppingCommentBO {
 		}
 		
 	}
+	
+	// 회원탈퇴시 삭제
+	public void deletesCommentByUserId(int userId) {
+		sCommentDAO.deletesCommentByUserId(userId);
+	}
 
 }

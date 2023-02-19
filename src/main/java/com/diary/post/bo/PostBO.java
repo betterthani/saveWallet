@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.diary.amountInfo.bo.AmountInfoBO;
 import com.diary.post.dao.PostDAO;
 import com.diary.post.model.CardView;
 import com.diary.post.model.Post;
@@ -38,6 +39,9 @@ public class PostBO {
 	
 	@Autowired
 	private SaveBO saveBO;
+	
+	@Autowired
+	private AmountInfoBO amountInfoBO;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -108,7 +112,7 @@ public class PostBO {
 	
 	// 이거어때? 카드 삭제하기
 	@Transactional
-	public boolean generateDeletePost(int userId, int postId) {
+	public boolean generateDeletePost(int userId, Integer postId) {
 		// 포스트 있는지 여부
 		int row = postDAO.selectPostByUserIdPostId(userId, postId);
 		if(row > 0) {
@@ -173,6 +177,29 @@ public class PostBO {
 		} else {
 			logger.warn("[update post] 수정할 post가 존재하지 않습니다. postId:{},userId:{}", postId,userId);
 		}
+	}
+	
+	// 회원탈퇴 삭제하기
+	@Transactional
+	public void generateDelete(int userId) {
+		
+		// 글 삭제
+		postDAO.deletePostByUserIdPostId(userId, null);
+		
+		// 사진 삭제
+		List<PostImage> postImageList = postImageBO.getPostImageListByUserIdPostId(userId, null);
+		for(PostImage postImage : postImageList) {
+			postImageBO.deletePostImageByUserIdPostId(userId, null, postImage.getPostImgPath());
+		}
+		
+		// 댓글 삭제
+		postCommentBO.deletePostCommentByUserId(userId);
+		
+		// 저장하기 삭제
+		saveBO.deleteSaveByUserId(userId);
+		
+		// amountInfo 삭제
+		amountInfoBO.deleteAmountInfoUserId(userId);
 	}
 	
 }

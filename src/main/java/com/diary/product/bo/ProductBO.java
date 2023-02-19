@@ -21,6 +21,8 @@ import com.diary.product.model.PurchasedCategoryEnum;
 import com.diary.shoppingComment.bo.ShoppingCommentBO;
 import com.diary.shoppingComment.model.ShoppingComment;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class ProductBO {
 
@@ -281,6 +283,30 @@ public class ProductBO {
 		
 		// 글 삭제
 		productDAO.deletesProductByUserIdProductId(userId, productId);
+	}
+	
+	// 회원탈퇴시 삭제
+	@Transactional
+	public void generateDelete(int userId) {
+		
+		// 조회
+		List<Product> productList = productDAO.selectProductByUserId(userId);
+		if(productList == null) {
+			logger.warn("[글 삭제] post is null. userId:{}", userId);
+		}
+		
+		for (Product product : productList) {
+			// product(shopping, wish) 이미지 있으면 삭제
+			if (product.getProductImgPath() != null) {
+				fileManagerService.deleteFile(product.getProductImgPath());
+			}
+		}
+		
+		// prodcut (shopping, wish) 삭제
+		productDAO.deleteProduct(userId);
+		
+		// shoppingcomment 삭제
+		sCommentBO.deletesCommentByUserId(userId);
 	}
 	
 }

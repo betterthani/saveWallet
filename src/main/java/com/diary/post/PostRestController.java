@@ -68,7 +68,7 @@ public class PostRestController {
 	@DeleteMapping("/timeline_delete")
 	public Map<String, Object> timelineDelete(
 			HttpSession session, 
-			@RequestParam("postId") int postId) {
+			@RequestParam(value="postId", required = false) Integer postId) {
 
 		int userId = (int) session.getAttribute("userId");
 		Map<String, Object> result = new HashMap<>();

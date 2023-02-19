@@ -26,7 +26,7 @@ public class ValidationUser {
 	private String password;
 
 	@NotBlank(message = "validateEmail")
-	@Email(message = "emailValidation")
+	@Pattern(regexp ="[a-z0-9]+@[a-z]+\\.[a-z]{2,3}", message = "emailValidation")
 	private String email;
 
 	@NotBlank(message = "validateGender")

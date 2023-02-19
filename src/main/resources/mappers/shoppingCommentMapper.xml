@@ -71,5 +71,12 @@
  			AND `productId` = #{productId}
  	
  	</select>
+ 	
+ 	<!-- 회원탈퇴시 삭제 -->
+ 	<delete id="deletesCommentByUserId" parameterType="int">
+ 		DELETE FROM `shopping_comment`
+ 		WHERE
+ 			`userId` = #{userId}
+ 	</delete>
  
  </mapper>

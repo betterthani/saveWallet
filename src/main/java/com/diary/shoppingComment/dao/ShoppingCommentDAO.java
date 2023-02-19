@@ -35,4 +35,8 @@ public interface ShoppingCommentDAO {
 			@Param("userId") int userId, 
 			@Param("productId") int productId,
 			@Param("sCommentId") int sCommentId);
+	
+	// 회원탈퇴시 삭제
+	public void deletesCommentByUserId(int userId);
+	
 }

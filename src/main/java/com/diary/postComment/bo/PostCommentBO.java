@@ -83,5 +83,10 @@ public class PostCommentBO {
 		postCommentDAO.deletePostCommentByPostId(postId);
 	}
 	
+	// 회원탈퇴시 삭제
+	public void deletePostCommentByUserId(int userId) {
+		postCommentDAO.deletePostCommentByUserId(userId);
+	}
+	
 	
 }

@@ -39,4 +39,9 @@ public class SaveBO {
 		saveDAO.deleteSaveByPostId(postId);
 	}
 	
+	// 회원탈퇴시 삭제
+	public void deleteSaveByUserId(int userId) {
+		saveDAO.deleteSaveByUserId(userId);
+	}
+	
 }

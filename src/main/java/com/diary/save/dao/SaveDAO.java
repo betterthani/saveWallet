@@ -23,4 +23,7 @@ public interface SaveDAO {
 	
 	// 게시물 save삭제
 	public void deleteSaveByPostId(int postId);
+	
+	// 회원탈퇴시 삭제
+	public void deleteSaveByUserId(int userId);
 }

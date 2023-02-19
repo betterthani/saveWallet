@@ -50,15 +50,19 @@
 		FROM
 			`post_image`
 		WHERE
-			`postId` = #{postId}
-			AND `userId` = #{userId}
+			<if test="postId != null">
+			`postId` = #{postId} AND
+			</if>
+			`userId` = #{userId}
 	</select>
 	
 	<!-- 해당 사진 삭제 -->
 	<delete id="deletePostImageByUserIdPostId" parameterType="map">
 		DELETE FROM `post_image`
 		WHERE
-			`postId` = #{postId}
-			AND `userId` = #{userId}
+			<if test="postId != null">
+			`postId` = #{postId} AND
+			</if>
+			`userId` = #{userId}
 	</delete>
 </mapper>

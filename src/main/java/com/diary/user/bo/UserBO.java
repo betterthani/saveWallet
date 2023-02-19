@@ -10,6 +10,8 @@ import com.diary.common.FileManagerService;
 import com.diary.user.dao.UserDAO;
 import com.diary.user.model.User;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class UserBO {
 	
@@ -79,4 +81,26 @@ public class UserBO {
 	public void passwordUpdate(int userId, String changePassword) {
 		userDAO.passwordUpdate(userId, changePassword);
 	}
+	
+	// 탈퇴시 회원정보 조회
+	public User getUserByUserIdPassword(int userId, String password) {
+		return userDAO.selectUserByUserIdPassword(userId, password);
+	}
+	
+	// 회원 삭제
+	@Transactional
+	public void deleteUserByUserId(int userId, String password) {
+		
+		// 회원정보 조회
+		User user = getUserByUserIdPassword(userId, password);
+		
+		// 있을경우 프로필 사진 삭제
+		if(user.getProfileImgPath() != null) {
+			fileManagerService.deleteFile(user.getProfileImgPath());
+		}
+		
+		// 유저삭제
+		userDAO.deleteUserByUserId(userId);
+	}
+	
 }

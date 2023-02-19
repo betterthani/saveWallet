@@ -23,11 +23,11 @@ public interface PostImageDAO {
 	// 해당 사진 조회
 	public List<PostImage> selectPostImageListByUserIdPostId(
 			@Param("userId") int userId,
-			@Param("postId") int postId);
+			@Param("postId") Integer postId);
 	
 	// 해당 사진 삭제 
 	public void deletePostImageByUserIdPostId(
 			@Param("userId") int userId,
-			@Param("postId") int postId);
+			@Param("postId") Integer postId);
 	
 }
