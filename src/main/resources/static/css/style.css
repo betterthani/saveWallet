@@ -98,3 +98,10 @@ input:invalid {border: 3px solid red; color:red;}
       flex-direction: column; /*수직 정렬*/
       align-items: center;
       justify-content: center;}
+      
+.roundBox{width: 50px; height: 50px; border-radius: 70%;}
+.mypageBox{width: 670px; height: 50px;}
+.mypage-border-box{min-height: 700px; widows: 100%; background-color: #E2EADE;}
+.imgbox{width: 200px; height: 200px;}
+.mypage-save-box{min-height: 700px; widows: 100%; background-color: #FFF8E0;}
+

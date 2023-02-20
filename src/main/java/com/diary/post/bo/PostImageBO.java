@@ -51,4 +51,9 @@ public class PostImageBO {
 		postImageDAO.deletePostImageByUserIdPostId(userId, postId);
 	}
 	
+	/*
+	 * // save리스트 select public List<PostImage> getPostImageListByUserId(int
+	 * userId){ return postImageDAO.selectPostImageList(postId); }
+	 */
+	
 }

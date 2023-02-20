@@ -1,5 +1,7 @@
 package com.diary.user.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
@@ -53,4 +55,7 @@ public interface UserDAO {
 	
 	// 회원 삭제
 	public void deleteUserByUserId(int userId);
+	
+	// 개인페이지
+	public List<User> selectuserListByUserId(int userId);
 }

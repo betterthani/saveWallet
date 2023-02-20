@@ -1,9 +1,12 @@
 package com.diary.save.bo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.diary.save.dao.SaveDAO;
+import com.diary.save.model.Save;
 
 @Service
 public class SaveBO {
@@ -42,6 +45,11 @@ public class SaveBO {
 	// 회원탈퇴시 삭제
 	public void deleteSaveByUserId(int userId) {
 		saveDAO.deleteSaveByUserId(userId);
+	}
+	
+	// savelist가져오기
+	public List<Save> getSaveListByUserId(int userId){
+		return saveDAO.selectSaveListByUserId(userId);
 	}
 	
 }

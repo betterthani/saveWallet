@@ -29,7 +29,7 @@ public interface PostDAO {
 	// 글 목록 가져오기 select
 	public List<Post> selectPostListByUserIdPostId(
 			@Param("userId") int userId, 
-			@Param("postId") int postId);
+			@Param("postId") Integer postId);
 	
 	// 글 업데이트
 	public void updatePost(

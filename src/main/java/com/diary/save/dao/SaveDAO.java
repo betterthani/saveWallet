@@ -1,7 +1,11 @@
 package com.diary.save.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import com.diary.save.model.Save;
 
 @Repository
 public interface SaveDAO {
@@ -26,4 +30,7 @@ public interface SaveDAO {
 	
 	// 회원탈퇴시 삭제
 	public void deleteSaveByUserId(int userId);
+	
+	// savelist가져오기
+	public List<Save> selectSaveListByUserId(int userId);
 }

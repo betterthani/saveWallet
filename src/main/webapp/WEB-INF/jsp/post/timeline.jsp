@@ -19,7 +19,7 @@
 				<div class="card border rounded mt-3">
 					<%-- 글쓴이, 더보기(삭제) --%>
 					<div class="p-2 d-flex justify-content-between">
-						<span class="font-weight-bold"><a href="" class="individualBtn text-dark">${cardView.user.loginId }</a></span>
+						<span class="font-weight-bold"><a href="/user/timeline_view?userId=${cardView.user.id }" class="individualBtn text-dark">${cardView.user.nickName }</a></span>
 	
 						<%-- 더보기(내가 쓴 글일 떄만 노출) --%>
 						<c:if test="${userId eq cardView.post.userId }">

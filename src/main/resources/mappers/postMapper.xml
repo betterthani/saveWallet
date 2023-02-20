@@ -72,7 +72,9 @@
 			`post`
 		WHERE
  			`userId` = #{userId}
+ 			<if test="postId != null">
  			AND `id` = #{postId}
+ 			</if>
  	</select>
  	
  	<!-- 글 업데이트 -->

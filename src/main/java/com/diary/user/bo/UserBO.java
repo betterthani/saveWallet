@@ -1,5 +1,7 @@
 package com.diary.user.bo;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,6 +103,11 @@ public class UserBO {
 		
 		// 유저삭제
 		userDAO.deleteUserByUserId(userId);
+	}
+	
+	// 개인페이지
+	public List<User> getuserListByUserId(int userId){
+		return userDAO.selectuserListByUserId(userId);
 	}
 	
 }

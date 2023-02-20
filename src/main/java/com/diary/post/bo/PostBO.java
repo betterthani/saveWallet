@@ -17,6 +17,7 @@ import com.diary.post.model.PostImage;
 import com.diary.postComment.bo.PostCommentBO;
 import com.diary.postComment.model.PostCommentView;
 import com.diary.save.bo.SaveBO;
+import com.diary.save.model.Save;
 import com.diary.user.bo.UserBO;
 import com.diary.user.model.User;
 
@@ -140,7 +141,7 @@ public class PostBO {
 	}
 	
 	// 글 목록 가져오기 select
-	public List<Post> getPostListByUserIdPostId(int userId, int postId){
+	public List<Post> getPostListByUserIdPostId(int userId, Integer postId){
 		return postDAO.selectPostListByUserIdPostId(userId, postId);
 	}
 	
@@ -201,5 +202,56 @@ public class PostBO {
 		// amountInfo 삭제
 		amountInfoBO.deleteAmountInfoUserId(userId);
 	}
+
+	// 내 타임라인 select
+
+	public List<CardView> generateMyTimeLine(int userId) {
+		List<CardView> cardViewList = new ArrayList<>();
+		
+		// 글 목록
+		List<Post> postList = getPostListByUserIdPostId(userId, null);
+		for(Post post : postList) {
+			CardView cardView = new CardView();
+			
+			// 글
+			cardView.setPost(post);
+			
+			// 사진
+			List<PostImage> postImageList = postImageBO.getPostImageList(post.getId());
+			cardView.setPostImageList(postImageList);
+			
+			cardViewList.add(cardView);
+		}
+		return cardViewList;
+	}
+	
+	// 내 저장한글 select
+	public List<CardView> generateMySave(int userId) {
+		List<CardView> cardViewList = new ArrayList<>();
+		
+		// 글 목록
+		List<Post> postList = getpostList();
+		for(Post post : postList) {
+			CardView cardView = new CardView();
+			
+			// 글
+			cardView.setPost(post);
+			
+			// 사진
+			List<PostImage> postImageList = postImageBO.getPostImageList(post.getId());
+			cardView.setPostImageList(postImageList);
+			
+			// savelist
+			List<Save> saveList = saveBO.getSaveListByUserId(userId);
+			cardView.setSaveList(saveList);
+			
+			cardViewList.add(cardView);
+		}
+		
+		return cardViewList;
+	}
+	
+	
+	
 	
 }

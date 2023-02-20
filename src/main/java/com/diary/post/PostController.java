@@ -75,4 +75,6 @@ public class PostController {
 		model.addAttribute("viewName", "post/timelineEdit");
 		return "template/layout";
 	}
+	
+	
 }

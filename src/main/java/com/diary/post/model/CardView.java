@@ -28,4 +28,8 @@ public class CardView {
 	// 내가 저장버튼을 눌렀는지 
 	private boolean filledSave;
 	
+	// 저장한글
+	private List<Save> saveList;
+	
+	
 }

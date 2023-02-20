@@ -56,5 +56,18 @@
  			`userId` = #{userId}
  	</delete>
  	
+ 	<!-- save list 가져오기 -->
+ 	<select id="selectSaveListByUserId" parameterType="int" resultType="com.diary.save.model.Save">
+ 		SELECT
+	 		`postId`
+			,`userId`
+			,`createdAt`
+			,`updatedAt`
+ 		FROM
+ 			`save`
+ 		WHERE
+ 			`userId` = #{userId}
+ 	</select>
+ 	
  	
  </mapper>
