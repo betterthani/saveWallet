@@ -21,7 +21,7 @@
 		</thead>
 		<tbody>
 			<td>
-				<input type="text" id="expenditure" class="form-control" value="<fmt:formatNumber value="${sum}"/>">
+				<input type="text" placeholder="${nowDate} 지출액" id="expenditure" class="form-control" value="<fmt:formatNumber value="${sum}"/>">
 			</td>
 		</tbody>
 	</table>
@@ -32,7 +32,7 @@
 		</thead>
 		<tbody>
 			<td>
-			<input type="text" id="leftCount" class="form-control" value="<fmt:formatNumber value="${amountinfo.remainingAmount}"/>">
+			<input type="text" id="leftCount" placeholder="남은 금액" class="form-control" value="<fmt:formatNumber value="${amountinfo.remainingAmount}"/>">
 		</tbody>
 	</table>
 	

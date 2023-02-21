@@ -756,6 +756,10 @@ $(document).ready(function() {
 	});
 
 	//---------------------------------------------------monthly(풀캘린더)
+	if($('#expenditure').val() == ''){
+		$("#goalCount").attr("disabled",true);
+	}
+	
 	$('#goalCount').on('keyup', function() {
 		let goalCount = $('#goalCount').val(); // 목표금액
 		goalCount = parseInt(goalCount.replace(",", ""));
