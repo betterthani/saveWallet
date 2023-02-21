@@ -105,9 +105,5 @@ public class UserBO {
 		userDAO.deleteUserByUserId(userId);
 	}
 	
-	// 개인페이지
-	public List<User> getuserListByUserId(int userId){
-		return userDAO.selectuserListByUserId(userId);
-	}
 	
 }

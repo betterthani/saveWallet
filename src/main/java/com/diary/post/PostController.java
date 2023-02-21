@@ -76,5 +76,27 @@ public class PostController {
 		return "template/layout";
 	}
 	
-	
+	/**
+	 * 이거 어때? 디테일화면
+	 * @param model
+	 * @param postId
+	 * @param userId
+	 * @param session
+	 * @return
+	 */
+	@GetMapping("/timeline_detail_view")
+	public String timeLineDetailView(
+			Model model,
+			@RequestParam("postId") int postId,
+			@RequestParam("userId") int userId,
+			HttpSession session) {
+		
+		int sessionId = (int)session.getAttribute("userId");
+		
+		CardView cardView = postBO.generateDetailView(userId, postId, sessionId);
+		model.addAttribute("cardView",cardView);
+		
+		model.addAttribute("viewName", "post/timelineDetail");
+		return "template/layout";
+	}
 }

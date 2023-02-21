@@ -14,7 +14,7 @@
 		</c:choose>
 		<div class="mypageBox mx-3">
 			<%-- 닉네임 --%>
-			<h4 class="">${user.nickName }님 페이지</h4>
+			<h4 class="">${user.nickName } 타임라인 글</h4>
 			
 			<%-- 상태메세지 --%>
 			<div class="">${user.statusMessage }</div>
@@ -26,7 +26,7 @@
 		<%-- 내가 쓴글 타임라인 --%>
 		<div class="d-flex d-flex flex-wrap py-4 px-4">
 			<c:forEach var="cardView" items="${cardViewList }">
-				<a href="/post/timeline_edit_view?postId=${cardView.post.id }"><img alt="타임라인" src="${cardView.postImageList[0].postImgPath }" class="imgbox mx-2"></a>
+				<a href="/post/timeline_detail_view?userId=${cardView.post.userId }&postId=${cardView.post.id }"><img alt="타임라인" src="${cardView.postImageList[0].postImgPath }" class="imgbox mx-2"></a>
 			</c:forEach>
 		</div>
 	</div>

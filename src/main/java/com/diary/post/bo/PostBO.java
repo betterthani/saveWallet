@@ -251,7 +251,34 @@ public class PostBO {
 		return cardViewList;
 	}
 	
-	
+	// 디테일 화면 불러오기
+	public CardView generateDetailView(int userId, int postId, int sessionId) {
+		CardView cardView = new CardView();
+		
+		// 글 목록
+		List<Post> postList = getPostListByUserIdPostId(userId, postId);
+		for(Post post : postList) {
+			// 글
+			cardView.setPost(post);
+						
+			// 사진 여러개
+			List<PostImage> postImageList = postImageBO.getPostImageList(postId);
+			cardView.setPostImageList(postImageList);
+						
+			// 글쓴이 정보
+			User user = userBO.getUserByUserId(userId);
+			cardView.setUser(user);
+			
+			// 댓글들
+			List<PostCommentView> postCommentViewList = postCommentBO.generatePostCommet(post.getId());
+			cardView.setPostCommentList(postCommentViewList);
+			
+			// 저장하기 눌렀는지 여부
+			cardView.setFilledSave(saveBO.existSave(sessionId, post.getId()));
+						
+		}
+		return cardView;
+	}
 	
 	
 }

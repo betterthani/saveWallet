@@ -160,24 +160,5 @@
 			`id` = #{userId}
 	</delete>
 	
-	<!-- 개인페이지 -->
-	<select id="selectuserListByUserId" resultType="com.diary.user.model.User" parameterType="int">
-		SELECT
-			`id`
-			,`loginId`
-			,`nickName`
-			,`password`
-			,`email`
-			,`age`
-			,`gender`
-			,`statusMessage`
-			,`profileImgPath`
-			,`createdAt`
-			,`updatedAt`
-		FROM
-			`user`
-		WHERE
-			`id`=#{userId}
-	</select>
 	
 </mapper>

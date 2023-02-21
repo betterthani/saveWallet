@@ -124,7 +124,7 @@ public class UserController {
 			return "template/layoutUserPage";
 		} else {
 			model.addAttribute("viewName", "user/userTimeLine");
-			return "template/layoutMemberPage";
+			return "template/layout";
 		}
 		
 	}

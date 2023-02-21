@@ -56,6 +56,4 @@ public interface UserDAO {
 	// 회원 삭제
 	public void deleteUserByUserId(int userId);
 	
-	// 개인페이지
-	public List<User> selectuserListByUserId(int userId);
 }
