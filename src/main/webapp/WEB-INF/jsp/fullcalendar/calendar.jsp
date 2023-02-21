@@ -11,7 +11,7 @@
 			<th>${nowDate} 목표 지출액</th>
 		</thead>
 		<tbody>
-			<td><input type="number" placeholder="목표 지출액" class="form-control" id="goalCount" value="${amountinfo.goalCount}"></td>
+			<td><input type="text" placeholder="목표 지출액" class="form-control" id="goalCount" value="<fmt:formatNumber value="${amountinfo.goalCount}"/>"></td>
 		</tbody>
 	</table>
 	
@@ -21,7 +21,7 @@
 		</thead>
 		<tbody>
 			<td>
-				<input type="number" id="expenditure" class="form-control" value="${sum}">
+				<input type="text" id="expenditure" class="form-control" value="<fmt:formatNumber value="${sum}"/>">
 			</td>
 		</tbody>
 	</table>
@@ -32,7 +32,7 @@
 		</thead>
 		<tbody>
 			<td>
-			<input type="number" id="leftCount" class="form-control" value="${amountinfo.remainingAmount}">
+			<input type="text" id="leftCount" class="form-control" value="<fmt:formatNumber value="${amountinfo.remainingAmount}"/>">
 		</tbody>
 	</table>
 	

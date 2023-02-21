@@ -755,16 +755,20 @@ $(document).ready(function() {
 		});
 	});
 
-	//---------------------------------------------------monthly
+	//---------------------------------------------------monthly(풀캘린더)
 	$('#goalCount').on('keyup', function() {
 		let goalCount = $('#goalCount').val(); // 목표금액
-		let expenditure = Number($('#expenditure').val()); // 지출액
+		goalCount = parseInt(goalCount.replace(",", ""));
+		let expenditure = $('#expenditure').val(); // 지출액
+		expenditure = parseInt(expenditure.replace(",", ""));
 
 		let leftCount = $('#leftCount').attr('value', (goalCount - expenditure)); // 남은금액
 	});
 
 	$('#target-amount-btn').on('click', function() {
 		let goalCount = $('#goalCount').val(); // 목표 금액
+		goalCount = parseInt(goalCount.replace(",", ""));
+		
 		let remainingAmount = Number($('#leftCount').val()); // 남은 금액
 
 		if (goalCount == '') {
