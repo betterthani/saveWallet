@@ -83,7 +83,7 @@ public class UserController {
 	 * @param session
 	 * @return
 	 */
-	@GetMapping("/mypage_view")
+	@GetMapping("/in/mypage_view")
 	public String myPageView(
 			Model model,
 			HttpSession session) {
@@ -103,7 +103,7 @@ public class UserController {
 	 * @param session
 	 * @return
 	 */
-	@GetMapping("/timeline_view")
+	@GetMapping("/in/timeline_view")
 	public String timeLineView(
 			Model model,
 			HttpSession session,
@@ -136,7 +136,7 @@ public class UserController {
 	 * @param session
 	 * @return
 	 */
-	@GetMapping("/save_view")
+	@GetMapping("/in/save_view")
 	public String saveView(
 			Model model,
 			HttpSession session) {

@@ -51,7 +51,7 @@ public class FullCalendarController {
 			HttpSession session
 			,Model model) {
 		
-		int userId = (int)session.getAttribute("userId");
+		Integer userId = (Integer)session.getAttribute("userId");
 		
 		// date기준 월 구하기
 		DateFormat sd = new SimpleDateFormat("yyyy-MM");
@@ -93,7 +93,7 @@ public class FullCalendarController {
 			HttpSession session, 
 			Model model) {
 
-		int userId = (int)session.getAttribute("userId");
+		Integer userId = (Integer)session.getAttribute("userId");
 		
 		List<Product> productList = productBO.getSProductListByUserId(userId, "SHOPPING");
 		JSONArray jsonArr = new JSONArray();
@@ -105,6 +105,14 @@ public class FullCalendarController {
 		int sum = 0;
 		
 		for (int i = 0; i < productList.size(); i++) {
+			
+			if (productList.get(i).getAmount() >= 300000) {
+				hash.put("color", "yellow");
+				hash.put("textColor", "black");
+			} else {
+				hash.put("color", "green");
+				hash.put("textColor", "white");
+			}
 			
 			hash.put("title", df.format(productList.get(i).getAmount()));
 			

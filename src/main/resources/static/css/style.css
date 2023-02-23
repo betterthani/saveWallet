@@ -104,4 +104,5 @@ input:invalid {border: 3px solid red; color:red;}
 .mypage-border-box{min-height: 700px; widows: 100%; background-color: #E2EADE;}
 .imgbox{width: 200px; height: 200px;}
 .mypage-save-box{min-height: 700px; widows: 100%; background-color: #FFF8E0;}
+#howAbout{background-color: #E2EADE;}
 

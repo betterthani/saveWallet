@@ -57,7 +57,7 @@
 					</td>
 					
 					<td>
-						${fn:length(productList)-status.index}
+						${shoppingProduct.id}
 					</td>
 					
 					<td><a href="/product/shopping_list_write/detail_view?productId=${shoppingProduct.id}" class="text-dark">${shoppingProduct.itemName}</a></td>

@@ -95,6 +95,25 @@
 		<%--// 타임라인 영역 끝  --%>
 	</div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="modal">
+	<%--modal-sm : 작은 모달 창 --%>
+	<%--modal-dialog-centered: 모달 창 수직으로 가운데 정렬 --%>
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content text-center">
+    	<div class="py-3 border-bottom">
+    		<a href="#" id="editPostBtn">수정하기</a>
+    	</div>
+    	<div class="py-3 border-bottom">
+    		<a href="#" id="deletePostBtn">삭제하기</a>
+    	</div>
+    	<div class="py-3">
+    		<%-- data-dismiss="modal" 모달 창 닫힘 --%>
+    		<a href="#" data-dismiss="modal">취소하기</a>
+    	</div>
+    </div>
+  </div>
+</div>
 <script>
 $(document).ready(function(){
   $('.slider').bxSlider();

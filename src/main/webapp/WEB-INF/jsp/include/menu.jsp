@@ -8,6 +8,6 @@
       <li class="nav-item w-100 py-3"><a href="/product/wish_list_view" class="nav-link font-weight-bold">Wish List</a></li>
       <li class="nav-item w-100 py-3"><a href="/exchangeRate/paste_view" class="nav-link font-weight-bold">환율 조회</a></li>
       <li class="nav-item w-100 py-3"><a href="/post/timeline_view" class="nav-link font-weight-bold">이거 어때?</a></li>
-      <li class="nav-item w-100 py-3"><a href="/user/timeline_view?userId=${userId}" class="nav-link font-weight-bold">My Page</a></li>
+      <li class="nav-item w-100 py-3"><a href="/user/in/timeline_view?userId=${userId}" class="nav-link font-weight-bold">My Page</a></li>
    </ul>
 </div>

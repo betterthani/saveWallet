@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<h2 class="my-3 bg-success text-center text-white">How about this?</h2>
+<h2 class="my-3 text-center text-white" id="howAbout">How about this?</h2>
 <div class="d-flex justify-content-center my-3">
 	<div class="contents-box">
 		<%-- 글쓰기 영역 : 로그인 된 상태에서만 보여짐 --%>
