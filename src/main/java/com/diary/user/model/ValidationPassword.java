@@ -12,7 +12,6 @@ import lombok.Setter;
 public class ValidationPassword {
 	
 	@NotBlank(message = "validatePassword")
-	@Pattern(regexp = "(?=.*[0-9])(?=.*[a-z])(?=.*[!@#$%^&+=])(?=\\S+$).{8,}", message = "passwordLength")
 	private String password;
 	
 	@NotBlank(message = "validateChangePassword")
