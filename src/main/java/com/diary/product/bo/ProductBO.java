@@ -195,8 +195,7 @@ public class ProductBO {
 	public void generateDelete(int userId, int productId, String type) {
 
 		// 글 조회
-		type = "SHOPPING";
-		Product sProduct = getProductByUserIdProductId(userId, productId, type);
+		Product sProduct = getProductByUserIdProductId(userId, productId, "SHOPPING");
 		
 		if(sProduct == null) {
 			logger.warn("[글 삭제] post is null. productId:{}, userId:{}", productId, userId);

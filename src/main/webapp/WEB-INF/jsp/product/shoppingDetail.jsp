@@ -92,8 +92,8 @@
 			<%-- 당근희망여부 --%>
 			<select class="form-control w-50 mt-3" id="shopping-detail-usedHope">
 			  <option selected value="">당근 희망여부 (필수)</option>
-			  <option value="1" ${shoppingDetail.product.usedHope == "1" ? 'selected' : ''}>여</option>
-			  <option value="0" ${shoppingDetail.product.usedHope == "0" ? 'selected' : ''}>부</option>
+			  <option value="1" ${shoppingDetail.product.usedHope == "true" ? 'selected' : ''}>여</option>
+			  <option value="0" ${shoppingDetail.product.usedHope == "false" ? 'selected' : ''}>부</option>
 			</select>
 			
 			<%-- 수정, 삭제 버튼 --%>

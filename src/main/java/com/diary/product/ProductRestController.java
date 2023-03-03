@@ -126,7 +126,7 @@ public class ProductRestController {
 	@DeleteMapping("/shopping_list/delete")
 	public Map<String, Object> sDelete(
 			@RequestParam("productId") int productId,
-			@RequestParam("type") String type,
+			@RequestParam(value="type", required = false) String type,
 			HttpSession session){
 		int userId = (int) session.getAttribute("userId");
 		
