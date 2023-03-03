@@ -59,7 +59,7 @@ $(document).ready(function() {
 
 		$.ajax({
 			type: "PUT"
-			, url: "/user/myPage/update"
+			, url: "/user/in/myPage/update"
 			, data: formData
 			, enctype: "multipart/form-data"
 			, processData: false
@@ -108,7 +108,7 @@ $(document).ready(function() {
 
 		$.ajax({
 			type: "POST"
-			, url: "/user/passwordUpdate_validation"
+			, url: "/user/in/passwordUpdate_validation"
 			, data: formData
 			, contentType: false
 			, processData: false
@@ -141,7 +141,7 @@ $(document).ready(function() {
 					// 유효성 검사 통과
 					$.ajax({
 						type: "PUT"
-						, url: "/user/password_update"
+						, url: "/user/in/password_update"
 						, data: formData
 						, contentType: false
 						, processData: false
@@ -182,7 +182,7 @@ $(document).ready(function() {
 
 			$.ajax({
 				type: "DELETE"
-				, url: "/user/secession"
+				, url: "/user/in/secession"
 				, data: formData
 				, contentType: false
 				, processData: false

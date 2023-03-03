@@ -762,9 +762,9 @@ $(document).ready(function() {
 	
 	$('#goalCount').on('keyup', function() {
 		let goalCount = $('#goalCount').val(); // 목표금액
-		goalCount = parseInt(goalCount.replace(",", ""));
+		goalCount = parseInt(goalCount.replace(/,/g, ''));
 		let expenditure = $('#expenditure').val(); // 지출액
-		expenditure = parseInt(expenditure.replace(",", ""));
+		expenditure = parseInt(expenditure.replace(/,/g, ''));
 
 		let leftCount = $('#leftCount').attr('value', (goalCount - expenditure)); // 남은금액
 	});

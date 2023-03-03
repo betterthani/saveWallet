@@ -265,7 +265,8 @@
 		WHERE
 			`type` = "SHOPPING"
 			AND `userId` = #{userId}
-		GROUP BY m;
+		GROUP BY m
+		ORDER BY m DESC
  	</select>
  	
  	<!-- 위시리스트 글 게시 -->

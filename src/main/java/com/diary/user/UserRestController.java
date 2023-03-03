@@ -175,7 +175,7 @@ public class UserRestController {
 	 * @param email
 	 * @return
 	 */
-	@PostMapping(value ="/find_password")
+	@PostMapping("/find_password")
 	public Map<String, Object> findPassword(
 			@RequestParam("loginId") String loginId,
 			@RequestParam("email") String email){
@@ -207,7 +207,7 @@ public class UserRestController {
 	 * @param file
 	 * @return
 	 */
-	@PutMapping("/myPage/update")
+	@PutMapping("/in/myPage/update")
 	public Map<String, Object> myPageUpdate(
 			HttpSession session,
 			@RequestParam("nickName") String nickName,
@@ -239,7 +239,7 @@ public class UserRestController {
 	 * @param session
 	 * @return
 	 */
-	@PutMapping("/password_update")
+	@PutMapping("/in/password_update")
 	public Map<String, Object> passwordUpdate(
 			@RequestParam("password") String password,
 			@RequestParam("changePassword") String changePassword,
@@ -273,7 +273,7 @@ public class UserRestController {
 	 * @param errors
 	 * @return
 	 */
-	@PostMapping("/passwordUpdate_validation")
+	@PostMapping("/in/passwordUpdate_validation")
 	public Map<String,Object> passwordUpdateValidation(
 			@ModelAttribute @Valid ValidationPassword validationPassword
 			, Errors errors){
@@ -300,7 +300,7 @@ public class UserRestController {
 	 * @param password
 	 * @return
 	 */
-	@DeleteMapping("/secession")
+	@DeleteMapping("/in/secession")
 	public Map<String,Object> userSecession(
 			HttpSession session,
 			@RequestParam("password") String password){
