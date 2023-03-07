@@ -8,7 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
+import javax.servlet.http.HttpSession;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
@@ -18,7 +19,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.diary.amountInfo.bo.AmountInfoBO;
@@ -26,8 +26,6 @@ import com.diary.amountInfo.model.AmountInfo;
 import com.diary.product.bo.ProductBO;
 import com.diary.product.model.MonthDTO;
 import com.diary.product.model.Product;
-
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class FullCalendarController {

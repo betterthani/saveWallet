@@ -3,6 +3,8 @@ package com.diary.product;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,10 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.diary.product.bo.ProductBO;
-import com.diary.product.dao.ProductDAO;
 import com.diary.product.model.ShoppingListDTO;
-
-import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/product")

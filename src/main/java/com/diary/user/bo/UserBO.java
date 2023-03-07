@@ -1,6 +1,6 @@
 package com.diary.user.bo;
 
-import java.util.List;
+import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,8 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.diary.common.FileManagerService;
 import com.diary.user.dao.UserDAO;
 import com.diary.user.model.User;
-
-import jakarta.transaction.Transactional;
 
 @Service
 public class UserBO {
