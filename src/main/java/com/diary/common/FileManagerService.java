@@ -14,8 +14,10 @@ import org.springframework.web.multipart.MultipartFile;
 @Component
 public class FileManagerService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-
-	public static final String FILE_UPLOAD_PATH = "C:\\eclipsehaeun\\7_personal project\\project\\workspace\\images/";
+	
+	// 실제 이미지가 저장될 경로
+	//public static final String FILE_UPLOAD_PATH = "C:\\eclipsehaeun\\7_personal project\\project\\workspace\\images/";
+	public static final String FILE_UPLOAD_PATH = "/home/ec2-user/images/";
 
 	public String savaFile(String userLoginId, MultipartFile file) {
 		String directoryName = userLoginId + "_" + System.currentTimeMillis() + "/";

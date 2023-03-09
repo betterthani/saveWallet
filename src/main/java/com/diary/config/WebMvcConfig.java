@@ -22,7 +22,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry
 		.addResourceHandler("/images/**") // 웹 이미지 주소 http://localhost/images/aaaa_16205468768/sun.png
-		.addResourceLocations("file:///" + FileManagerService.FILE_UPLOAD_PATH); // 실제 파일 위치(경로)
+		//.addResourceLocations("file:///" + FileManagerService.FILE_UPLOAD_PATH); // 실제 파일 위치(경로)-window
+		.addResourceLocations("file://" + FileManagerService.FILE_UPLOAD_PATH); // 실제 파일 위치(경로)-aws
 	}
 	
 	// type컨버터 addConverter로 재정의하여 추가
