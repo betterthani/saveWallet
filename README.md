@@ -14,6 +14,9 @@ Save Wallet은 가계 관리를 돕기 위해 고안된 SNS입니다.<br>
 ## 배포
 - http://15.165.159.184:8080/post/timeline_view
 
+## 시연 동영상
+- https://youtu.be/UTd4Fk91rgA
+
 ## 포트폴리오
 - https://chivalrous-sleep-028.notion.site/Save-Wallet-4d48b0856f5a463c95a106356fa47adf
 
