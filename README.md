@@ -9,7 +9,7 @@ Save Wallet은 가계 관리를 돕기 위해 고안된 SNS입니다.<br>
 - 프로젝트 기간: 23년 01월 30일 ~ 23년 02월 28일
 - 개발환경
   - 언어: Java, HTML, CSS, JavaScript, SQL
-  - 프레임워크: Spring, MyBatis, Bootstrap
+  - 프레임워크: Spring, MyBatis
   - 라이브러리 : jQuery, Bootstrap, bxSlider, Datepicker, Fullcalendar, JSTL
   - 서버: AWS
 
